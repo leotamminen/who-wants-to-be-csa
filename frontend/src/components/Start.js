@@ -32,10 +32,10 @@ const Start = ({ setName, setTimeOut }) => {
   return (
     <div className="username-container">
       <div className="input-button-container">
-        <h1 className="start-h1">Who wants to be an engineer</h1>
+        <h1 className="start-h1">Who wants to be CSA certified</h1>
         <input
           type="text"
-          placeholder="Engineer candidate name"
+          placeholder="Your name"
           ref={inputRef}
           className="username-box"
           onKeyDown={handleKeyPress} // This makes sure enter key works also
