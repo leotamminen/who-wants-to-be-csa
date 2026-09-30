@@ -22,27 +22,25 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
 - Ask before adding dependencies.
 - Keep UI changes minimal. Only change what the features below require. Do not refactor working UI.
 
-## Architecture (verified in the Phase 1 audit, state before Phase 2)
-- backend (Express + Mongoose):
-  - `server.js`: entry, `http.createServer(app).listen(PORT || 3001)`. Exports nothing.
-  - `app.js`: Mongo connect, `cors()` open to all origins, `express.static("build")`, routes `/api/apiquestions` and `/api/dbquestions`, 404 and error middleware.
+## Architecture (first audited in Phase 1, current state after the Phase 3 code changes)
+- Deployment: two Vercel projects from this repo. Backend project with Root Directory `backend`, frontend project with Root Directory `frontend`. The backend no longer serves the frontend build.
+- backend (Express + Mongoose), Vercel zero-config Express, no `vercel.json`:
+  - `app.js`: requires express, Mongo connect, `cors()` open to all origins (to be restricted to the frontend URL once it exists), `express.json()`, route `/api/dbquestions`, 404 and error middleware, `module.exports = app`. This is what Vercel runs. No static serving.
+  - `server.js`: local development only (`npm start`, `npm run dev`), `http.createServer(app).listen(PORT || 3001)`.
   - `controllers/dbController.js`: `GET /` all questions, `GET /:difficulty` one random question of that difficulty. No try/catch.
-  - `controllers/apiController.js` + `controllers/apiAIQuestionGenerator.js`: AI path (PaLM text-bison-001). Approved for deletion in Phase 2.
-  - `models/question.js`: Mongoose model `QuestionsCollection` (collection `questionscollections`).
-  - `utils/config.js` (dotenv, PORT, MONGODB_URI, API_KEY), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
-  - `vercel.json`: legacy `builds` config, `@vercel/node`, all routes to server.js.
-  - `server_old.js`: unused stub. Root `package-lock.json`: stray, no root package.json.
+  - `models/question.js`: Mongoose model `Question` (collection `questions`).
+  - `utils/config.js` (dotenv, PORT, MONGODB_URI), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
 - frontend (Create React App, React 18):
   - `src/App.js`: all game state, per-round question fetch, money ladder, screen switching.
   - components: `Start` (name + button), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
-  - `src/services/dbQuestionService.js`, `src/services/apiQuestionService.js` (AI, to be deleted): axios calls to `${REACT_APP_BASE_URL}/api/...`.
+  - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`.
   - `src/questions.js`: old Finnish trivia (unused in game flow) and `prizeSums`.
   - `src/assets/*.mp3`: 7 music tracks.
   - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
-- Env vars read by code: `PORT`, `MONGODB_URI`, `API_KEY` (AI only, removed in Phase 2), `REACT_APP_BASE_URL`.
+- Env vars read by code: backend `PORT`, `MONGODB_URI`; frontend `REACT_APP_BASE_URL`. Listed in `backend/.env.example` and `frontend/.env.example`.
 - MongoDB is used only for questions (no scores or users).
-- Frontend finds the API via `REACT_APP_BASE_URL`. If empty, relative URLs (backend-serves-build mode, kept or removed per the Phase 3 one-vs-two projects decision).
-- Decision: the AI path is deleted in Phase 2 (apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the `/api/apiquestions` route, `config.API_KEY`, the Google dependencies).
+- Frontend finds the API via `REACT_APP_BASE_URL`, which must point to the backend (backend Vercel URL in production, e.g. `http://localhost:3001` locally). Relative URLs no longer work because nothing serves frontend and API from the same origin, and there is no CRA proxy.
+- The AI path was deleted in Phase 2.
 
 ## Question model
 Current (legacy) schema: `difficulty: Number`, `question: String`, `answers: [{ text, correct: Boolean }]`. New fields:
@@ -136,9 +134,9 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Add .env.example, verify gitignores cover all env files
 
 ### Phase 3: Infrastructure (Leo, manual)
-- [ ] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend)
-- [ ] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen) (Claude, after Leo's decision)
-- [ ] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config). Decide whether the @vercel/node dependency in backend/package.json is still needed or can be removed.
+- [x] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend). Decision: two projects.
+- [x] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen) (Claude, after Leo's decision)
+- [x] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config). Decide whether the @vercel/node dependency in backend/package.json is still needed or can be removed. Result: zero-config Express runs app.js, vercel.json and @vercel/node removed.
 - [ ] New Atlas database and user, local backend .env created
 - [ ] New Vercel project(s), env vars set, CORS updated
 
@@ -203,3 +201,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Removed unused deps (backend: agent-base, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), the earnedMoney dead import and the commented-out code in Quiz.js. Kept @vercel/node for the Phase 3 vercel.json check. Build and node --check pass.
 - 2026-09-30: .gitignore extended. Backend: .env.*, !.env.example, build. Frontend: .env.production. Verified with git check-ignore: .env.example and frontend/.env.development stay unignored, and no tracked file is ignored.
 - 2026-09-30: CSA rename done: page title/description, Start heading/placeholder, GameWinner text; Mongoose model QuestionsCollection renamed to Question (collection "questions"). Added backend/.env.example (MONGODB_URI, PORT) and frontend/.env.example (REACT_APP_BASE_URL). git ls-files shows only frontend/.env.development and the two .env.example files tracked. Build and node --check pass. Phase 2 complete.
+- 2026-09-30: Phase 3 decision: two Vercel projects (Root Directory backend and frontend). Per current Vercel docs, Express runs zero-config from app.js (requires express, module.exports = app). Removed express.static("build") and the build:ui script, deleted vercel.json, uninstalled @vercel/node. server.js kept for local dev. cors() stays open until the frontend URL exists. Architecture section updated. node --check and build pass.

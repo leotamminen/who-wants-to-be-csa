@@ -20,7 +20,7 @@
 .env.*
 !.env.example
 
-# frontend build copied in by build:ui
+# build output
 build
 
 npm-debug.log*
