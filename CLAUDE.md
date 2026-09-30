@@ -132,7 +132,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Delete server_old.js and the root package-lock.json
 - [x] Remove unused dependencies (backend: agent-base, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js). @vercel/node kept, see Phase 3.
 - [x] Extend .gitignore files: backend gets `.env.*` (followed by `!.env.example` so the example stays committed) and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
-- [ ] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
+- [x] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
 - [ ] Add .env.example, verify gitignores cover all env files
 
 ### Phase 3: Infrastructure (Leo, manual)

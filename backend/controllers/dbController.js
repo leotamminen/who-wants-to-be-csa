@@ -1,7 +1,7 @@
 const dbController = require("express").Router();
 const Question = require("../models/question");
 
-// using questionsDB.questionscollections
+// using the questions collection (model Question)
 dbController.get("/", async (req, res) => {
   const questions = await Question.find({});
   res.json(questions);

@@ -17,4 +17,4 @@ questionSchema.set('toJSON', {
     }
 });
 
-module.exports = mongoose.model('QuestionsCollection', questionSchema);
+module.exports = mongoose.model('Question', questionSchema);
