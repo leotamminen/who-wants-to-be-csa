@@ -106,13 +106,23 @@ Sources: Hard coded (frontend bundle, always available) and DB (MongoDB via back
 The old game loaded questions in the background while the player typed a name, so a fast player started with no questions. Fix: the Start button is disabled with a "Loading questions..." state until the question set for the run is complete (sources resolved or timed out and the fallback applied). The name field stays usable meanwhile. Reload the set when source, category or weight settings change.
 
 ## Start screen and settings
-Start screen asks for the name, has a Start button and a settings dropdown/panel. Defaults:
+Start screen asks for the name, has a Start button and a settings panel. Settings live in App state, no persistence unless Leo asks for it. Defaults:
 - Music: OFF (no audio before a user gesture)
 - Practice mode: ON
-- Sources: DB and Hard coded both checked
 - Core categories on, extra categories off
-- Weights editable per category, with a reset to defaults button
-Settings are locked once a run starts. No persistence unless Leo asks for it.
+- Weights: the defaults from categories.json
+- Sources: DB and Hard coded both checked (Sources section only from Phase 9b, see below)
+
+The settings panel is a collapsed `<details>` "Settings" below the Start button. It is locked by design, because the start screen is gone once the run starts. Contents:
+- Practice mode checkbox, Music checkbox
+- One row per category: enabled checkbox, name, integer weight 0-100, effective share in percent among the participating categories (enabled, weight > 0, questions in the pool), number of questions available in the pool
+- "Reset to defaults" button
+
+The Sources checkboxes are not built in Phase 7, because only one source exists. They come in Phase 9b and are shown only when `REACT_APP_BASE_URL` is set.
+
+The run is rebuilt when category or weight settings change, not when only music or practice mode change. Start is disabled with a short message when the settings cannot build a run.
+
+Music: one hook (`useBackgroundMusic`), tracks per question number as in the old Quiz.js, the track switches when the question number changes (not on the next click). Starts only after the Start click (user gesture), plays the win track after a win or practice completion, stops at game over. Toggle only in settings, no mid-game mute.
 
 Practice mode ON: a wrong answer does not end the run. Show the correct answer(s) and the explanation, continue to the next question, final result is a score out of 15. Practice mode OFF: classic behavior, a wrong answer ends the run (the old game has no safe checkpoints).
 
@@ -121,7 +131,7 @@ Practice mode ON: a wrong answer does not end the run. Show the correct answer(s
 - `multiple`: toggle options, show "Select N answers" and a "Selected x/N" counter, do not allow more than N, the Lock button confirms.
 - The Lock button is disabled until the selection is complete for every type (1 for `single`/`truefalse`, exactly N for `multiple`). This replaces the old alert.
 - Lifelines: the old game has none. Out of the MVP. (If added later: 50:50 removes only wrong options, keeps all correct ones for `multiple`, disabled for `truefalse`.)
-- Timer: stays disabled.
+- Timer: stays disabled. The timer circle is hidden from Phase 7 on (Timer.js is kept but not rendered).
 - Ladder: shows question numbers 1-15 instead of prize sums. No euro amounts anywhere.
 - `src/questions.js` (old trivia and `prizeSums`) was deleted in Phase 6.
 
@@ -186,11 +196,10 @@ Known temporary limitation (fixed in Phase 6): until Phase 6, the old Quiz.js ac
 The Phase 5 limitation (single pick for every type) is fixed by the answer flows below.
 - [x] `single`, `multiple` and `truefalse` answer flows
 - [x] Practice mode ON/OFF behavior and explanation display
-- Temporary until the Phase 7 settings exist: the URL query `?practice=off` turns practice mode off (default ON). Removed in Phase 7.
+- Temporary until the Phase 7 settings exist: the URL query `?practice=off` turns practice mode off (default ON). Removed in Phase 7, practice mode comes from the settings panel.
 
 ### Phase 7: Start screen settings
-- [ ] Settings panel with defaults (music OFF, practice ON, all sources checked)
-- [ ] Source checkboxes (last one cannot be unchecked)
+- [ ] Settings panel with defaults (music OFF, practice ON, core categories on, extra off)
 - [ ] Category toggles (extras off) and editable weights with reset
 - [ ] Music toggle
 - [ ] Fix music transitions: the track changes only after a click instead of when the question changes (audit: Quiz.js adds a one-time document click listener per round with no cleanup, and creates new Audio() on every render). Use one audio controller: start on a user gesture (Start click or music toggle), switch track when the question number changes, stop at the end of the game. Default OFF.
@@ -214,6 +223,7 @@ Audit findings (App.css has no @media rules at all):
 - [ ] New Atlas database and user, local backend .env created (Leo, manual)
 - [ ] DB seed script (imports `frontend/src/data/questions.json`), DB seeded
 - [ ] DB source: full collection loaded once per run build, client-side timeout (8 s), validation, top-up from hard coded
+- [ ] Source checkboxes in the settings panel (last one cannot be unchecked), shown only when `REACT_APP_BASE_URL` is set (moved from Phase 7)
 - [ ] New backend Vercel project (Root Directory backend), env vars set, `REACT_APP_BASE_URL` set on the frontend project (Leo, manual)
 - [ ] CORS restricted to the frontend URL (Claude, after the URL exists)
 - [ ] Test: backend down, game plays with hard coded questions
@@ -257,3 +267,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Answer logic added (src/lib/answerLogic.js) with scripts/test-answer-logic.js covering all three types: replace/toggle, limit N, canLock, exact set vs subset/superset/different set, reveal states incl. missed correct answers, no mutation. test:logic runs both files: 17/17 and 11/11 pass. Not wired into Quiz.js yet.
 - 2026-09-30: Answer flows done in Quiz.js: selection as index array via answerLogic (click replaces for single/truefalse, toggle with limit N for multiple), "Select N answers. Selected x/N" line for multiple, Lock disabled until canLock (alert removed), selected answers orange for 3 s, then every answer revealed (correct incl. missed, incorrect for wrong picks), classic flow kept. The 4 s correct/incorrect keyframes were replaced by static colours, because the 3 s wait now shows as "active". End of run moved from render into an App.js effect. One "Locked: [...] -> correct|wrong" log. The 3 old lint warnings are fixed (eslint-disable on the audio effect deps until the Phase 7 rewrite). validate:questions, test:logic (17/17, 11/11), node --check and CI=true build pass with no warnings.
 - 2026-09-30: Phase 6 done. Practice mode (default ON, temporary ?practice=off until Phase 7): after the reveal an .explanation box ("Correct!"/"Wrong." plus the explanation) and a Next button, no auto advance, wrong answers do not end the run, end screen "Practice complete" with "Score: X / 15" and the play-again link (GameWinner with props). Classic mode unchanged. Score counted at each reveal. Ladder shows 15..1, GameOver says "You reached question N", earnedMoney removed, src/questions.js deleted (nothing imported it). validate:questions, test:logic (17/17, 11/11), node --check and CI=true build pass with no lint warnings.
+- 2026-09-30: Phase 7 plan recorded: settings in App state without persistence, collapsed <details> Settings panel (practice, music, per category enabled/weight 0-100/share/pool count, reset), run rebuilt only on category/weight changes, timer circle hidden, ?practice=off removed, one music hook switching tracks on question change. Source checkboxes moved to Phase 9b (only one source exists, shown only when REACT_APP_BASE_URL is set).
