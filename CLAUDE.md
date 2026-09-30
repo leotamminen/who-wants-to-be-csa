@@ -127,7 +127,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 
 ### Phase 2: Rename and cleanup
 - [x] Remove the Mongo URI logging in backend/app.js:14 (it prints credentials to the logs)
-- [ ] Remove the deploy:full script
+- [x] Remove the deploy:full script
 - [ ] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
 - [ ] Delete server_old.js and the root package-lock.json
 - [ ] Remove unused dependencies (backend: agent-base, @vercel/node, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js)
