@@ -43,33 +43,57 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
 - The AI path was deleted in Phase 2.
 
 ## Question model
-Current (legacy) schema: `difficulty: Number`, `question: String`, `answers: [{ text, correct: Boolean }]`. New fields:
-- `category`: one of the category ids in the weights config.
+Questions live in `frontend/src/data/questions.json` (single source of truth). Each question has these fields:
+- `id`: string, unique, 3-letter category prefix + 3 digits, e.g. `dbm-001`. Prefixes: `pon` platform-overview, `ins` instance-configuration, `col` collaboration, `ssa` self-service-automation, `dbm` database-management, `dmi` data-migration-integration, `ext` extra.
+- `category`: an id from `frontend/src/data/categories.json`.
 - `type`: `single` | `multiple` | `truefalse`.
-- `correct`: array of option indexes (a legacy single answer maps to `type: single`, `correct: [i]`).
-- `difficulty`: optional, 1-3, default 2. The round number is no longer the difficulty.
-- `explanation`: optional short text, shown in practice mode after answering.
+- `difficulty`: integer 1-3. The round number is no longer the difficulty.
+- `question`: string.
+- `answers`: array of `{ text, correct: boolean }`. Correct answers are flagged per answer row, not as an index array, because indexes break when answers are added or shuffled.
+- `explanation`: string, required, shown in practice mode after answering.
+- `reviewed`: boolean, see the review rule.
 
 Rules per type:
-- `single`: 4 options, exactly 1 correct. Behaves like the old game.
-- `multiple`: 5-6 options, N correct (N >= 2). UI states "Select N".
-- `truefalse`: 2 options, 1 correct.
-Scoring is all or nothing. Multiple answer is wrong unless the selection is exactly the correct set.
+- `single`: 4 answers, exactly 1 correct.
+- `multiple`: 5-6 answers, 2 or more correct and at least 1 wrong. The number N in "Select N" is the number of correct answers, it is not stored.
+- `truefalse`: exactly the answers "True" and "False", 1 correct.
+
+Answers are shuffled at run time, except `truefalse`. Scoring stays all or nothing: a multiple answer is wrong unless the selection is exactly the correct set.
+
+`npm run validate:questions` (in frontend) checks the data files against these rules.
+
+## Review rule
+- Only questions with `reviewed: true` are used in production builds (`NODE_ENV=production`). In development, unreviewed questions are allowed so the game can be tested with placeholders.
+- Only Leo sets `reviewed` to true, after checking the facts against the official ServiceNow documentation. Claude may draft questions or placeholders but never sets `reviewed: true`.
+- Placeholders must be visibly fake: the question text starts with "[PLACEHOLDER]" and answers read like "Placeholder answer A". Never write plausible-looking ServiceNow facts that nobody has checked.
 
 ## Categories and weights
-- One config file holds categories, default weights, and an `extra` flag. Weights must be easy to edit.
-- Core categories follow the official CSA exam blueprint. Known so far: Platform Overview and Navigation 7%, Instance Configuration 10%. **The remaining domains and weights must be filled from the current official ServiceNow CSA exam specification. Do not invent them. Ask Leo if the spec is not available.**
-- Extra categories (for fun, e.g. ITIL/ITSM concepts, ServiceNow trivia) have `extra: true`, are off by default and can be toggled on.
-- Selection for a run of 15 questions: allocate per category by weight (largest remainder rounding) among enabled categories, renormalized. If a category pool has too few questions, redistribute the remainder to other enabled categories. Then sort the 15 by ascending difficulty (1-3, default 2). The whole run is built before the game starts. There is no per-round fetching.
+- `frontend/src/data/categories.json` holds `{ id, name, weight, extra }` per category. Weights must be easy to edit.
+- Core categories and weights, taken from Leo's exam specification. Verify them against the current official ServiceNow CSA blueprint before release. The six core weights sum to 100.
+
+  | id | name | weight |
+  |---|---|---|
+  | platform-overview | Platform Overview and Navigation | 7 |
+  | instance-configuration | Instance Configuration | 10 |
+  | collaboration | Configuring Applications for Collaboration | 20 |
+  | self-service-automation | Self Service & Automation | 20 |
+  | database-management | Database Management and Platform Security | 30 |
+  | data-migration-integration | Data Migration and Integration | 13 |
+
+- Extra category: id `extra`, name "Extra (for fun)", default weight 10, `extra: true`, off by default, can be toggled on. The name is a placeholder, Leo decides the content later.
+- Weights are renormalized among the enabled categories.
+- Selection for a run of 15 questions: allocate per category by weight (largest remainder rounding) among enabled categories. If a category pool has too few questions, redistribute the remainder to other enabled categories. Then sort the 15 by ascending difficulty (1-3). The whole run is built before the game starts. There is no per-round fetching.
 
 ## Question sources and fallback chain
-Sources in priority order: DB (MongoDB via backend, optional), Hard coded (frontend bundle, always available). No AI source in the MVP.
+Sources: Hard coded (frontend bundle, always available) and DB (MongoDB via backend, optional). No AI source in the MVP.
+- Hard coded is built first and is enough for a fully working game. The DB source is optional and is built last (Phase 9b).
+- If `REACT_APP_BASE_URL` is unset, the DB source is skipped silently, so the frontend can be deployed alone.
 - The DB source loads the full collection once per run build (one request, not per round). It has a client-side timeout (start with 8 s, Vercel and Atlas cold starts can be slow). A failure or timeout moves on silently to hard coded.
-- Validate every returned question against the schema. Drop invalid ones.
-- Fill the run from the DB first and top up from hard coded. Hard coded is the last resort and is synchronous.
+- Validate every question against the schema, from any source. Drop invalid ones.
+- When the DB source is available, fill the run from the DB first and top up from hard coded. Hard coded is the last resort and is synchronous.
 - The user can uncheck a source in settings, but the last enabled source cannot be unchecked. If only DB is enabled and it fails, hard coded is used anyway.
 - The player never sees an error about sources. Log to the browser console which source served each question (`console.warn` on failures).
-- Single source of truth for question content (e.g. one questions JSON file). The DB seed script imports from it so DB and hard coded stay in sync.
+- Single source of truth for question content: `frontend/src/data/questions.json`. The DB seed script imports from it so DB and hard coded stay in sync.
 - Hard coded pool: at least 5 questions per core category to start, target 45+ total, so runs vary.
 
 ## Loading bug fix
@@ -105,7 +129,8 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - Verify facts against official ServiceNow documentation. Add a short explanation to each question.
 
 ## Env and deployment (Leo does the account steps)
-- New Atlas database and user for this project only, new Vercel project(s) from this repo, CORS updated for the new domain.
+- First: the frontend alone as one Vercel project (Root Directory `frontend`), once the game plays with hard coded questions. `REACT_APP_BASE_URL` stays unset, so the DB source is skipped.
+- Optional, later (Phase 9b): new Atlas database and user for this project only, backend Vercel project (Root Directory `backend`), CORS restricted to the frontend domain.
 - Env var names come from the audit, listed in .env.example. Expect at least a Mongo URI and a frontend API base URL. No AI key in the MVP.
 
 ## Checklist
@@ -137,17 +162,15 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend). Decision: two projects.
 - [x] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen) (Claude, after Leo's decision)
 - [x] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config). Decide whether the @vercel/node dependency in backend/package.json is still needed or can be removed. Result: zero-config Express runs app.js, vercel.json and @vercel/node removed.
-- [ ] New Atlas database and user, local backend .env created
-- [ ] New Vercel project(s), env vars set, CORS updated
+- Open account items (Atlas, Vercel projects, CORS) moved to Phase 9b.
 
 ### Phase 4: Data model and content base
-- [ ] Schema updated (category, type, correct[], explanation) with legacy compatibility
-- [ ] Categories and weights config from the official blueprint
-- [ ] Shared question file and initial hard coded pool
-- [ ] DB seed script, DB seeded
+- [ ] Data files: `frontend/src/data/categories.json` (seven categories) and `frontend/src/data/questions.json` (schema above)
+- [ ] Validator: `frontend/scripts/validate-questions.js` (plain Node) and `npm run validate:questions`, with `--require-reviewed` for release
+- [ ] Placeholders: at least 5 questions per core category and 3 in extra, all types and difficulties 1-3 mixed, all `reviewed: false`
 
 ### Phase 5: Loading logic
-- [ ] Source chain with timeouts, validation and top-up
+- [ ] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
 - [ ] Weighted category selection
 - [ ] Start button gating (loading bug fixed)
 
@@ -170,18 +193,28 @@ Audit findings (App.css has no @media rules at all):
 - `.game-over` is position absolute at 60% width (App.css:204-215)
 - body font-size 22 px (public/index.html:20), timer circle 80 px (App.css:54-67)
 - [ ] Verified at 360 px width, all screens and all question types
+- [ ] Deploy the frontend alone as one Vercel project with Root Directory frontend (Leo, manual) once the game plays with hard coded questions and enough reviewed questions exist.
 
 ### Phase 9: Robustness tests (all must pass, also on the Vercel deployment)
-- [ ] Backend down: game plays with hard coded questions
-- [ ] Bad DB connection: hard coded used, no visible error
-- [ ] DB slower than the timeout: hard coded used after the timeout
-- [ ] Each source alone checked works
+- [ ] `REACT_APP_BASE_URL` unset: DB source skipped silently, game plays with hard coded questions
 - [ ] Throttled network: Start waits, then the run works
 - [ ] Full run for each question type with practice mode ON and OFF
 
+### Phase 9b: Optional DB source and backend deployment
+- [ ] New Atlas database and user, local backend .env created (Leo, manual)
+- [ ] DB seed script (imports `frontend/src/data/questions.json`), DB seeded
+- [ ] DB source: full collection loaded once per run build, client-side timeout (8 s), validation, top-up from hard coded
+- [ ] New backend Vercel project (Root Directory backend), env vars set, `REACT_APP_BASE_URL` set on the frontend project (Leo, manual)
+- [ ] CORS restricted to the frontend URL (Claude, after the URL exists)
+- [ ] Test: backend down, game plays with hard coded questions
+- [ ] Test: bad DB connection, hard coded used, no visible error
+- [ ] Test: DB slower than the timeout, hard coded used after the timeout
+- [ ] Test: each source alone checked works
+- [ ] DB reseeded from questions.json after content changes
+
 ### Phase 10: Content
-- [ ] Hard coded pool filled and verified against official docs
-- [ ] DB reseeded from the same source file
+- [ ] Leo writes real questions and sets `reviewed: true` after checking the facts against the official ServiceNow documentation
+- [ ] `npm run validate:questions -- --require-reviewed` passes
 
 ### Phase 11: Release
 - [ ] README updated
@@ -202,3 +235,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: .gitignore extended. Backend: .env.*, !.env.example, build. Frontend: .env.production. Verified with git check-ignore: .env.example and frontend/.env.development stay unignored, and no tracked file is ignored.
 - 2026-09-30: CSA rename done: page title/description, Start heading/placeholder, GameWinner text; Mongoose model QuestionsCollection renamed to Question (collection "questions"). Added backend/.env.example (MONGODB_URI, PORT) and frontend/.env.example (REACT_APP_BASE_URL). git ls-files shows only frontend/.env.development and the two .env.example files tracked. Build and node --check pass. Phase 2 complete.
 - 2026-09-30: Phase 3 decision: two Vercel projects (Root Directory backend and frontend). Per current Vercel docs, Express runs zero-config from app.js (requires express, module.exports = app). Removed express.static("build") and the build:ui script, deleted vercel.json, uninstalled @vercel/node. server.js kept for local dev. cors() stays open until the frontend URL exists. Architecture section updated. node --check and build pass.
+- 2026-09-30: Plan change: hard coded questions first, DB source optional and last. New question schema (per-answer correct flags, explanation required, reviewed flag), review rule (only reviewed questions in production, only Leo sets reviewed), six core categories and weights from Leo's exam spec plus an extra category. Open Phase 3 account items, the DB seed script, the DB source and the DB robustness tests moved to the new Phase 9b. Phase 4 and Phase 10 rewritten.
