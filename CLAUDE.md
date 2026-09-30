@@ -6,9 +6,11 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
 
 ## Hard rules
 - This repo is fully independent of the old project (leotamminen/Who-wants-to-be-an-engineer). Never touch, push to, or reference the old repo, its MongoDB, or its Vercel project.
+- The one allowed reference to the old project is the attribution link in README.md:3. It is intentional. Renames and cleanups leave it alone.
 - Never read or copy any old .env. Use only new credentials in local .env files.
 - The only git remote is origin = leotamminen/who-wants-to-be-csa. Never add another.
 - Never commit secrets. Keep .env, .env.local, .env.production and .vercel out of git. Only .env.example (names, no values) is committed.
+- Frontend env vars are public (they end up in the bundle). Never put secrets in frontend files. frontend/.env.development stays tracked because it holds no secrets.
 - No AI API in the MVP. If an AI feature is added later, its key lives in backend env only, never in frontend code or REACT_APP_ variables (they end up in the public bundle).
 - Account work (Atlas, Vercel, env vars, GitHub settings) is done by Leo manually. Give exact steps and wait for confirmation. Do not attempt it.
 
@@ -39,7 +41,7 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
 - Env vars read by code: `PORT`, `MONGODB_URI`, `API_KEY` (AI only, removed in Phase 2), `REACT_APP_BASE_URL`.
 - MongoDB is used only for questions (no scores or users).
-- Frontend finds the API via `REACT_APP_BASE_URL`. If empty, relative URLs (backend-serves-build mode, which is being removed).
+- Frontend finds the API via `REACT_APP_BASE_URL`. If empty, relative URLs (backend-serves-build mode, kept or removed per the Phase 3 one-vs-two projects decision).
 - Decision: the AI path is deleted in Phase 2 (apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the `/api/apiquestions` route, `config.API_KEY`, the Google dependencies).
 
 ## Question model
@@ -113,7 +115,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 ### Phase 0: Setup
 - [x] New repo, history detached from the old project, pushed to origin
 - [x] CLAUDE.md added
-- [ ] Claude Code installed in VS Code (Leo)
+- [x] Claude Code installed in VS Code (Leo)
 
 ### Phase 1: Audit (read only, no edits)
 - [x] List every reference to the old project: names, URLs, DB and collection names, env vars, package.json fields, README
@@ -125,16 +127,17 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 
 ### Phase 2: Rename and cleanup
 - [ ] Remove the Mongo URI logging in backend/app.js:14 (it prints credentials to the logs)
-- [ ] Remove the deploy:full and build:ui scripts and the backend/build approach (express.static("build") in app.js)
+- [ ] Remove the deploy:full script
 - [ ] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
 - [ ] Delete server_old.js and the root package-lock.json
 - [ ] Remove unused dependencies (backend: agent-base, @vercel/node, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js)
-- [ ] Extend both .gitignore files: .env.development, .env.production, backend/build
-- [ ] Rename package names, titles, README, URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
+- [ ] Extend .gitignore files: backend gets `.env.*` and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
+- [ ] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
 - [ ] Add .env.example, verify gitignores cover all env files
 
 ### Phase 3: Infrastructure (Leo, manual)
 - [ ] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend)
+- [ ] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen)
 - [ ] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config)
 - [ ] New Atlas database and user, local backend .env created
 - [ ] New Vercel project(s), env vars set, CORS updated
@@ -185,6 +188,7 @@ Audit findings (App.css has no @media rules at all):
 ### Phase 11: Release
 - [ ] README updated
 - [ ] Production deployment verified
+- [ ] Rotate the old project's Atlas password (its backend logged the full Mongo URI to the Vercel logs) (Leo, manually)
 - [ ] Old repo archived (Leo, manually, last)
 
 ### Phase 12: Post-MVP extras (optional, only when Leo asks)
