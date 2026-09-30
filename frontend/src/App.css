@@ -112,50 +112,26 @@ h1 {
   box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
 }
 
+/* Locked answers stay "active" (orange) for 3 s, then the reveal sets
+   correct/incorrect directly */
 .answer.correct {
-  animation: correct 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes correct {
-  0% {
-    background: #ca6608;
-    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
-  }
-  60% {
-    background: #ca6608;
-    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
-  }
-  80% {
-    background: #10a742;
-    box-shadow: 0 0 5px #0a5415, 0 0 15px #0a5415, 0 0 25px #61ce76;
-  }
-  100% {
-    background: #10a742;
-    box-shadow: 0 0 5px #0a5415, 0 0 15px #0a5415, 0 0 25px #61ce76;
-  }
+  background: #10a742;
+  box-shadow: 0 0 5px #0a5415, 0 0 15px #0a5415, 0 0 25px #61ce76;
 }
 
 .answer.incorrect {
-  animation: incorrect 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  background: #bb280f;
+  box-shadow: 0 0 5px #540a07, 0 0 15px #540a07, 0 0 25px #d16161;
 }
 
-@keyframes incorrect {
-  0% {
-    background: #ca6608;
-    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
-  }
-  60% {
-    background: #ca6608;
-    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
-  }
-  80% {
-    background: #bb280f;
-    box-shadow: 0 0 5px #540a07, 0 0 15px #540a07, 0 0 25px #d16161;
-  }
-  100% {
-    background: #bb280f;
-    box-shadow: 0 0 5px #540a07, 0 0 15px #540a07, 0 0 25px #d16161;
-  }
+/* No hover highlight on unselected answers once locked */
+.answers-locked .answer:not(.active):not(.correct):not(.incorrect):hover {
+  background: linear-gradient(#110447, #091270);
+  box-shadow: none;
+}
+
+.answers-locked .answer {
+  cursor: default;
 }
 
 .lock-in-button,
@@ -180,6 +156,7 @@ h1 {
   box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
 }
 
+.lock-in-button:disabled,
 .username-button:disabled {
   cursor: default;
   opacity: 0.6;

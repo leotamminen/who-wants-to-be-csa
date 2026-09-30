@@ -76,10 +76,13 @@ function App() {
       );
   }, [questionNumber]);
 
-  // Define a function to update isMillionaire state
-  const handleBecomeMillionaire = () => {
-    setIsMillionaire(true);
-  };
+  // The run is won once the question number passes the last question.
+  // Handled in an effect, never during render.
+  useEffect(() => {
+    if (run.length > 0 && questionNumber > run.length) {
+      setIsMillionaire(true);
+    }
+  }, [questionNumber, run.length]);
 
   // Only render the game content if the name is provided
   return (
@@ -112,7 +115,6 @@ function App() {
                   setQuestionNumber={setQuestionNumber}
                   setTimeOut={setTimeOut}
                   setAnswersLocked={setAnswersLocked}
-                  handleBecomeMillionaire={handleBecomeMillionaire}
                 />
               )}
             </div>

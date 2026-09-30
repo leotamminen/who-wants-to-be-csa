@@ -32,7 +32,7 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `utils/config.js` (dotenv, PORT, MONGODB_URI), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
 - frontend (Create React App, React 18):
   - `src/App.js`: all game state, money ladder, screen switching. Builds the run once on mount through `loadRun(settings)` (async, hard coded only for now, DB plugs in there in Phase 9b), holds `runStatus` (`loading` | `ready` | `too-few`) and `run`, question = `run[questionNumber - 1]`. Logs the run composition and each shown question to the console.
-  - components: `Start` (name + button, gated on `runStatus`), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
+  - components: `Start` (name + button, gated on `runStatus`), `Quiz` (question, answers, lock button, music; selection is an array of answer indexes handled by `src/lib/answerLogic.js`, reveal after 3 s, next step after 1 more s), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
   - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`. Not imported anywhere since Phase 5, kept for Phase 9b.
   - `src/data/categories.json` and `src/data/questions.json`: category config (with the id `prefix` per category) and question pool (see Question model). Read by `src/lib/runBuilder.js`.
   - `src/lib/validateQuestion.js`: per-question checks (CommonJS, no dependencies), shared by the validator script and the game.
@@ -178,14 +178,14 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Placeholders: at least 5 questions per core category and 3 in extra, all types and difficulties 1-3 mixed, all `reviewed: false`
 
 ### Phase 5: Loading logic
-Known temporary limitation: until Phase 6, the old Quiz.js accepts a single pick for every question type, so `multiple` questions are scored wrongly. Not fixed in Phase 5.
+Known temporary limitation (fixed in Phase 6): until Phase 6, the old Quiz.js accepted a single pick for every question type, so `multiple` questions were scored wrongly.
 - [x] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
 - [x] Weighted category selection
 - [x] Start button gating (loading bug fixed)
 
 ### Phase 6: Game UI logic
-Must fix the Phase 5 limitation: Quiz.js still takes a single pick for every type, so `multiple` questions are scored wrongly until the `multiple` flow exists.
-- [ ] `single`, `multiple` and `truefalse` answer flows
+The Phase 5 limitation (single pick for every type) is fixed by the answer flows below.
+- [x] `single`, `multiple` and `truefalse` answer flows
 - [ ] Practice mode ON/OFF behavior and explanation display
 - Temporary until the Phase 7 settings exist: the URL query `?practice=off` turns practice mode off (default ON). Removed in Phase 7.
 
@@ -256,3 +256,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: SKIPPED Phase 6 item "Lifelines compatible with all types": lifelines are out of the MVP since the Phase 1 decision (the old game has none). Moved to Phase 12.
 - 2026-09-30: Phase 6 plan recorded: Lock button disabled until the selection is complete (replaces the alert), single/truefalse select-then-lock, temporary ?practice=off until Phase 7, ladder 1-15 with no euro amounts, src/questions.js deleted once unused. Phase 7 gets the music transition fix, Phase 12 gets lifelines and sound/animation polish.
 - 2026-09-30: Answer logic added (src/lib/answerLogic.js) with scripts/test-answer-logic.js covering all three types: replace/toggle, limit N, canLock, exact set vs subset/superset/different set, reveal states incl. missed correct answers, no mutation. test:logic runs both files: 17/17 and 11/11 pass. Not wired into Quiz.js yet.
+- 2026-09-30: Answer flows done in Quiz.js: selection as index array via answerLogic (click replaces for single/truefalse, toggle with limit N for multiple), "Select N answers. Selected x/N" line for multiple, Lock disabled until canLock (alert removed), selected answers orange for 3 s, then every answer revealed (correct incl. missed, incorrect for wrong picks), classic flow kept. The 4 s correct/incorrect keyframes were replaced by static colours, because the 3 s wait now shows as "active". End of run moved from render into an App.js effect. One "Locked: [...] -> correct|wrong" log. The 3 old lint warnings are fixed (eslint-disable on the audio effect deps until the Phase 7 rewrite). validate:questions, test:logic (17/17, 11/11), node --check and CI=true build pass with no warnings.
