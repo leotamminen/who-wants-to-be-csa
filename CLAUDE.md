@@ -34,19 +34,20 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `src/App.js`: all game state, per-round question fetch, money ladder, screen switching.
   - components: `Start` (name + button), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
   - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`.
-  - `src/data/categories.json` and `src/data/questions.json`: category config and question pool (see Question model). Not yet used by the game (Phase 5).
-  - `scripts/validate-questions.js`: data validator, run with `npm run validate:questions` (add `-- --require-reviewed` for release).
+  - `src/data/categories.json` and `src/data/questions.json`: category config (with the id `prefix` per category) and question pool (see Question model). Not yet used by the game (Phase 5).
+  - `src/lib/validateQuestion.js`: per-question checks (CommonJS, no dependencies), shared by the validator script and the game.
+  - `scripts/validate-questions.js`: data validator, run with `npm run validate:questions` (add `-- --require-reviewed` for release). Uses `src/lib/validateQuestion.js` plus the file-level checks (categories, duplicate ids, summary table).
   - `src/questions.js`: old Finnish trivia (unused in game flow) and `prizeSums`.
   - `src/assets/*.mp3`: 7 music tracks.
   - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
-- Env vars read by code: backend `PORT`, `MONGODB_URI`; frontend `REACT_APP_BASE_URL`. Listed in `backend/.env.example` and `frontend/.env.example`.
+- Env vars read by code: backend `PORT`, `MONGODB_URI`; frontend `REACT_APP_BASE_URL`, `REACT_APP_ALLOW_UNREVIEWED` (see Review rule). Listed in `backend/.env.example` and `frontend/.env.example`.
 - MongoDB is used only for questions (no scores or users).
 - Frontend finds the API via `REACT_APP_BASE_URL`, which must point to the backend (backend Vercel URL in production, e.g. `http://localhost:3001` locally). Relative URLs no longer work because nothing serves frontend and API from the same origin, and there is no CRA proxy.
 - The AI path was deleted in Phase 2.
 
 ## Question model
 Questions live in `frontend/src/data/questions.json` (single source of truth). Each question has these fields:
-- `id`: string, unique, 3-letter category prefix + 3 digits, e.g. `dbm-001`. Prefixes: `pon` platform-overview, `ins` instance-configuration, `col` collaboration, `ssa` self-service-automation, `dbm` database-management, `dmi` data-migration-integration, `ext` extra.
+- `id`: string, unique, 3-letter category prefix + 3 digits, e.g. `dbm-001`. The prefix must equal the `prefix` of the question's category in categories.json: `pon` platform-overview, `ins` instance-configuration, `col` collaboration, `ssa` self-service-automation, `dbm` database-management, `dmi` data-migration-integration, `ext` extra.
 - `category`: an id from `frontend/src/data/categories.json`.
 - `type`: `single` | `multiple` | `truefalse`.
 - `difficulty`: integer 1-3. The round number is no longer the difficulty.
@@ -65,12 +66,13 @@ Answers are shuffled at run time, except `truefalse`. Scoring stays all or nothi
 `npm run validate:questions` (in frontend) checks the data files against these rules.
 
 ## Review rule
-- Only questions with `reviewed: true` are used in production builds (`NODE_ENV=production`). In development, unreviewed questions are allowed so the game can be tested with placeholders.
+- Only questions with `reviewed: true` are used in production builds (`NODE_ENV=production`). Unreviewed questions are used when `NODE_ENV !== "production"` or when `REACT_APP_ALLOW_UNREVIEWED === "true"`, so the game can be tested with placeholders.
+- `REACT_APP_ALLOW_UNREVIEWED` is a public frontend env var (not a secret), listed in frontend/.env.example with an empty value. The production Vercel project must not set it unless Leo decides to preview placeholders.
 - Only Leo sets `reviewed` to true, after checking the facts against the official ServiceNow documentation. Claude may draft questions or placeholders but never sets `reviewed: true`.
 - Placeholders must be visibly fake: the question text starts with "[PLACEHOLDER]" and answers read like "Placeholder answer A". Never write plausible-looking ServiceNow facts that nobody has checked.
 
 ## Categories and weights
-- `frontend/src/data/categories.json` holds `{ id, name, weight, extra }` per category. Weights must be easy to edit.
+- `frontend/src/data/categories.json` holds `{ id, prefix, name, weight, extra }` per category. Weights must be easy to edit.
 - Core categories and weights, taken from Leo's exam specification. Verify them against the current official ServiceNow CSA blueprint before release. The six core weights sum to 100.
 
   | id | name | weight |
@@ -93,7 +95,7 @@ Sources: Hard coded (frontend bundle, always available) and DB (MongoDB via back
 - The DB source loads the full collection once per run build (one request, not per round). It has a client-side timeout (start with 8 s, Vercel and Atlas cold starts can be slow). A failure or timeout moves on silently to hard coded.
 - Validate every question against the schema, from any source. Drop invalid ones.
 - When the DB source is available, fill the run from the DB first and top up from hard coded. Hard coded is the last resort and is synchronous.
-- The user can uncheck a source in settings, but the last enabled source cannot be unchecked. If only DB is enabled and it fails, hard coded is used anyway.
+- The user can uncheck a source in settings, but the last enabled source cannot be unchecked. The Sources section in settings (Phase 7) is hidden while `REACT_APP_BASE_URL` is unset, because only one source exists then. If only DB is enabled and it fails, hard coded is used anyway.
 - The player never sees an error about sources. Log to the browser console which source served each question (`console.warn` on failures).
 - Single source of truth for question content: `frontend/src/data/questions.json`. The DB seed script imports from it so DB and hard coded stay in sync.
 - Hard coded pool: at least 5 questions per core category to start, target 45+ total, so runs vary.
@@ -172,6 +174,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Placeholders: at least 5 questions per core category and 3 in extra, all types and difficulties 1-3 mixed, all `reviewed: false`
 
 ### Phase 5: Loading logic
+Known temporary limitation: until Phase 6, the old Quiz.js accepts a single pick for every question type, so `multiple` questions are scored wrongly. Not fixed in Phase 5.
 - [ ] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
 - [ ] Weighted category selection
 - [ ] Start button gating (loading bug fixed)
@@ -239,3 +242,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Phase 3 decision: two Vercel projects (Root Directory backend and frontend). Per current Vercel docs, Express runs zero-config from app.js (requires express, module.exports = app). Removed express.static("build") and the build:ui script, deleted vercel.json, uninstalled @vercel/node. server.js kept for local dev. cors() stays open until the frontend URL exists. Architecture section updated. node --check and build pass.
 - 2026-09-30: Plan change: hard coded questions first, DB source optional and last. New question schema (per-answer correct flags, explanation required, reviewed flag), review rule (only reviewed questions in production, only Leo sets reviewed), six core categories and weights from Leo's exam spec plus an extra category. Open Phase 3 account items, the DB seed script, the DB source and the DB robustness tests moved to the new Phase 9b. Phase 4 and Phase 10 rewritten.
 - 2026-09-30: Phase 4 done. Added categories.json (6 core + extra), questions.json (the 3 real entries from Leo, still unreviewed, plus 30 visible placeholders: 5 per core category, 3 extra, all types and difficulties) and validate-questions.js with npm run validate:questions. Validator passes (33 questions). --require-reviewed fails as expected (0 reviewed). All error checks were tested against a broken copy in a temp folder.
+- 2026-09-30: Shared validation: categories.json gets a `prefix` per category, per-question checks moved to src/lib/validateQuestion.js (used by validate-questions.js), new check that the id prefix matches the category prefix. Validator output and exit codes unchanged. Decisions recorded: Sources section hidden while REACT_APP_BASE_URL is unset, REACT_APP_ALLOW_UNREVIEWED, multiple scored wrongly until Phase 6, prefix mapping in categories.json.

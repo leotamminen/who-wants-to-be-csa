@@ -4,9 +4,14 @@
 const fs = require("fs");
 const path = require("path");
 
+const {
+  validateQuestion,
+  isObject,
+  isNonEmptyString,
+} = require("../src/lib/validateQuestion");
+
 const DATA_DIR = path.join(__dirname, "..", "src", "data");
-const TYPES = ["single", "multiple", "truefalse"];
-const ID_PATTERN = /^[a-z]{3}-\d{3}$/;
+const PREFIX_PATTERN = /^[a-z]{3}$/;
 const MIN_REVIEWED_PER_CORE_CATEGORY = 5;
 
 const requireReviewed = process.argv.includes("--require-reviewed");
@@ -31,18 +36,13 @@ const readJsonArray = (file) => {
   return data;
 };
 
-const isObject = (value) =>
-  value !== null && typeof value === "object" && !Array.isArray(value);
-
-const isNonEmptyString = (value) =>
-  typeof value === "string" && value.trim() !== "";
-
 const categories = readJsonArray("categories.json");
 const questions = readJsonArray("questions.json");
 const errors = [];
 
 // Categories: only what the question checks rely on
 const categoryIds = new Set();
+const categoryPrefixes = new Set();
 categories.forEach((category, index) => {
   const label = `categories.json #${index + 1}`;
   if (!isObject(category)) {
@@ -56,6 +56,13 @@ categories.forEach((category, index) => {
   } else {
     categoryIds.add(category.id);
   }
+  if (typeof category.prefix !== "string" || !PREFIX_PATTERN.test(category.prefix)) {
+    errors.push(`${label}: prefix must be 3 lowercase letters`);
+  } else if (categoryPrefixes.has(category.prefix)) {
+    errors.push(`${label}: duplicate prefix "${category.prefix}"`);
+  } else {
+    categoryPrefixes.add(category.prefix);
+  }
   if (!isNonEmptyString(category.name)) {
     errors.push(`${label}: name must be a non-empty string`);
   }
@@ -66,100 +73,6 @@ categories.forEach((category, index) => {
     errors.push(`${label}: extra must be true or false`);
   }
 });
-
-// Returns a list of problems for one question
-const checkQuestion = (q) => {
-  const problems = [];
-
-  if (!isNonEmptyString(q.id) || !ID_PATTERN.test(q.id)) {
-    problems.push('id must look like "dbm-001" (3 lowercase letters, dash, 3 digits)');
-  }
-  if (!categoryIds.has(q.category)) {
-    problems.push(`unknown category "${q.category}"`);
-  }
-  if (!TYPES.includes(q.type)) {
-    problems.push(`type must be one of ${TYPES.join(", ")}, got "${q.type}"`);
-  }
-  if (!Number.isInteger(q.difficulty) || q.difficulty < 1 || q.difficulty > 3) {
-    problems.push("difficulty must be an integer 1-3");
-  }
-  if (!isNonEmptyString(q.question)) {
-    problems.push("question must be a non-empty string");
-  }
-  if (!isNonEmptyString(q.explanation)) {
-    problems.push("explanation must be a non-empty string");
-  }
-  if (typeof q.reviewed !== "boolean") {
-    problems.push("reviewed must be true or false");
-  }
-
-  if (!Array.isArray(q.answers) || q.answers.length === 0) {
-    problems.push("answers must be a non-empty array");
-    return problems;
-  }
-
-  let answersValid = true;
-  const seenTexts = new Set();
-  q.answers.forEach((answer, index) => {
-    const label = `answer ${index + 1}`;
-    if (!isObject(answer)) {
-      problems.push(`${label} must be an object`);
-      answersValid = false;
-      return;
-    }
-    if (!isNonEmptyString(answer.text)) {
-      problems.push(`${label}: text must be a non-empty string`);
-      answersValid = false;
-    } else {
-      const key = answer.text.trim().toLowerCase();
-      if (seenTexts.has(key)) {
-        problems.push(`duplicate answer text "${answer.text}"`);
-      }
-      seenTexts.add(key);
-    }
-    if (typeof answer.correct !== "boolean") {
-      problems.push(`${label}: correct must be true or false`);
-      answersValid = false;
-    }
-  });
-
-  // Per-type rules need well-formed answers and a known type
-  if (!answersValid || !TYPES.includes(q.type)) {
-    return problems;
-  }
-
-  const total = q.answers.length;
-  const correct = q.answers.filter((answer) => answer.correct).length;
-
-  if (q.type === "single") {
-    if (total !== 4) {
-      problems.push(`single needs 4 answers, has ${total}`);
-    }
-    if (correct !== 1) {
-      problems.push(`single needs exactly 1 correct answer, has ${correct}`);
-    }
-  } else if (q.type === "multiple") {
-    if (total < 5 || total > 6) {
-      problems.push(`multiple needs 5-6 answers, has ${total}`);
-    }
-    if (correct < 2) {
-      problems.push(`multiple needs at least 2 correct answers, has ${correct}`);
-    }
-    if (correct === total) {
-      problems.push("multiple needs at least 1 wrong answer");
-    }
-  } else {
-    const texts = q.answers.map((answer) => answer.text).sort().join(",");
-    if (texts !== "False,True") {
-      problems.push('truefalse needs exactly the answers "True" and "False"');
-    }
-    if (correct !== 1) {
-      problems.push(`truefalse needs exactly 1 correct answer, has ${correct}`);
-    }
-  }
-
-  return problems;
-};
 
 const seenIds = new Set();
 questions.forEach((q, index) => {
@@ -174,7 +87,7 @@ questions.forEach((q, index) => {
     }
     seenIds.add(q.id);
   }
-  checkQuestion(q).forEach((problem) => errors.push(`${label}: ${problem}`));
+  validateQuestion(q, categories).forEach((problem) => errors.push(`${label}: ${problem}`));
 });
 
 if (errors.length > 0) {
