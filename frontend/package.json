@@ -14,7 +14,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "validate:questions": "node scripts/validate-questions.js",
-    "test:logic": "node scripts/test-run-builder.js && node scripts/test-answer-logic.js"
+    "test:logic": "node scripts/test-run-builder.js && node scripts/test-answer-logic.js && node scripts/test-settings-logic.js"
   },
   "eslintConfig": {
     "extends": [
