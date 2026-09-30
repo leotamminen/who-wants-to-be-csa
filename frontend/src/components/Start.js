@@ -5,10 +5,28 @@
 // about page (?)
 // difficulty select(?)
 import React, { useRef } from "react";
+import {
+  getDefaultSettings,
+  getShares,
+  MAX_WEIGHT,
+  setEnabled,
+  setFlag,
+  setWeight,
+} from "../lib/settingsLogic";
 
-const Start = ({ setName, setTimeOut, runStatus }) => {
+const Start = ({
+  setName,
+  setTimeOut,
+  runStatus,
+  message,
+  settings,
+  setSettings,
+  categories,
+  poolCounts,
+}) => {
   const inputRef = useRef();
-  const isReady = runStatus === "ready";
+  const isReady = runStatus === "ready" && !message;
+  const shares = getShares(settings, categories, poolCounts);
 
   const handleClick = () => {
     // Start only once the whole question set for the run is built
@@ -22,8 +40,10 @@ const Start = ({ setName, setTimeOut, runStatus }) => {
       inputRef.current.value = ""; // Clear input box if it is empty or just spaces
     } else {
       setName(nameInput);
-      // consolelog name
-      console.log("Name is:", nameInput);
+      console.log("Name is:", nameInput, {
+        practiceMode: settings.practiceMode,
+        musicOn: settings.musicOn,
+      });
     }
   };
 
@@ -52,7 +72,88 @@ const Start = ({ setName, setTimeOut, runStatus }) => {
         >
           {runStatus === "loading" ? "Loading questions..." : "Let's start!"}
         </button>
-        {runStatus === "too-few" && <p>Question pool is not ready yet</p>}
+        {message && <p>{message}</p>}
+        <details className="settings">
+          <summary>Settings</summary>
+          <label className="settings-flag">
+            <input
+              type="checkbox"
+              checked={settings.practiceMode}
+              onChange={(event) =>
+                setSettings((prev) =>
+                  setFlag(prev, "practiceMode", event.target.checked)
+                )
+              }
+            />{" "}
+            Practice mode
+          </label>
+          <label className="settings-flag">
+            <input
+              type="checkbox"
+              checked={settings.musicOn}
+              onChange={(event) =>
+                setSettings((prev) =>
+                  setFlag(prev, "musicOn", event.target.checked)
+                )
+              }
+            />{" "}
+            Music
+          </label>
+          <table className="settings-table">
+            <thead>
+              <tr>
+                <th>On</th>
+                <th>Category</th>
+                <th>Weight</th>
+                <th>Share</th>
+                <th>Questions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((category) => (
+                <tr key={category.id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      aria-label={`Use ${category.name}`}
+                      checked={Boolean(settings.enabled[category.id])}
+                      onChange={(event) =>
+                        setSettings((prev) =>
+                          setEnabled(prev, category.id, event.target.checked)
+                        )
+                      }
+                    />
+                  </td>
+                  <td>{category.name}</td>
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      max={MAX_WEIGHT}
+                      step="1"
+                      aria-label={`Weight for ${category.name}`}
+                      value={settings.weights[category.id]}
+                      onChange={(event) =>
+                        setSettings((prev) =>
+                          setWeight(prev, category.id, event.target.value)
+                        )
+                      }
+                    />
+                  </td>
+                  <td>{shares[category.id]}%</td>
+                  <td>{poolCounts[category.id] || 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button
+            type="button"
+            className="username-button"
+            onClick={() => setSettings(getDefaultSettings(categories))}
+          >
+            Reset to defaults
+          </button>
+        </details>
       </div>
     </div>
   );

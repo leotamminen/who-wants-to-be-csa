@@ -244,3 +244,36 @@ h1 {
   cursor: pointer;
   color: #ffffff;
 }
+
+.settings {
+  width: 90%;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.settings summary {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.settings-flag {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.settings-table th,
+.settings-table td {
+  padding: 4px 6px;
+  text-align: left;
+}
+
+.settings-table input[type="number"] {
+  width: 4em;
+  color: #121112;
+}

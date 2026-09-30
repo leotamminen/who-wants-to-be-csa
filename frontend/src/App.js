@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import GameOver from "./components/GameOver";
 import GameWinner from "./components/GameWinner";
 import Quiz from "./components/Quiz";
-import Timer from "./components/Timer";
 import Start from "./components/Start";
 import {
   buildRun,
   DEFAULT_RUN_LENGTH,
   getQuestionPool,
 } from "./lib/runBuilder";
+import {
+  getDefaultSettings,
+  getSettingsProblem,
+  getShares,
+} from "./lib/settingsLogic";
 
 // Ladder: question numbers, highest on top
 const LADDER = Array.from(
   { length: DEFAULT_RUN_LENGTH },
   (_, index) => DEFAULT_RUN_LENGTH - index
 );
-
-// Temporary until the Phase 7 settings: ?practice=off turns practice mode off
-const readPracticeMode = () =>
-  new URLSearchParams(window.location.search).get("practice") !== "off";
 
 // Builds the question set for one run. Async so the optional DB source
 // (Phase 9b) can plug in here. For now only the hard coded source exists,
@@ -33,26 +33,46 @@ function App() {
   const [name, setName] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [timeOut, setTimeOut] = useState(false);
-  const [answersLocked, setAnswersLocked] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  const [practiceMode] = useState(readPracticeMode);
   const [score, setScore] = useState(0);
   const [runStatus, setRunStatus] = useState("loading");
   const [run, setRun] = useState([]);
 
+  // Hard coded pool for the settings panel (categories and counts)
+  const [pool] = useState(() => getQuestionPool());
+  const poolCounts = useMemo(
+    () =>
+      pool.questions.reduce((counts, q) => {
+        counts[q.category] = (counts[q.category] || 0) + 1;
+        return counts;
+      }, {}),
+    [pool]
+  );
+  const [settings, setSettings] = useState(() =>
+    getDefaultSettings(pool.categories)
+  );
+  const practiceMode = settings.practiceMode;
+
   const question = run[questionNumber - 1] || null;
 
-  // Build the run once. The cancel flag ignores the first of the two
-  // StrictMode effect runs in development.
+  // Build the run on mount and again when the category or weight settings
+  // change (not for music or practice mode). The cancel flag drops stale
+  // builds, including the first of the two StrictMode effect runs.
   useEffect(() => {
     let cancelled = false;
-    loadRun({})
+    const runSettings = { enabled: settings.enabled, weights: settings.weights };
+    setRunStatus("loading");
+    loadRun(runSettings)
       .then((result) => {
         if (!cancelled) {
           console.log(
             `Run built (${result.status}): ${result.run.length} questions, per category:`,
             result.counts
           );
+          console.log("Settings for this run:", {
+            ...runSettings,
+            shares: getShares(runSettings, pool.categories, poolCounts),
+          });
           setRun(result.run);
           setRunStatus(result.status);
         }
@@ -66,7 +86,12 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [settings.enabled, settings.weights, pool, poolCounts]);
+
+  // Why Start is disabled, if it is
+  const startMessage =
+    getSettingsProblem(settings, pool.categories, poolCounts) ||
+    (runStatus === "too-few" ? "Not enough questions for these settings" : null);
 
   // Debug aid: log each question when it is shown
   useEffect(() => {
@@ -102,15 +127,8 @@ function App() {
       {name ? (
         <>
           <div className="game-container">
-            <div className="timer-container">
-              <div className="timer">
-                <Timer
-                  setTimeOut={setTimeOut}
-                  questionNumber={questionNumber}
-                  answersLocked={answersLocked}
-                />
-              </div>
-            </div>
+            {/* Timer circle hidden, the timer is disabled (Timer.js kept) */}
+            <div className="timer-container" />
             <div className="game">
               {timeOut ? (
                 <GameOver
@@ -134,7 +152,6 @@ function App() {
                   questionNumber={questionNumber}
                   setQuestionNumber={setQuestionNumber}
                   setTimeOut={setTimeOut}
-                  setAnswersLocked={setAnswersLocked}
                   practiceMode={practiceMode}
                   onResult={handleResult}
                 />
@@ -159,6 +176,11 @@ function App() {
           setName={setName}
           setTimeOut={setTimeOut}
           runStatus={runStatus}
+          message={startMessage}
+          settings={settings}
+          setSettings={setSettings}
+          categories={pool.categories}
+          poolCounts={poolCounts}
         />
       )}
     </div>
