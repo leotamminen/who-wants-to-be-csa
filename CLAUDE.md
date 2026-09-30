@@ -131,13 +131,13 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [ ] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
 - [ ] Delete server_old.js and the root package-lock.json
 - [ ] Remove unused dependencies (backend: agent-base, @vercel/node, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js)
-- [ ] Extend .gitignore files: backend gets `.env.*` and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
+- [ ] Extend .gitignore files: backend gets `.env.*` (followed by `!.env.example` so the example stays committed) and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
 - [ ] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
 - [ ] Add .env.example, verify gitignores cover all env files
 
 ### Phase 3: Infrastructure (Leo, manual)
 - [ ] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend)
-- [ ] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen)
+- [ ] After that decision: remove the build:ui script and express.static("build") in backend/app.js (or keep them if one project is chosen) (Claude, after Leo's decision)
 - [ ] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config)
 - [ ] New Atlas database and user, local backend .env created
 - [ ] New Vercel project(s), env vars set, CORS updated
