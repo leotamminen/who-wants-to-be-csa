@@ -4,6 +4,7 @@ import GameOver from "./components/GameOver";
 import GameWinner from "./components/GameWinner";
 import Quiz from "./components/Quiz";
 import Start from "./components/Start";
+import useBackgroundMusic from "./hooks/useBackgroundMusic";
 import {
   buildRun,
   DEFAULT_RUN_LENGTH,
@@ -88,6 +89,21 @@ function App() {
     };
   }, [settings.enabled, settings.weights, pool, poolCounts]);
 
+  // Background music: off on the start screen and after game over, the win
+  // track after a win or practice completion
+  const musicPhase = !name
+    ? "idle"
+    : timeOut
+    ? "over"
+    : isFinished
+    ? "won"
+    : "playing";
+  useBackgroundMusic({
+    enabled: settings.musicOn,
+    questionNumber,
+    phase: musicPhase,
+  });
+
   // Why Start is disabled, if it is
   const startMessage =
     getSettingsProblem(settings, pool.categories, poolCounts) ||
@@ -149,7 +165,6 @@ function App() {
               ) : (
                 <Quiz
                   question={question}
-                  questionNumber={questionNumber}
                   setQuestionNumber={setQuestionNumber}
                   setTimeOut={setTimeOut}
                   practiceMode={practiceMode}

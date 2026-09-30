@@ -1,11 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import Background_music from "../assets/Background_music.mp3";
-import fiveToEight from "../assets/five-eight.mp3";
-import eightToEleven from "../assets/eight-eleven.mp3";
-import elevenToThirteen from "../assets/eleven-thirteen.mp3";
-import fourteen from "../assets/fourteen.mp3";
-import fifteen from "../assets/fifteen.mp3";
-import millionaireRave from "../assets/MillionaireRave.mp3";
+import React, { useState } from "react";
 import {
   canLock,
   getAnswerStates,
@@ -23,7 +16,6 @@ const REVEAL_CLASSES = {
 
 const Quiz = ({
   question,
-  questionNumber,
   setQuestionNumber,
   setTimeOut,
   practiceMode,
@@ -33,65 +25,6 @@ const Quiz = ({
   const [selected, setSelected] = useState([]);
   const [answersLocked, setAnswersLocked] = useState(false);
   const [revealed, setRevealed] = useState(false);
-
-  // refs for various audio tracks
-  const audioRefs = {
-    backgroundMusic: useRef(new Audio(Background_music)),
-    fiveToEight: useRef(new Audio(fiveToEight)),
-    eightToEleven: useRef(new Audio(eightToEleven)),
-    elevenToThirteen: useRef(new Audio(elevenToThirteen)),
-    fourteen: useRef(new Audio(fourteen)),
-    fifteen: useRef(new Audio(fifteen)),
-    millionaireRave: useRef(new Audio(millionaireRave)),
-    // TODO: add correct/incorrect sounds, maybe lock in answer
-  };
-
-  const playAudio = (audioRef) => {
-    document.addEventListener("click", function playAudioOnInteraction() {
-      Object.values(audioRefs).forEach((ref) => {
-        if (ref.current !== audioRef.current) {
-          ref.current.pause();
-          ref.current.currentTime = 0;
-        }
-      });
-
-      audioRef.current.loop = true;
-      audioRef.current.play();
-
-      document.removeEventListener("click", playAudioOnInteraction);
-    });
-  };
-
-  useEffect(() => {
-    const {
-      backgroundMusic,
-      fiveToEight,
-      eightToEleven,
-      elevenToThirteen,
-      fourteen,
-      fifteen,
-      millionaireRave,
-    } = audioRefs;
-
-    // Play specific songs for question numbers. Works fine for different rounds
-    if (questionNumber < 6) {
-      playAudio(backgroundMusic);
-    } else if (questionNumber < 9) {
-      playAudio(fiveToEight);
-    } else if (questionNumber < 12) {
-      playAudio(eightToEleven);
-    } else if (questionNumber < 14) {
-      playAudio(elevenToThirteen);
-    } else if (questionNumber === 14) {
-      playAudio(fourteen);
-    } else if (questionNumber === 15) {
-      playAudio(fifteen);
-    } else if (questionNumber === 16) {
-      playAudio(millionaireRave);
-    }
-    // Audio is rewritten in Phase 7, until then it runs once per question
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionNumber]);
 
   // Delays the execution of a callback function for any given time
   const delay = (duration, callBack) => {
