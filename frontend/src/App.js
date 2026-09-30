@@ -4,9 +4,22 @@ import GameOver from "./components/GameOver";
 import GameWinner from "./components/GameWinner";
 import Quiz from "./components/Quiz";
 import Timer from "./components/Timer";
-import { prizeSums } from "./questions";
 import Start from "./components/Start";
-import { buildRun, getQuestionPool } from "./lib/runBuilder";
+import {
+  buildRun,
+  DEFAULT_RUN_LENGTH,
+  getQuestionPool,
+} from "./lib/runBuilder";
+
+// Ladder: question numbers, highest on top
+const LADDER = Array.from(
+  { length: DEFAULT_RUN_LENGTH },
+  (_, index) => DEFAULT_RUN_LENGTH - index
+);
+
+// Temporary until the Phase 7 settings: ?practice=off turns practice mode off
+const readPracticeMode = () =>
+  new URLSearchParams(window.location.search).get("practice") !== "off";
 
 // Builds the question set for one run. Async so the optional DB source
 // (Phase 9b) can plug in here. For now only the hard coded source exists,
@@ -21,8 +34,9 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [timeOut, setTimeOut] = useState(false);
   const [answersLocked, setAnswersLocked] = useState(false);
-  const [isMillionaire, setIsMillionaire] = useState(false);
-  const [earnedMoney, setEarnedMoney] = useState("0 €");
+  const [isFinished, setIsFinished] = useState(false);
+  const [practiceMode] = useState(readPracticeMode);
+  const [score, setScore] = useState(0);
   const [runStatus, setRunStatus] = useState("loading");
   const [run, setRun] = useState([]);
 
@@ -67,22 +81,20 @@ function App() {
     }
   }, [name, question, questionNumber]);
 
-  // Update earned money when the question number changes
-  useEffect(() => {
-    // only start tracking after player got through first question
-    questionNumber > 1 &&
-      setEarnedMoney(
-        prizeSums.find((item) => item.id === questionNumber - 1).amount
-      );
-  }, [questionNumber]);
-
-  // The run is won once the question number passes the last question.
+  // The run is finished once the question number passes the last question.
   // Handled in an effect, never during render.
   useEffect(() => {
     if (run.length > 0 && questionNumber > run.length) {
-      setIsMillionaire(true);
+      setIsFinished(true);
     }
   }, [questionNumber, run.length]);
+
+  // Called by Quiz at the reveal of each answer
+  const handleResult = (correct) => {
+    if (correct) {
+      setScore((prev) => prev + 1);
+    }
+  };
 
   // Only render the game content if the name is provided
   return (
@@ -103,11 +115,19 @@ function App() {
               {timeOut ? (
                 <GameOver
                   className="game-over"
-                  earnedMoney={earnedMoney}
-                  name={name}
+                  questionNumber={questionNumber}
                 />
-              ) : isMillionaire ? (
-                <GameWinner className="game-over" />
+              ) : isFinished ? (
+                practiceMode ? (
+                  <GameWinner
+                    className="game-over"
+                    title="Practice complete"
+                    score={score}
+                    total={run.length}
+                  />
+                ) : (
+                  <GameWinner className="game-over" />
+                )
               ) : (
                 <Quiz
                   question={question}
@@ -115,20 +135,20 @@ function App() {
                   setQuestionNumber={setQuestionNumber}
                   setTimeOut={setTimeOut}
                   setAnswersLocked={setAnswersLocked}
+                  practiceMode={practiceMode}
+                  onResult={handleResult}
                 />
               )}
             </div>
           </div>
           <div className="money-container">
             <ul className="money-list">
-              {prizeSums.map((item) => (
+              {LADDER.map((number) => (
                 <li
-                  key={item.id}
-                  className={
-                    questionNumber === item.id ? "item active" : "item"
-                  }
+                  key={number}
+                  className={questionNumber === number ? "item active" : "item"}
                 >
-                  <h5 className="amount">{item.amount}</h5>
+                  <h5 className="amount">{number}</h5>
                 </li>
               ))}
             </ul>

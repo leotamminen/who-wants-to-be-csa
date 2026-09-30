@@ -21,7 +21,14 @@ const REVEAL_CLASSES = {
   neutral: "answer",
 };
 
-const Quiz = ({ question, questionNumber, setQuestionNumber, setTimeOut }) => {
+const Quiz = ({
+  question,
+  questionNumber,
+  setQuestionNumber,
+  setTimeOut,
+  practiceMode,
+  onResult,
+}) => {
   // Indexes of the selected answers
   const [selected, setSelected] = useState([]);
   const [answersLocked, setAnswersLocked] = useState(false);
@@ -118,9 +125,14 @@ const Quiz = ({ question, questionNumber, setQuestionNumber, setTimeOut }) => {
     const texts = selected.map((index) => question.answers[index].text);
     console.log(`Locked: ${JSON.stringify(texts)} -> ${correct ? "correct" : "wrong"}`);
 
-    // Reveal after 3 seconds, then move on after 1 more second
+    // Reveal after 3 seconds. Practice mode then waits for Next, the classic
+    // game moves on after 1 more second.
     delay(3000, () => {
       setRevealed(true);
+      onResult(correct);
+      if (practiceMode) {
+        return;
+      }
       delay(1000, () => {
         if (correct) {
           resetAnswer();
@@ -133,7 +145,14 @@ const Quiz = ({ question, questionNumber, setQuestionNumber, setTimeOut }) => {
     });
   };
 
+  // Practice mode: the Next button after the reveal
+  const handleNext = () => {
+    resetAnswer();
+    setQuestionNumber((prev) => prev + 1);
+  };
+
   const requiredCount = getRequiredCount(question);
+  const showExplanation = practiceMode && revealed && question;
   const answerStates = revealed ? getAnswerStates(question, selected) : null;
   const answerClass = (index) =>
     answerStates
@@ -161,13 +180,25 @@ const Quiz = ({ question, questionNumber, setQuestionNumber, setTimeOut }) => {
           </div>
         ))}
       </div>
-      <button
-        className="lock-in-button"
-        onClick={handleLockIn}
-        disabled={answersLocked || !canLock(question, selected)}
-      >
-        Lock Answer
-      </button>
+      {showExplanation ? (
+        <>
+          <div className="explanation">
+            <p>{isCorrect(question, selected) ? "Correct!" : "Wrong."}</p>
+            <p>{question.explanation}</p>
+          </div>
+          <button className="lock-in-button" onClick={handleNext}>
+            Next
+          </button>
+        </>
+      ) : (
+        <button
+          className="lock-in-button"
+          onClick={handleLockIn}
+          disabled={answersLocked || !canLock(question, selected)}
+        >
+          Lock Answer
+        </button>
+      )}
     </div>
   );
 };

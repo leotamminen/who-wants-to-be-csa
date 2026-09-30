@@ -31,8 +31,8 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `models/question.js`: Mongoose model `Question` (collection `questions`).
   - `utils/config.js` (dotenv, PORT, MONGODB_URI), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
 - frontend (Create React App, React 18):
-  - `src/App.js`: all game state, money ladder, screen switching. Builds the run once on mount through `loadRun(settings)` (async, hard coded only for now, DB plugs in there in Phase 9b), holds `runStatus` (`loading` | `ready` | `too-few`) and `run`, question = `run[questionNumber - 1]`. Logs the run composition and each shown question to the console.
-  - components: `Start` (name + button, gated on `runStatus`), `Quiz` (question, answers, lock button, music; selection is an array of answer indexes handled by `src/lib/answerLogic.js`, reveal after 3 s, next step after 1 more s), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
+  - `src/App.js`: all game state, ladder (question numbers 15 to 1), screen switching, `practiceMode` (default ON, temporary `?practice=off`) and `score`. Builds the run once on mount through `loadRun(settings)` (async, hard coded only for now, DB plugs in there in Phase 9b), holds `runStatus` (`loading` | `ready` | `too-few`) and `run`, question = `run[questionNumber - 1]`. Logs the run composition and each shown question to the console.
+  - components: `Start` (name + button, gated on `runStatus`), `Quiz` (question, answers, lock button, music; selection is an array of answer indexes handled by `src/lib/answerLogic.js`, reveal after 3 s, next step after 1 more s), `Timer` (effectively disabled), `GameOver` ("You reached question N"), `GameWinner` (classic win, or "Practice complete" with "Score: X / 15" and the play-again link when given a score).
   - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`. Not imported anywhere since Phase 5, kept for Phase 9b.
   - `src/data/categories.json` and `src/data/questions.json`: category config (with the id `prefix` per category) and question pool (see Question model). Read by `src/lib/runBuilder.js`.
   - `src/lib/validateQuestion.js`: per-question checks (CommonJS, no dependencies), shared by the validator script and the game.
@@ -40,7 +40,6 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `src/lib/answerLogic.js`: pure answer rules (CommonJS, no React): `getCorrectIndexes`, `getRequiredCount`, `toggleSelection`, `canLock`, `isCorrect` (exact set), `getAnswerStates` (correct/wrong/neutral for the reveal). A selection is an array of answer indexes.
   - `scripts/test-run-builder.js` and `scripts/test-answer-logic.js`: logic tests (node:assert, no dependencies), both run with `npm run test:logic`.
   - `scripts/validate-questions.js`: data validator, run with `npm run validate:questions` (add `-- --require-reviewed` for release). Uses `src/lib/validateQuestion.js` plus the file-level checks (categories, duplicate ids, summary table).
-  - `src/questions.js`: old Finnish trivia (unused in game flow) and `prizeSums`.
   - `src/assets/*.mp3`: 7 music tracks.
   - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
 - Env vars read by code: backend `PORT`, `MONGODB_URI`; frontend `REACT_APP_BASE_URL`, `REACT_APP_ALLOW_UNREVIEWED` (see Review rule). Listed in `backend/.env.example` and `frontend/.env.example`.
@@ -124,7 +123,7 @@ Practice mode ON: a wrong answer does not end the run. Show the correct answer(s
 - Lifelines: the old game has none. Out of the MVP. (If added later: 50:50 removes only wrong options, keeps all correct ones for `multiple`, disabled for `truefalse`.)
 - Timer: stays disabled.
 - Ladder: shows question numbers 1-15 instead of prize sums. No euro amounts anywhere.
-- `src/questions.js` (old trivia and `prizeSums`) is deleted once nothing imports it.
+- `src/questions.js` (old trivia and `prizeSums`) was deleted in Phase 6.
 
 ## Debug logging
 Whenever a question is shown, log its id, category and correct answer(s) to the console, plus which source served it. This is a dev aid. It stays in production but is not advertised in the UI.
@@ -186,7 +185,7 @@ Known temporary limitation (fixed in Phase 6): until Phase 6, the old Quiz.js ac
 ### Phase 6: Game UI logic
 The Phase 5 limitation (single pick for every type) is fixed by the answer flows below.
 - [x] `single`, `multiple` and `truefalse` answer flows
-- [ ] Practice mode ON/OFF behavior and explanation display
+- [x] Practice mode ON/OFF behavior and explanation display
 - Temporary until the Phase 7 settings exist: the URL query `?practice=off` turns practice mode off (default ON). Removed in Phase 7.
 
 ### Phase 7: Start screen settings
@@ -257,3 +256,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Phase 6 plan recorded: Lock button disabled until the selection is complete (replaces the alert), single/truefalse select-then-lock, temporary ?practice=off until Phase 7, ladder 1-15 with no euro amounts, src/questions.js deleted once unused. Phase 7 gets the music transition fix, Phase 12 gets lifelines and sound/animation polish.
 - 2026-09-30: Answer logic added (src/lib/answerLogic.js) with scripts/test-answer-logic.js covering all three types: replace/toggle, limit N, canLock, exact set vs subset/superset/different set, reveal states incl. missed correct answers, no mutation. test:logic runs both files: 17/17 and 11/11 pass. Not wired into Quiz.js yet.
 - 2026-09-30: Answer flows done in Quiz.js: selection as index array via answerLogic (click replaces for single/truefalse, toggle with limit N for multiple), "Select N answers. Selected x/N" line for multiple, Lock disabled until canLock (alert removed), selected answers orange for 3 s, then every answer revealed (correct incl. missed, incorrect for wrong picks), classic flow kept. The 4 s correct/incorrect keyframes were replaced by static colours, because the 3 s wait now shows as "active". End of run moved from render into an App.js effect. One "Locked: [...] -> correct|wrong" log. The 3 old lint warnings are fixed (eslint-disable on the audio effect deps until the Phase 7 rewrite). validate:questions, test:logic (17/17, 11/11), node --check and CI=true build pass with no warnings.
+- 2026-09-30: Phase 6 done. Practice mode (default ON, temporary ?practice=off until Phase 7): after the reveal an .explanation box ("Correct!"/"Wrong." plus the explanation) and a Next button, no auto advance, wrong answers do not end the run, end screen "Practice complete" with "Score: X / 15" and the play-again link (GameWinner with props). Classic mode unchanged. Score counted at each reveal. Ladder shows 15..1, GameOver says "You reached question N", earnedMoney removed, src/questions.js deleted (nothing imported it). validate:questions, test:logic (17/17, 11/11), node --check and CI=true build pass with no lint warnings.

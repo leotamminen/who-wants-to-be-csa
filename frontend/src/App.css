@@ -134,6 +134,18 @@ h1 {
   cursor: default;
 }
 
+.explanation {
+  max-width: 1000px;
+  width: 85%;
+  padding: 15px 20px;
+  margin-top: 10px;
+  background: linear-gradient(#110447, #091270);
+  border: 1px solid #fff;
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
 .lock-in-button,
 .username-button {
   width: 45%;

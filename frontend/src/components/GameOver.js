@@ -1,7 +1,7 @@
 import React from "react";
 
 // Function for refreshing the page when clicked "here".
-function GameOver({ className, earnedMoney, name }) {
+function GameOver({ className, questionNumber }) {
   const refreshPage = () => {
     window.location.reload();
   };
@@ -9,9 +9,7 @@ function GameOver({ className, earnedMoney, name }) {
   return (
     <div className={className}>
       <h1 className="gameover-h1">Game Over</h1>
-      <h2>
-        {name} earned {earnedMoney}
-      </h2>
+      <h2>You reached question {questionNumber}</h2>
 
       <p>
         You can try again by pressing{" "}
