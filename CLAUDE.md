@@ -34,6 +34,8 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `src/App.js`: all game state, per-round question fetch, money ladder, screen switching.
   - components: `Start` (name + button), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
   - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`.
+  - `src/data/categories.json` and `src/data/questions.json`: category config and question pool (see Question model). Not yet used by the game (Phase 5).
+  - `scripts/validate-questions.js`: data validator, run with `npm run validate:questions` (add `-- --require-reviewed` for release).
   - `src/questions.js`: old Finnish trivia (unused in game flow) and `prizeSums`.
   - `src/assets/*.mp3`: 7 music tracks.
   - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
@@ -165,9 +167,9 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - Open account items (Atlas, Vercel projects, CORS) moved to Phase 9b.
 
 ### Phase 4: Data model and content base
-- [ ] Data files: `frontend/src/data/categories.json` (seven categories) and `frontend/src/data/questions.json` (schema above)
-- [ ] Validator: `frontend/scripts/validate-questions.js` (plain Node) and `npm run validate:questions`, with `--require-reviewed` for release
-- [ ] Placeholders: at least 5 questions per core category and 3 in extra, all types and difficulties 1-3 mixed, all `reviewed: false`
+- [x] Data files: `frontend/src/data/categories.json` (seven categories) and `frontend/src/data/questions.json` (schema above)
+- [x] Validator: `frontend/scripts/validate-questions.js` (plain Node) and `npm run validate:questions`, with `--require-reviewed` for release
+- [x] Placeholders: at least 5 questions per core category and 3 in extra, all types and difficulties 1-3 mixed, all `reviewed: false`
 
 ### Phase 5: Loading logic
 - [ ] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
@@ -236,3 +238,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: CSA rename done: page title/description, Start heading/placeholder, GameWinner text; Mongoose model QuestionsCollection renamed to Question (collection "questions"). Added backend/.env.example (MONGODB_URI, PORT) and frontend/.env.example (REACT_APP_BASE_URL). git ls-files shows only frontend/.env.development and the two .env.example files tracked. Build and node --check pass. Phase 2 complete.
 - 2026-09-30: Phase 3 decision: two Vercel projects (Root Directory backend and frontend). Per current Vercel docs, Express runs zero-config from app.js (requires express, module.exports = app). Removed express.static("build") and the build:ui script, deleted vercel.json, uninstalled @vercel/node. server.js kept for local dev. cors() stays open until the frontend URL exists. Architecture section updated. node --check and build pass.
 - 2026-09-30: Plan change: hard coded questions first, DB source optional and last. New question schema (per-answer correct flags, explanation required, reviewed flag), review rule (only reviewed questions in production, only Leo sets reviewed), six core categories and weights from Leo's exam spec plus an extra category. Open Phase 3 account items, the DB seed script, the DB source and the DB robustness tests moved to the new Phase 9b. Phase 4 and Phase 10 rewritten.
+- 2026-09-30: Phase 4 done. Added categories.json (6 core + extra), questions.json (the 3 real entries from Leo, still unreviewed, plus 30 visible placeholders: 5 per core category, 3 extra, all types and difficulties) and validate-questions.js with npm run validate:questions. Validator passes (33 questions). --require-reviewed fails as expected (0 reviewed). All error checks were tested against a broken copy in a temp folder.

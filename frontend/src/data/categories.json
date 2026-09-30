@@ -1,0 +1,9 @@
+[
+  { "id": "platform-overview", "name": "Platform Overview and Navigation", "weight": 7, "extra": false },
+  { "id": "instance-configuration", "name": "Instance Configuration", "weight": 10, "extra": false },
+  { "id": "collaboration", "name": "Configuring Applications for Collaboration", "weight": 20, "extra": false },
+  { "id": "self-service-automation", "name": "Self Service & Automation", "weight": 20, "extra": false },
+  { "id": "database-management", "name": "Database Management and Platform Security", "weight": 30, "extra": false },
+  { "id": "data-migration-integration", "name": "Data Migration and Integration", "weight": 13, "extra": false },
+  { "id": "extra", "name": "Extra (for fun)", "weight": 10, "extra": true }
+]

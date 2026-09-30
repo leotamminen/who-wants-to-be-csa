@@ -1,0 +1,494 @@
+[
+  {
+    "id": "dbm-001",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What CMDB table stores the basic attributes of all the configuration items?",
+    "answers": [
+      { "text": "Configuration File [cmdb_ci_config_file]", "correct": false },
+      { "text": "Configuration Item [cmdb_ci]", "correct": true },
+      { "text": "CI Relationship [cmdb_rel_ci]", "correct": false },
+      { "text": "Base Configuration Item [cmdb]", "correct": false }
+    ],
+    "explanation": "cmdb_ci is the base table for CI classes and holds the attributes common to all CIs.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-002",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which of the following tables extend the Task table?",
+    "answers": [
+      { "text": "Incident [incident]", "correct": true },
+      { "text": "Problem [problem]", "correct": true },
+      { "text": "Change Request [change_request]", "correct": true },
+      { "text": "User [sys_user]", "correct": false },
+      { "text": "Configuration Item [cmdb_ci]", "correct": false }
+    ],
+    "explanation": "Incident, Problem and Change Request are task-based and extend Task. User and CI do not.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-001",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "An import set table is a staging table that holds imported data before a transform map moves it to the target table.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Data lands in the import set table first, then the transform map maps it into the target table.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-001",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Platform Overview and Navigation question 1",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for pon-001.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-002",
+    "category": "platform-overview",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Platform Overview and Navigation question 2",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for pon-002.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-003",
+    "category": "platform-overview",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Platform Overview and Navigation question 3",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for pon-003.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-004",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Platform Overview and Navigation question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for pon-004.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-005",
+    "category": "platform-overview",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Platform Overview and Navigation question 5",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": true },
+      { "text": "Placeholder answer F", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for pon-005.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-001",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Instance Configuration question 1",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ins-001.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-002",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Instance Configuration question 2",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ins-002.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-003",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Instance Configuration question 3",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ins-003.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-004",
+    "category": "instance-configuration",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Instance Configuration question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": true },
+      { "text": "Placeholder answer E", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ins-004.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-005",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Instance Configuration question 5",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ins-005.",
+    "reviewed": false
+  },
+  {
+    "id": "col-001",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 1",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for col-001.",
+    "reviewed": false
+  },
+  {
+    "id": "col-002",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 2",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": true },
+      { "text": "Placeholder answer E", "correct": false },
+      { "text": "Placeholder answer F", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for col-002.",
+    "reviewed": false
+  },
+  {
+    "id": "col-003",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 3",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for col-003.",
+    "reviewed": false
+  },
+  {
+    "id": "col-004",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for col-004.",
+    "reviewed": false
+  },
+  {
+    "id": "col-005",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 5",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for col-005.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-001",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Self Service & Automation question 1",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ssa-001.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-002",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Self Service & Automation question 2",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ssa-002.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-003",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Self Service & Automation question 3",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ssa-003.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-004",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Self Service & Automation question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ssa-004.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-005",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Self Service & Automation question 5",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": false },
+      { "text": "Placeholder answer F", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ssa-005.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-003",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Database Management and Platform Security question 3",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dbm-003.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-004",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Database Management and Platform Security question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dbm-004.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-005",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Database Management and Platform Security question 5",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": true },
+      { "text": "Placeholder answer E", "correct": false },
+      { "text": "Placeholder answer F", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dbm-005.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-002",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Data Migration and Integration question 2",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dmi-002.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-003",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Data Migration and Integration question 3",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": true },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": false },
+      { "text": "Placeholder answer E", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dmi-003.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-004",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Data Migration and Integration question 4",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dmi-004.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-005",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Data Migration and Integration question 5",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for dmi-005.",
+    "reviewed": false
+  },
+  {
+    "id": "ext-001",
+    "category": "extra",
+    "type": "single",
+    "difficulty": 1,
+    "question": "[PLACEHOLDER] Extra question 1",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": false },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": false },
+      { "text": "Placeholder answer D", "correct": true }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ext-001.",
+    "reviewed": false
+  },
+  {
+    "id": "ext-002",
+    "category": "extra",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "[PLACEHOLDER] Extra question 2",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ext-002.",
+    "reviewed": false
+  },
+  {
+    "id": "ext-003",
+    "category": "extra",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "[PLACEHOLDER] Extra question 3",
+    "answers": [
+      { "text": "Placeholder answer A", "correct": true },
+      { "text": "Placeholder answer B", "correct": false },
+      { "text": "Placeholder answer C", "correct": true },
+      { "text": "Placeholder answer D", "correct": true },
+      { "text": "Placeholder answer E", "correct": false }
+    ],
+    "explanation": "[PLACEHOLDER] Explanation for ext-003.",
+    "reviewed": false
+  }
+]
