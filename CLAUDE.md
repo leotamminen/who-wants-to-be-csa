@@ -131,7 +131,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
 - [x] Delete server_old.js and the root package-lock.json
 - [x] Remove unused dependencies (backend: agent-base, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js). @vercel/node kept, see Phase 3.
-- [ ] Extend .gitignore files: backend gets `.env.*` (followed by `!.env.example` so the example stays committed) and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
+- [x] Extend .gitignore files: backend gets `.env.*` (followed by `!.env.example` so the example stays committed) and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
 - [ ] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
 - [ ] Add .env.example, verify gitignores cover all env files
 
@@ -201,3 +201,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Decision: AI/Gemini is out of the MVP. Sources are DB and hard coded. AI moved to Phase 12 (post-MVP extras).
 - 2026-09-30: Phase 1 audit done and approved. Decisions: delete AI path in Phase 2; add category/type/correct[]/difficulty 1-3; run built up front and sorted by difficulty; DB optional, loaded once with client timeout; no lifelines, timer disabled, ladder shows 1-15; console logs id, category, correct answers.
 - 2026-09-30: Removed unused deps (backend: agent-base, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), the earnedMoney dead import and the commented-out code in Quiz.js. Kept @vercel/node for the Phase 3 vercel.json check. Build and node --check pass.
+- 2026-09-30: .gitignore extended. Backend: .env.*, !.env.example, build. Frontend: .env.production. Verified with git check-ignore: .env.example and frontend/.env.development stay unignored, and no tracked file is ignored.
