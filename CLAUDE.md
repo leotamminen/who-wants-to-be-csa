@@ -117,12 +117,13 @@ Settings are locked once a run starts. No persistence unless Leo asks for it.
 Practice mode ON: a wrong answer does not end the run. Show the correct answer(s) and the explanation, continue to the next question, final result is a score out of 15. Practice mode OFF: classic behavior, a wrong answer ends the run (the old game has no safe checkpoints).
 
 ## Answer UI
-- `single`: click selects and locks, as before.
-- `multiple`: toggle options, show a "Selected x/N" counter, do not allow more than N, Confirm button enabled only when exactly N are selected.
-- `truefalse`: two large buttons.
+- `single` and `truefalse`: clicking selects one answer (clicking another replaces it), the Lock button confirms (existing flow).
+- `multiple`: toggle options, show "Select N answers" and a "Selected x/N" counter, do not allow more than N, the Lock button confirms.
+- The Lock button is disabled until the selection is complete for every type (1 for `single`/`truefalse`, exactly N for `multiple`). This replaces the old alert.
 - Lifelines: the old game has none. Out of the MVP. (If added later: 50:50 removes only wrong options, keeps all correct ones for `multiple`, disabled for `truefalse`.)
 - Timer: stays disabled.
-- Ladder: shows question numbers 1-15 instead of prize sums.
+- Ladder: shows question numbers 1-15 instead of prize sums. No euro amounts anywhere.
+- `src/questions.js` (old trivia and `prizeSums`) is deleted once nothing imports it.
 
 ## Debug logging
 Whenever a question is shown, log its id, category and correct answer(s) to the console, plus which source served it. This is a dev aid. It stays in production but is not advertised in the UI.
@@ -185,13 +186,14 @@ Known temporary limitation: until Phase 6, the old Quiz.js accepts a single pick
 Must fix the Phase 5 limitation: Quiz.js still takes a single pick for every type, so `multiple` questions are scored wrongly until the `multiple` flow exists.
 - [ ] `single`, `multiple` and `truefalse` answer flows
 - [ ] Practice mode ON/OFF behavior and explanation display
-- [ ] Lifelines compatible with all types
+- Temporary until the Phase 7 settings exist: the URL query `?practice=off` turns practice mode off (default ON). Removed in Phase 7.
 
 ### Phase 7: Start screen settings
 - [ ] Settings panel with defaults (music OFF, practice ON, all sources checked)
 - [ ] Source checkboxes (last one cannot be unchecked)
 - [ ] Category toggles (extras off) and editable weights with reset
 - [ ] Music toggle
+- [ ] Fix music transitions: the track changes only after a click instead of when the question changes (audit: Quiz.js adds a one-time document click listener per round with no cleanup, and creates new Audio() on every render). Use one audio controller: start on a user gesture (Start click or music toggle), switch track when the question number changes, stop at the end of the game. Default OFF.
 
 ### Phase 8: Mobile
 Audit findings (App.css has no @media rules at all):
@@ -233,6 +235,8 @@ Audit findings (App.css has no @media rules at all):
 ### Phase 12: Post-MVP extras (optional, only when Leo asks)
 - [ ] AI feature, e.g. AI explains or evaluates a wrong answer, or AI-generated questions. The game must work fully without it and the fallback guarantee must not change. Leo approves the provider first. The key stays in backend env only.
 - [ ] Other extras Leo decides on
+- [ ] Lifelines (50:50 etc.), out of the MVP since the Phase 1 decision. Rules in the Answer UI section apply if added.
+- [ ] Polish, low priority, do last: better answer-select and lock sounds and animations
 
 ## Progress log
 Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
@@ -248,3 +252,5 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Shared validation: categories.json gets a `prefix` per category, per-question checks moved to src/lib/validateQuestion.js (used by validate-questions.js), new check that the id prefix matches the category prefix. Validator output and exit codes unchanged. Decisions recorded: Sources section hidden while REACT_APP_BASE_URL is unset, REACT_APP_ALLOW_UNREVIEWED, multiple scored wrongly until Phase 6, prefix mapping in categories.json.
 - 2026-09-30: Run builder added (src/lib/runBuilder.js): hard coded pool with validation and review filter, slot-by-slot weighted allocation (largest remainder, redistributes when a category runs out), sampling without replacement, ascending difficulty, answer shuffle except truefalse, source "hardcoded". scripts/test-run-builder.js (npm run test:logic, seeded mulberry32): 17/17 pass. Not wired into the game yet.
 - 2026-09-30: Phase 5 done. App.js builds the run once on mount via async loadRun (StrictMode-safe cancel flag), per-round dbQuestionService fetch and its import removed, question = run[questionNumber - 1]. Console logs run composition once and id/category/type/correct/source per shown question. Start button and Enter do nothing until runStatus is "ready" ("Loading questions..." while loading, "Question pool is not ready yet" when too-few, which production shows while nothing is reviewed). Small .username-button:disabled style added. validate:questions, test:logic (17/17), node --check and build pass. Build still has 3 pre-existing eslint warnings in Quiz.js and Timer.js, which fail a CI=true build (Vercel) and need fixing before the Phase 8 deploy.
+- 2026-09-30: SKIPPED Phase 6 item "Lifelines compatible with all types": lifelines are out of the MVP since the Phase 1 decision (the old game has none). Moved to Phase 12.
+- 2026-09-30: Phase 6 plan recorded: Lock button disabled until the selection is complete (replaces the alert), single/truefalse select-then-lock, temporary ?practice=off until Phase 7, ladder 1-15 with no euro amounts, src/questions.js deleted once unused. Phase 7 gets the music transition fix, Phase 12 gets lifelines and sound/animation polish.
