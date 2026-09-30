@@ -129,7 +129,7 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [x] Remove the Mongo URI logging in backend/app.js:14 (it prints credentials to the logs)
 - [x] Remove the deploy:full script
 - [x] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
-- [ ] Delete server_old.js and the root package-lock.json
+- [x] Delete server_old.js and the root package-lock.json
 - [ ] Remove unused dependencies (backend: agent-base, @vercel/node, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js)
 - [ ] Extend .gitignore files: backend gets `.env.*` (followed by `!.env.example` so the example stays committed) and `build`; frontend gets `.env.production` only (frontend/.env.development stays tracked)
 - [ ] Rename package names, titles, README (except the attribution link), URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
