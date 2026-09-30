@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const apiController = require("./controllers/apiController");
 const dbController = require("./controllers/dbController");
 
 const middleware = require("./utils/middleware");
@@ -26,7 +25,6 @@ app.use(cors());
 app.use(express.static("build"));
 app.use(express.json());
 
-app.use("/api/apiquestions", apiController);
 app.use("/api/dbquestions", dbController);
 
 app.use(middleware.unknownEndpoint);

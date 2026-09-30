@@ -7,7 +7,6 @@ import Timer from "./components/Timer";
 import { prizeSums } from "./questions";
 import Start from "./components/Start";
 
-import apiQuestionService from "./services/apiQuestionService";
 import dbQuestionService from "./services/dbQuestionService";
 
 function App() {
@@ -26,17 +25,10 @@ function App() {
       setEarnedMoney(
         prizeSums.find((item) => item.id === questionNumber - 1).amount
       );
-    apiQuestionService.getQuestion().then((apiQuestion) => {
-      if (apiQuestion) {
-        console.log("api kysymys");
-        setQuestion(apiQuestion);
-      } else {
-        console.log("db kysymys");
-        dbQuestionService
-          .getQuestion(questionNumber)
-          .then((dbQuestion) => setQuestion(dbQuestion));
-      }
-    });
+    console.log("db kysymys");
+    dbQuestionService
+      .getQuestion(questionNumber)
+      .then((dbQuestion) => setQuestion(dbQuestion));
   }, [questionNumber]);
 
   // Define a function to update isMillionaire state
