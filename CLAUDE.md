@@ -20,16 +20,34 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
 - Ask before adding dependencies.
 - Keep UI changes minimal. Only change what the features below require. Do not refactor working UI.
 
-## Architecture (names from the initial file list, verify in audit)
-- backend: app.js, server.js, controllers/apiAIQuestionGenerator.js (Gemini), controllers/dbController.js (MongoDB), controllers/apiController.js, models/question.js, vercel.json. server_old.js looks unused, confirm before removing.
-- frontend (React): src/questions.js (hard coded), src/services/apiQuestionService.js, src/services/dbQuestionService.js, components Start, Quiz, Timer, GameOver, GameWinner.
-- The AI path (controllers/apiAIQuestionGenerator.js, controllers/apiController.js, src/services/apiQuestionService.js) is inherited from the old game and is not part of the MVP. Take it out of the game flow and settings. Do not delete the files until Leo approves (the audit proposes keep or delete).
+## Architecture (verified in the Phase 1 audit, state before Phase 2)
+- backend (Express + Mongoose):
+  - `server.js`: entry, `http.createServer(app).listen(PORT || 3001)`. Exports nothing.
+  - `app.js`: Mongo connect, `cors()` open to all origins, `express.static("build")`, routes `/api/apiquestions` and `/api/dbquestions`, 404 and error middleware.
+  - `controllers/dbController.js`: `GET /` all questions, `GET /:difficulty` one random question of that difficulty. No try/catch.
+  - `controllers/apiController.js` + `controllers/apiAIQuestionGenerator.js`: AI path (PaLM text-bison-001). Approved for deletion in Phase 2.
+  - `models/question.js`: Mongoose model `QuestionsCollection` (collection `questionscollections`).
+  - `utils/config.js` (dotenv, PORT, MONGODB_URI, API_KEY), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
+  - `vercel.json`: legacy `builds` config, `@vercel/node`, all routes to server.js.
+  - `server_old.js`: unused stub. Root `package-lock.json`: stray, no root package.json.
+- frontend (Create React App, React 18):
+  - `src/App.js`: all game state, per-round question fetch, money ladder, screen switching.
+  - components: `Start` (name + button), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
+  - `src/services/dbQuestionService.js`, `src/services/apiQuestionService.js` (AI, to be deleted): axios calls to `${REACT_APP_BASE_URL}/api/...`.
+  - `src/questions.js`: old Finnish trivia (unused in game flow) and `prizeSums`.
+  - `src/assets/*.mp3`: 7 music tracks.
+  - `frontend/.env.development` is tracked and contains only `DANGEROUSLY_DISABLE_HOST_CHECK=true` (harmless).
+- Env vars read by code: `PORT`, `MONGODB_URI`, `API_KEY` (AI only, removed in Phase 2), `REACT_APP_BASE_URL`.
+- MongoDB is used only for questions (no scores or users).
+- Frontend finds the API via `REACT_APP_BASE_URL`. If empty, relative URLs (backend-serves-build mode, which is being removed).
+- Decision: the AI path is deleted in Phase 2 (apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the `/api/apiquestions` route, `config.API_KEY`, the Google dependencies).
 
 ## Question model
-Keep existing fields (difficulty etc). Add:
+Current (legacy) schema: `difficulty: Number`, `question: String`, `answers: [{ text, correct: Boolean }]`. New fields:
 - `category`: one of the category ids in the weights config.
 - `type`: `single` | `multiple` | `truefalse`.
 - `correct`: array of option indexes (a legacy single answer maps to `type: single`, `correct: [i]`).
+- `difficulty`: optional, 1-3, default 2. The round number is no longer the difficulty.
 - `explanation`: optional short text, shown in practice mode after answering.
 
 Rules per type:
@@ -42,11 +60,11 @@ Scoring is all or nothing. Multiple answer is wrong unless the selection is exac
 - One config file holds categories, default weights, and an `extra` flag. Weights must be easy to edit.
 - Core categories follow the official CSA exam blueprint. Known so far: Platform Overview and Navigation 7%, Instance Configuration 10%. **The remaining domains and weights must be filled from the current official ServiceNow CSA exam specification. Do not invent them. Ask Leo if the spec is not available.**
 - Extra categories (for fun, e.g. ITIL/ITSM concepts, ServiceNow trivia) have `extra: true`, are off by default and can be toggled on.
-- Selection for a run of 15 questions: allocate per category by weight (largest remainder rounding) among enabled categories, renormalized. If a category pool has too few questions, redistribute the remainder to other enabled categories. Keep the old difficulty progression if the old game had one.
+- Selection for a run of 15 questions: allocate per category by weight (largest remainder rounding) among enabled categories, renormalized. If a category pool has too few questions, redistribute the remainder to other enabled categories. Then sort the 15 by ascending difficulty (1-3, default 2). The whole run is built before the game starts. There is no per-round fetching.
 
 ## Question sources and fallback chain
-Sources in priority order: DB (MongoDB via backend), Hard coded (frontend bundle, always available). No AI source in the MVP.
-- The DB source has a timeout (start with 8 s, Vercel and Atlas cold starts can be slow). A failure or timeout moves on silently to hard coded.
+Sources in priority order: DB (MongoDB via backend, optional), Hard coded (frontend bundle, always available). No AI source in the MVP.
+- The DB source loads the full collection once per run build (one request, not per round). It has a client-side timeout (start with 8 s, Vercel and Atlas cold starts can be slow). A failure or timeout moves on silently to hard coded.
 - Validate every returned question against the schema. Drop invalid ones.
 - Fill the run from the DB first and top up from hard coded. Hard coded is the last resort and is synchronous.
 - The user can uncheck a source in settings, but the last enabled source cannot be unchecked. If only DB is enabled and it fails, hard coded is used anyway.
@@ -66,16 +84,18 @@ Start screen asks for the name, has a Start button and a settings dropdown/panel
 - Weights editable per category, with a reset to defaults button
 Settings are locked once a run starts. No persistence unless Leo asks for it.
 
-Practice mode ON: a wrong answer does not end the run. Show the correct answer(s) and the explanation, continue to the next question, final result is a score out of 15. Practice mode OFF: classic behavior, a wrong answer ends the run (keep any existing safe checkpoints).
+Practice mode ON: a wrong answer does not end the run. Show the correct answer(s) and the explanation, continue to the next question, final result is a score out of 15. Practice mode OFF: classic behavior, a wrong answer ends the run (the old game has no safe checkpoints).
 
 ## Answer UI
 - `single`: click selects and locks, as before.
 - `multiple`: toggle options, show a "Selected x/N" counter, do not allow more than N, Confirm button enabled only when exactly N are selected.
 - `truefalse`: two large buttons.
-- Lifelines, if the old game has them, must work with all types. 50:50 removes only wrong options (for `multiple` it keeps all correct ones) and is disabled for `truefalse`.
+- Lifelines: the old game has none. Out of the MVP. (If added later: 50:50 removes only wrong options, keeps all correct ones for `multiple`, disabled for `truefalse`.)
+- Timer: stays disabled.
+- Ladder: shows question numbers 1-15 instead of prize sums.
 
 ## Debug logging
-Keep the console logging of questions and correct answers as a dev aid. It stays in production but is not advertised in the UI.
+Whenever a question is shown, log its id, category and correct answer(s) to the console, plus which source served it. This is a dev aid. It stays in production but is not advertised in the UI.
 
 ## Responsive
 Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 px, 6-option layout fits, settings panel usable.
@@ -96,19 +116,26 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [ ] Claude Code installed in VS Code (Leo)
 
 ### Phase 1: Audit (read only, no edits)
-- [ ] List every reference to the old project: names, URLs, DB and collection names, env vars, package.json fields, README
-- [ ] Document how questions are stored, loaded and used, the current schema, lifelines, difficulty logic, env var names, and where the loading bug comes from
-- [ ] Check whether Mongo is used for anything besides questions (e.g. high scores)
-- [ ] Check how frontend and backend are deployed on Vercel
-- [ ] Propose how to take the AI path out of the game flow (keep or delete the files)
-- [ ] Propose a change list and wait for Leo's approval
+- [x] List every reference to the old project: names, URLs, DB and collection names, env vars, package.json fields, README
+- [x] Document how questions are stored, loaded and used, the current schema, lifelines, difficulty logic, env var names, and where the loading bug comes from
+- [x] Check whether Mongo is used for anything besides questions (e.g. high scores)
+- [x] Check how frontend and backend are deployed on Vercel
+- [x] Propose how to take the AI path out of the game flow (keep or delete the files)
+- [x] Propose a change list and wait for Leo's approval
 
 ### Phase 2: Rename and cleanup
-- [ ] Rename package names, titles, README, URLs, DB and collection names to the CSA theme
+- [ ] Remove the Mongo URI logging in backend/app.js:14 (it prints credentials to the logs)
+- [ ] Remove the deploy:full and build:ui scripts and the backend/build approach (express.static("build") in app.js)
+- [ ] Delete the AI path: apiController.js, apiAIQuestionGenerator.js, apiQuestionService.js, the /api/apiquestions route, config.API_KEY, the Google dependencies
+- [ ] Delete server_old.js and the root package-lock.json
+- [ ] Remove unused dependencies (backend: agent-base, @vercel/node, @google-ai/generativelanguage, google-auth-library; frontend: dotenv, web-vitals, @testing-library/*), dead imports (Question in apiController.js, earnedMoney in GameOver.js) and commented-out code (Quiz.js)
+- [ ] Extend both .gitignore files: .env.development, .env.production, backend/build
+- [ ] Rename package names, titles, README, URLs, DB and collection names to the CSA theme (index.html title/description, Start.js heading/placeholder, GameWinner.js text, dbController.js comment, model/collection name)
 - [ ] Add .env.example, verify gitignores cover all env files
-- [ ] Remove or justify unused files (e.g. server_old.js)
 
 ### Phase 3: Infrastructure (Leo, manual)
+- [ ] Decide one Vercel project (backend serves frontend) vs two (separate frontend and backend)
+- [ ] Check what current Vercel docs require for the Express backend (server.js calls listen() and does not export the app; vercel.json uses the legacy builds config)
 - [ ] New Atlas database and user, local backend .env created
 - [ ] New Vercel project(s), env vars set, CORS updated
 
@@ -135,6 +162,12 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 - [ ] Music toggle
 
 ### Phase 8: Mobile
+Audit findings (App.css has no @media rules at all):
+- Money ladder sits beside the game at max-width 25% with nowrap and 25 px padding (App.css:32-47), overflows at 360 px
+- `.answer` has min-width 200px plus 15 px margins (App.css:94-98), too wide for 6 options
+- `.input-button-container` has a 10vh horizontal margin (App.css:231)
+- `.game-over` is position absolute at 60% width (App.css:204-215)
+- body font-size 22 px (public/index.html:20), timer circle 80 px (App.css:54-67)
 - [ ] Verified at 360 px width, all screens and all question types
 
 ### Phase 9: Robustness tests (all must pass, also on the Vercel deployment)
@@ -162,3 +195,4 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: New repo created, history detached from old project, CLAUDE.md added.
 - 2026-09-30: Decision: AI/Gemini is out of the MVP. Sources are DB and hard coded. AI moved to Phase 12 (post-MVP extras).
+- 2026-09-30: Phase 1 audit done and approved. Decisions: delete AI path in Phase 2; add category/type/correct[]/difficulty 1-3; run built up front and sorted by difficulty; DB optional, loaded once with client timeout; no lifelines, timer disabled, ladder shows 1-15; console logs id, category, correct answers.
