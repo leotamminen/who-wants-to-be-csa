@@ -31,10 +31,10 @@ ServiceNow CSA exam practice game in "Who Wants to Be a Millionaire" style. Star
   - `models/question.js`: Mongoose model `Question` (collection `questions`).
   - `utils/config.js` (dotenv, PORT, MONGODB_URI), `utils/logger.js` (console wrappers), `utils/middleware.js` (unknownEndpoint, errorHandler).
 - frontend (Create React App, React 18):
-  - `src/App.js`: all game state, per-round question fetch, money ladder, screen switching.
-  - components: `Start` (name + button), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
-  - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`.
-  - `src/data/categories.json` and `src/data/questions.json`: category config (with the id `prefix` per category) and question pool (see Question model). Not yet used by the game (Phase 5).
+  - `src/App.js`: all game state, money ladder, screen switching. Builds the run once on mount through `loadRun(settings)` (async, hard coded only for now, DB plugs in there in Phase 9b), holds `runStatus` (`loading` | `ready` | `too-few`) and `run`, question = `run[questionNumber - 1]`. Logs the run composition and each shown question to the console.
+  - components: `Start` (name + button, gated on `runStatus`), `Quiz` (question, answers, lock button, music), `Timer` (effectively disabled), `GameOver`, `GameWinner`.
+  - `src/services/dbQuestionService.js`: axios calls to `${REACT_APP_BASE_URL}/api/dbquestions`. Not imported anywhere since Phase 5, kept for Phase 9b.
+  - `src/data/categories.json` and `src/data/questions.json`: category config (with the id `prefix` per category) and question pool (see Question model). Read by `src/lib/runBuilder.js`.
   - `src/lib/validateQuestion.js`: per-question checks (CommonJS, no dependencies), shared by the validator script and the game.
   - `src/lib/runBuilder.js`: pure run builder (CommonJS, no React). `getQuestionPool` (hard coded source: validated questions.json, unreviewed only per the Review rule), `getDefaultOptions`, `buildRun` (weighted allocation, sampling, difficulty sort, answer shuffle, returns `{ status, run, counts }`, never throws).
   - `scripts/test-run-builder.js`: logic tests for the run builder with a seeded random, run with `npm run test:logic`.
@@ -177,11 +177,12 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 
 ### Phase 5: Loading logic
 Known temporary limitation: until Phase 6, the old Quiz.js accepts a single pick for every question type, so `multiple` questions are scored wrongly. Not fixed in Phase 5.
-- [ ] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
-- [ ] Weighted category selection
-- [ ] Start button gating (loading bug fixed)
+- [x] Hard coded source: load questions.json, validate at run time, use only reviewed questions in production, shuffle answers (except truefalse). Source chain structured so the optional DB source (Phase 9b) plugs in later.
+- [x] Weighted category selection
+- [x] Start button gating (loading bug fixed)
 
 ### Phase 6: Game UI logic
+Must fix the Phase 5 limitation: Quiz.js still takes a single pick for every type, so `multiple` questions are scored wrongly until the `multiple` flow exists.
 - [ ] `single`, `multiple` and `truefalse` answer flows
 - [ ] Practice mode ON/OFF behavior and explanation display
 - [ ] Lifelines compatible with all types
@@ -246,3 +247,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Phase 4 done. Added categories.json (6 core + extra), questions.json (the 3 real entries from Leo, still unreviewed, plus 30 visible placeholders: 5 per core category, 3 extra, all types and difficulties) and validate-questions.js with npm run validate:questions. Validator passes (33 questions). --require-reviewed fails as expected (0 reviewed). All error checks were tested against a broken copy in a temp folder.
 - 2026-09-30: Shared validation: categories.json gets a `prefix` per category, per-question checks moved to src/lib/validateQuestion.js (used by validate-questions.js), new check that the id prefix matches the category prefix. Validator output and exit codes unchanged. Decisions recorded: Sources section hidden while REACT_APP_BASE_URL is unset, REACT_APP_ALLOW_UNREVIEWED, multiple scored wrongly until Phase 6, prefix mapping in categories.json.
 - 2026-09-30: Run builder added (src/lib/runBuilder.js): hard coded pool with validation and review filter, slot-by-slot weighted allocation (largest remainder, redistributes when a category runs out), sampling without replacement, ascending difficulty, answer shuffle except truefalse, source "hardcoded". scripts/test-run-builder.js (npm run test:logic, seeded mulberry32): 17/17 pass. Not wired into the game yet.
+- 2026-09-30: Phase 5 done. App.js builds the run once on mount via async loadRun (StrictMode-safe cancel flag), per-round dbQuestionService fetch and its import removed, question = run[questionNumber - 1]. Console logs run composition once and id/category/type/correct/source per shown question. Start button and Enter do nothing until runStatus is "ready" ("Loading questions..." while loading, "Question pool is not ready yet" when too-few, which production shows while nothing is reviewed). Small .username-button:disabled style added. validate:questions, test:logic (17/17), node --check and build pass. Build still has 3 pre-existing eslint warnings in Quiz.js and Timer.js, which fail a CI=true build (Vercel) and need fixing before the Phase 8 deploy.

@@ -6,10 +6,15 @@
 // difficulty select(?)
 import React, { useRef } from "react";
 
-const Start = ({ setName, setTimeOut }) => {
+const Start = ({ setName, setTimeOut, runStatus }) => {
   const inputRef = useRef();
+  const isReady = runStatus === "ready";
 
   const handleClick = () => {
+    // Start only once the whole question set for the run is built
+    if (!isReady) {
+      return;
+    }
     setTimeOut(false);
     const nameInput = inputRef.current.value.trim(); // Trim any extra spaces from name
     if (!nameInput) {
@@ -40,9 +45,14 @@ const Start = ({ setName, setTimeOut }) => {
           className="username-box"
           onKeyDown={handleKeyPress} // This makes sure enter key works also
         />
-        <button className="username-button" onClick={handleClick}>
-          Let's start!
+        <button
+          className="username-button"
+          onClick={handleClick}
+          disabled={!isReady}
+        >
+          {runStatus === "loading" ? "Loading questions..." : "Let's start!"}
         </button>
+        {runStatus === "too-few" && <p>Question pool is not ready yet</p>}
       </div>
     </div>
   );

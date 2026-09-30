@@ -6,8 +6,15 @@ import Quiz from "./components/Quiz";
 import Timer from "./components/Timer";
 import { prizeSums } from "./questions";
 import Start from "./components/Start";
+import { buildRun, getQuestionPool } from "./lib/runBuilder";
 
-import dbQuestionService from "./services/dbQuestionService";
+// Builds the question set for one run. Async so the optional DB source
+// (Phase 9b) can plug in here. For now only the hard coded source exists,
+// so it resolves immediately.
+const loadRun = async (settings) => {
+  const { categories, questions } = getQuestionPool();
+  return buildRun({ categories, questions, settings });
+};
 
 function App() {
   const [name, setName] = useState(null);
@@ -16,7 +23,49 @@ function App() {
   const [answersLocked, setAnswersLocked] = useState(false);
   const [isMillionaire, setIsMillionaire] = useState(false);
   const [earnedMoney, setEarnedMoney] = useState("0 €");
-  const [question, setQuestion] = useState(null);
+  const [runStatus, setRunStatus] = useState("loading");
+  const [run, setRun] = useState([]);
+
+  const question = run[questionNumber - 1] || null;
+
+  // Build the run once. The cancel flag ignores the first of the two
+  // StrictMode effect runs in development.
+  useEffect(() => {
+    let cancelled = false;
+    loadRun({})
+      .then((result) => {
+        if (!cancelled) {
+          console.log(
+            `Run built (${result.status}): ${result.run.length} questions, per category:`,
+            result.counts
+          );
+          setRun(result.run);
+          setRunStatus(result.status);
+        }
+      })
+      .catch((error) => {
+        console.warn("Loading the run failed:", error);
+        if (!cancelled) {
+          setRunStatus("too-few");
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Debug aid: log each question when it is shown
+  useEffect(() => {
+    if (name && question) {
+      console.log(`Question ${questionNumber}:`, {
+        id: question.id,
+        category: question.category,
+        type: question.type,
+        correct: question.answers.filter((a) => a.correct).map((a) => a.text),
+        source: question.source,
+      });
+    }
+  }, [name, question, questionNumber]);
 
   // Update earned money when the question number changes
   useEffect(() => {
@@ -25,10 +74,6 @@ function App() {
       setEarnedMoney(
         prizeSums.find((item) => item.id === questionNumber - 1).amount
       );
-    console.log("db kysymys");
-    dbQuestionService
-      .getQuestion(questionNumber)
-      .then((dbQuestion) => setQuestion(dbQuestion));
   }, [questionNumber]);
 
   // Define a function to update isMillionaire state
@@ -88,7 +133,11 @@ function App() {
           </div>
         </>
       ) : (
-        <Start setName={setName} setTimeOut={setTimeOut} />
+        <Start
+          setName={setName}
+          setTimeOut={setTimeOut}
+          runStatus={runStatus}
+        />
       )}
     </div>
   );

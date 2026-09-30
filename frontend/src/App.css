@@ -180,6 +180,13 @@ h1 {
   box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
 }
 
+.username-button:disabled {
+  cursor: default;
+  opacity: 0.6;
+  background: linear-gradient(#110447, #091270);
+  box-shadow: none;
+}
+
 .item.active {
   background: radial-gradient(#ff8800, #863c04);
   box-shadow: 0 0 5px orange, 0 0 25px orange;
