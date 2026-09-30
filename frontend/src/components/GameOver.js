@@ -1,5 +1,4 @@
 import React from "react";
-import { earnedMoney } from "../App";
 
 // Function for refreshing the page when clicked "here".
 function GameOver({ className, earnedMoney, name }) {

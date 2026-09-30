@@ -14,7 +14,6 @@ const Quiz = ({
   setTimeOut,
   handleBecomeMillionaire,
 }) => {
-  // const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [className, setClassName] = useState("answer");
   const [answersLocked, setAnswersLocked] = useState(false);
@@ -75,11 +74,6 @@ const Quiz = ({
       playAudio(millionaireRave);
     }
   }, [questionNumber]);
-
-  // Update the current question when the question number changes
-  // useEffect(() => {
-  //   setQuestion(questions[questionNumber - 1]);
-  // }, [questions, questionNumber]);
 
   // Delays the execution of a callback function for any given time
   const delay = (duration, callBack) => {
