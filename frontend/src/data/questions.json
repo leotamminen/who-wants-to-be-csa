@@ -44,410 +44,6 @@
     "reviewed": false
   },
   {
-    "id": "pon-001",
-    "category": "platform-overview",
-    "type": "single",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Platform Overview and Navigation question 1",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for pon-001.",
-    "reviewed": false
-  },
-  {
-    "id": "pon-002",
-    "category": "platform-overview",
-    "type": "truefalse",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Platform Overview and Navigation question 2",
-    "answers": [
-      { "text": "True", "correct": true },
-      { "text": "False", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for pon-002.",
-    "reviewed": false
-  },
-  {
-    "id": "pon-003",
-    "category": "platform-overview",
-    "type": "multiple",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Platform Overview and Navigation question 3",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for pon-003.",
-    "reviewed": false
-  },
-  {
-    "id": "pon-004",
-    "category": "platform-overview",
-    "type": "single",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Platform Overview and Navigation question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for pon-004.",
-    "reviewed": false
-  },
-  {
-    "id": "pon-005",
-    "category": "platform-overview",
-    "type": "multiple",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Platform Overview and Navigation question 5",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": true },
-      { "text": "Placeholder answer F", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for pon-005.",
-    "reviewed": false
-  },
-  {
-    "id": "ins-001",
-    "category": "instance-configuration",
-    "type": "truefalse",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Instance Configuration question 1",
-    "answers": [
-      { "text": "True", "correct": false },
-      { "text": "False", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ins-001.",
-    "reviewed": false
-  },
-  {
-    "id": "ins-002",
-    "category": "instance-configuration",
-    "type": "single",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Instance Configuration question 2",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ins-002.",
-    "reviewed": false
-  },
-  {
-    "id": "ins-003",
-    "category": "instance-configuration",
-    "type": "single",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Instance Configuration question 3",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ins-003.",
-    "reviewed": false
-  },
-  {
-    "id": "ins-004",
-    "category": "instance-configuration",
-    "type": "multiple",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Instance Configuration question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": true },
-      { "text": "Placeholder answer E", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ins-004.",
-    "reviewed": false
-  },
-  {
-    "id": "ins-005",
-    "category": "instance-configuration",
-    "type": "truefalse",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Instance Configuration question 5",
-    "answers": [
-      { "text": "True", "correct": true },
-      { "text": "False", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ins-005.",
-    "reviewed": false
-  },
-  {
-    "id": "col-001",
-    "category": "collaboration",
-    "type": "single",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 1",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for col-001.",
-    "reviewed": false
-  },
-  {
-    "id": "col-002",
-    "category": "collaboration",
-    "type": "multiple",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 2",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": true },
-      { "text": "Placeholder answer E", "correct": false },
-      { "text": "Placeholder answer F", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for col-002.",
-    "reviewed": false
-  },
-  {
-    "id": "col-003",
-    "category": "collaboration",
-    "type": "truefalse",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 3",
-    "answers": [
-      { "text": "True", "correct": false },
-      { "text": "False", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for col-003.",
-    "reviewed": false
-  },
-  {
-    "id": "col-004",
-    "category": "collaboration",
-    "type": "single",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for col-004.",
-    "reviewed": false
-  },
-  {
-    "id": "col-005",
-    "category": "collaboration",
-    "type": "multiple",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Configuring Applications for Collaboration question 5",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for col-005.",
-    "reviewed": false
-  },
-  {
-    "id": "ssa-001",
-    "category": "self-service-automation",
-    "type": "multiple",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Self Service & Automation question 1",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ssa-001.",
-    "reviewed": false
-  },
-  {
-    "id": "ssa-002",
-    "category": "self-service-automation",
-    "type": "single",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Self Service & Automation question 2",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ssa-002.",
-    "reviewed": false
-  },
-  {
-    "id": "ssa-003",
-    "category": "self-service-automation",
-    "type": "truefalse",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Self Service & Automation question 3",
-    "answers": [
-      { "text": "True", "correct": true },
-      { "text": "False", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ssa-003.",
-    "reviewed": false
-  },
-  {
-    "id": "ssa-004",
-    "category": "self-service-automation",
-    "type": "single",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Self Service & Automation question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ssa-004.",
-    "reviewed": false
-  },
-  {
-    "id": "ssa-005",
-    "category": "self-service-automation",
-    "type": "multiple",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Self Service & Automation question 5",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": false },
-      { "text": "Placeholder answer F", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for ssa-005.",
-    "reviewed": false
-  },
-  {
-    "id": "dbm-003",
-    "category": "database-management",
-    "type": "truefalse",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Database Management and Platform Security question 3",
-    "answers": [
-      { "text": "True", "correct": false },
-      { "text": "False", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dbm-003.",
-    "reviewed": false
-  },
-  {
-    "id": "dbm-004",
-    "category": "database-management",
-    "type": "single",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Database Management and Platform Security question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dbm-004.",
-    "reviewed": false
-  },
-  {
-    "id": "dbm-005",
-    "category": "database-management",
-    "type": "multiple",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Database Management and Platform Security question 5",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": true },
-      { "text": "Placeholder answer E", "correct": false },
-      { "text": "Placeholder answer F", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dbm-005.",
-    "reviewed": false
-  },
-  {
-    "id": "dmi-002",
-    "category": "data-migration-integration",
-    "type": "single",
-    "difficulty": 1,
-    "question": "[PLACEHOLDER] Data Migration and Integration question 2",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": true },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dmi-002.",
-    "reviewed": false
-  },
-  {
-    "id": "dmi-003",
-    "category": "data-migration-integration",
-    "type": "multiple",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Data Migration and Integration question 3",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": true },
-      { "text": "Placeholder answer C", "correct": false },
-      { "text": "Placeholder answer D", "correct": false },
-      { "text": "Placeholder answer E", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dmi-003.",
-    "reviewed": false
-  },
-  {
-    "id": "dmi-004",
-    "category": "data-migration-integration",
-    "type": "single",
-    "difficulty": 2,
-    "question": "[PLACEHOLDER] Data Migration and Integration question 4",
-    "answers": [
-      { "text": "Placeholder answer A", "correct": false },
-      { "text": "Placeholder answer B", "correct": false },
-      { "text": "Placeholder answer C", "correct": true },
-      { "text": "Placeholder answer D", "correct": false }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dmi-004.",
-    "reviewed": false
-  },
-  {
-    "id": "dmi-005",
-    "category": "data-migration-integration",
-    "type": "truefalse",
-    "difficulty": 3,
-    "question": "[PLACEHOLDER] Data Migration and Integration question 5",
-    "answers": [
-      { "text": "True", "correct": false },
-      { "text": "False", "correct": true }
-    ],
-    "explanation": "[PLACEHOLDER] Explanation for dmi-005.",
-    "reviewed": false
-  },
-  {
     "id": "ext-001",
     "category": "extra",
     "type": "single",
@@ -489,6 +85,1075 @@
       { "text": "Placeholder answer E", "correct": false }
     ],
     "explanation": "[PLACEHOLDER] Explanation for ext-003.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-006",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 1,
+    "question": "In the UI16 interface, which part of the screen lists the applications and modules a user can open?",
+    "answers": [
+      { "text": "Application navigator", "correct": true },
+      { "text": "Banner frame", "correct": false },
+      { "text": "Content frame", "correct": false },
+      { "text": "Activity stream", "correct": false }
+    ],
+    "explanation": "The application navigator on the left lists applications and their modules. Selected content opens in the content frame.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-007",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 1,
+    "question": "In the UI16 interface, which frame holds the logo, global search and the user menu across the top of the page?",
+    "answers": [
+      { "text": "Application navigator", "correct": false },
+      { "text": "Banner frame", "correct": true },
+      { "text": "Content frame", "correct": false },
+      { "text": "Form header", "correct": false }
+    ],
+    "explanation": "The banner frame runs across the top and contains branding, global search and user controls.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-008",
+    "category": "platform-overview",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Impersonating a user lets an administrator see and use the instance with that user's roles and access, without knowing the user's password.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Impersonation is meant for testing what another user can see and do. The impersonator does not need the user's password.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-009",
+    "category": "platform-overview",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which roles can impersonate other users in a base system?",
+    "answers": [
+      { "text": "admin", "correct": true },
+      { "text": "catalog_admin", "correct": false },
+      { "text": "impersonator", "correct": true },
+      { "text": "itil", "correct": false },
+      { "text": "knowledge_admin", "correct": false }
+    ],
+    "explanation": "The admin role and the dedicated impersonator role grant impersonation. The other roles are for process work and for administering specific applications.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-010",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What happens when you type incident.list into the filter navigator and press Enter?",
+    "answers": [
+      { "text": "A new Incident form opens", "correct": false },
+      { "text": "Global search looks for the text incident.list in all tables", "correct": false },
+      { "text": "The list of Incident records opens in the content frame", "correct": true },
+      { "text": "The Incident table's dictionary entries open", "correct": false }
+    ],
+    "explanation": "Typing <table>.list opens that table's list in the current window. <table>.form opens a new record form instead.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-011",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a view for lists and forms?",
+    "answers": [
+      { "text": "A saved filter that limits which records appear", "correct": false },
+      { "text": "A security rule that hides records from some roles", "correct": false },
+      { "text": "A dashboard that groups several reports", "correct": false },
+      { "text": "A named layout that defines which fields are shown and in what order", "correct": true }
+    ],
+    "explanation": "Views let the same table have different list and form layouts for different purposes or audiences. Filters and ACLs control which records appear, not the layout.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-006",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What does an update set capture?",
+    "answers": [
+      { "text": "Configuration changes such as business rules, form layouts and dictionary changes", "correct": true },
+      { "text": "New task records such as incidents and problems", "correct": false },
+      { "text": "User and group records created by administrators", "correct": false },
+      { "text": "Execution history of scheduled jobs", "correct": false }
+    ],
+    "explanation": "Update sets track customizations to application files and configuration records. Data such as incidents or users is not captured by default.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-007",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "By default, update sets capture data records such as incidents and users.",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "Update sets capture configuration, not data. Data is moved between instances in other ways, for example with XML export or import sets.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-008",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which table stores the individual customizations recorded in an update set?",
+    "answers": [
+      { "text": "Update Set [sys_update_set]", "correct": false },
+      { "text": "Customer Update [sys_update_xml]", "correct": true },
+      { "text": "Retrieved Update Set [sys_remote_update_set]", "correct": false },
+      { "text": "Update Version [sys_update_version]", "correct": false }
+    ],
+    "explanation": "Each tracked change is stored as a Customer Update record in sys_update_xml, linked to its update set in sys_update_set.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-009",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which table stores system properties?",
+    "answers": [
+      { "text": "sys_dictionary", "correct": false },
+      { "text": "sys_choice", "correct": false },
+      { "text": "sys_properties", "correct": true },
+      { "text": "sys_db_object", "correct": false }
+    ],
+    "explanation": "System properties are records in sys_properties. sys_dictionary holds field definitions and sys_db_object holds table definitions.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-010",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is the main purpose of application scope?",
+    "answers": [
+      { "text": "It defines which users are allowed to log in to the instance", "correct": false },
+      { "text": "It decides which instance an application is deployed to", "correct": false },
+      { "text": "It sets the naming pattern for update sets", "correct": false },
+      { "text": "It isolates an application's files and data and controls what other applications can access", "correct": true }
+    ],
+    "explanation": "Scoping protects an application's artifacts from unintended changes by other applications and lets the app grant access explicitly.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-011",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Some plugins cannot be deactivated after they have been activated.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Activating a plugin can add tables, data and dependencies that cannot simply be removed, so many plugins cannot be deactivated. Test plugin activation on a sub-production instance first.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-012",
+    "category": "instance-configuration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which statements about update sets are true?",
+    "answers": [
+      { "text": "A completed update set can be exported as XML", "correct": true },
+      { "text": "A retrieved update set is previewed on the target instance before it is committed", "correct": true },
+      { "text": "A user has only one current update set at a time", "correct": true },
+      { "text": "Each update set can hold only one customization", "correct": false },
+      { "text": "Update sets move to production automatically when they are marked Complete", "correct": false }
+    ],
+    "explanation": "Changes go into the user's current update set. Completed sets are moved by retrieving or importing them, previewing to find problems and then committing. Nothing moves automatically.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-013",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "How does ServiceNow host customer instances?",
+    "answers": [
+      { "text": "Each customer instance has its own application nodes and its own database", "correct": true },
+      { "text": "All customers share one database and are separated by a tenant ID", "correct": false },
+      { "text": "Customers must install the platform on their own servers", "correct": false },
+      { "text": "Instances share application nodes and a database by region", "correct": false }
+    ],
+    "explanation": "ServiceNow uses a multi-instance architecture. Each instance is separate, so upgrades and data are isolated per customer.",
+    "reviewed": false
+  },
+  {
+    "id": "col-006",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which journal field on an incident is visible to the caller, for example in the service portal?",
+    "answers": [
+      { "text": "Work notes", "correct": false },
+      { "text": "Additional comments", "correct": true },
+      { "text": "Close notes", "correct": false },
+      { "text": "Description", "correct": false }
+    ],
+    "explanation": "Additional comments are customer visible. Work notes are for the people working the task and are not shown to the caller.",
+    "reviewed": false
+  },
+  {
+    "id": "col-007",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "If an email notification is not marked as mandatory, users can unsubscribe from it in their notification preferences.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Mandatory notifications cannot be turned off by recipients. Other subscribable notifications can be switched off per user.",
+    "reviewed": false
+  },
+  {
+    "id": "col-008",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which formatter shows the history of work notes, comments and field changes on a form?",
+    "answers": [
+      { "text": "Process flow formatter", "correct": false },
+      { "text": "Parent breadcrumbs formatter", "correct": false },
+      { "text": "Activity formatter", "correct": true },
+      { "text": "Variable editor", "correct": false }
+    ],
+    "explanation": "The activity formatter shows the activity stream of journal entries and tracked field changes on the form.",
+    "reviewed": false
+  },
+  {
+    "id": "col-009",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which of these fields on an incident are journal fields?",
+    "answers": [
+      { "text": "Additional comments", "correct": true },
+      { "text": "Assignment group", "correct": false },
+      { "text": "Priority", "correct": false },
+      { "text": "Short description", "correct": false },
+      { "text": "Work notes", "correct": true }
+    ],
+    "explanation": "Work notes and additional comments are journal input fields that keep a history of entries. The others are regular fields.",
+    "reviewed": false
+  },
+  {
+    "id": "col-010",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does an SLA definition use to decide when an SLA starts, pauses and stops?",
+    "answers": [
+      { "text": "Assignment rules on the task table", "correct": false },
+      { "text": "Notification conditions on the task table", "correct": false },
+      { "text": "The order of the business rules on the task table", "correct": false },
+      { "text": "Start, pause and stop conditions evaluated on the task record", "correct": true }
+    ],
+    "explanation": "An SLA definition has conditions that start, pause, resume and stop the task SLA as the task record changes.",
+    "reviewed": false
+  },
+  {
+    "id": "col-011",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which table stores the SLA records that are attached to individual tasks?",
+    "answers": [
+      { "text": "task_sla", "correct": true },
+      { "text": "contract_sla", "correct": false },
+      { "text": "cmn_schedule", "correct": false },
+      { "text": "sys_trigger", "correct": false }
+    ],
+    "explanation": "Task SLAs (task_sla) track an SLA for one task. contract_sla holds the SLA definitions and cmn_schedule holds schedules.",
+    "reviewed": false
+  },
+  {
+    "id": "col-012",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can make an email notification send?",
+    "answers": [
+      { "text": "A list is sorted", "correct": false },
+      { "text": "A record is inserted", "correct": true },
+      { "text": "A record is updated", "correct": true },
+      { "text": "A report is opened", "correct": false },
+      { "text": "An event is fired", "correct": true }
+    ],
+    "explanation": "A notification is sent when a record is inserted or updated and matches its conditions, or when a named event is fired.",
+    "reviewed": false
+  },
+  {
+    "id": "col-013",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which recipient option sends a notification to whoever is in the record's Assigned to field, without naming a specific user?",
+    "answers": [
+      { "text": "Users", "correct": false },
+      { "text": "Users/Groups in fields", "correct": true },
+      { "text": "Groups", "correct": false },
+      { "text": "Send to event creator", "correct": false }
+    ],
+    "explanation": "Users/Groups in fields picks recipients from fields on the record, so the recipient follows the data. Users and Groups name fixed recipients.",
+    "reviewed": false
+  },
+  {
+    "id": "col-014",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Knowledge bases use user criteria to control who can read articles and who can contribute to them.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "A knowledge base has Can Read and Can Contribute user criteria (and Cannot Read and Cannot Contribute) that control access.",
+    "reviewed": false
+  },
+  {
+    "id": "col-015",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which role allows a user to create new knowledge bases?",
+    "answers": [
+      { "text": "knowledge", "correct": false },
+      { "text": "itil", "correct": false },
+      { "text": "knowledge_admin", "correct": true },
+      { "text": "catalog_admin", "correct": false }
+    ],
+    "explanation": "The knowledge_admin role administers the Knowledge Management application, including creating knowledge bases. The knowledge role is for writing articles.",
+    "reviewed": false
+  },
+  {
+    "id": "col-016",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What does a Visual Task Board show?",
+    "answers": [
+      { "text": "Reports arranged on a dashboard grid", "correct": false },
+      { "text": "A Gantt chart of project dependencies", "correct": false },
+      { "text": "The schema of the task tables", "correct": false },
+      { "text": "Tasks as cards in lanes that users can drag between lanes", "correct": true }
+    ],
+    "explanation": "Visual Task Boards display task records as cards in lanes. Moving a card can update the record, for example its state.",
+    "reviewed": false
+  },
+  {
+    "id": "col-017",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are types of Visual Task Boards?",
+    "answers": [
+      { "text": "Flexible", "correct": true },
+      { "text": "Freeform", "correct": true },
+      { "text": "Guided", "correct": true },
+      { "text": "Matrix", "correct": false },
+      { "text": "Timeline", "correct": false }
+    ],
+    "explanation": "Freeform boards are not tied to a table field, guided boards use a field for their lanes, and flexible boards let users add lanes over a list.",
+    "reviewed": false
+  },
+  {
+    "id": "col-018",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which feature automatically sets the assignment group of a task based on conditions such as its category?",
+    "answers": [
+      { "text": "Assignment rules", "correct": true },
+      { "text": "UI policies", "correct": false },
+      { "text": "Access control rules", "correct": false },
+      { "text": "Transform maps", "correct": false }
+    ],
+    "explanation": "Assignment rules (and assignment data lookups) set Assigned to or Assignment group when their conditions match.",
+    "reviewed": false
+  },
+  {
+    "id": "col-019",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "The schedule of an SLA definition decides which hours count toward the SLA's business elapsed time.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "If an SLA uses a schedule, only time inside the schedule counts toward business elapsed time, so nights and weekends can be excluded.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-006",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which service catalog item type lets users submit a form that creates a record in a table such as Incident?",
+    "answers": [
+      { "text": "Order guide", "correct": false },
+      { "text": "Record producer", "correct": true },
+      { "text": "Variable set", "correct": false },
+      { "text": "Content item", "correct": false }
+    ],
+    "explanation": "A record producer is a catalog item that creates a record in a target table, not a requested item.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-007",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is an order guide?",
+    "answers": [
+      { "text": "A reusable group of variables", "correct": false },
+      { "text": "A record producer for HR cases", "correct": false },
+      { "text": "A way to order several related catalog items in one request, based on initial questions", "correct": true },
+      { "text": "A template for approval rules", "correct": false }
+    ],
+    "explanation": "Order guides ask some questions first and then add the matching catalog items to one request, for example for a new hire.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-008",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a variable set in the service catalog?",
+    "answers": [
+      { "text": "A catalog of items for one department", "correct": false },
+      { "text": "A set of approval rules for a catalog item", "correct": false },
+      { "text": "A type of client script for catalog forms", "correct": false },
+      { "text": "A reusable group of variables that can be added to many catalog items", "correct": true }
+    ],
+    "explanation": "Variable sets avoid defining the same variables again for every catalog item.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-009",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "When a user orders a catalog item, a Request [sc_request] and a Requested Item [sc_req_item] are created.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "The request is the order and each ordered item becomes a requested item. Fulfillment work can then create catalog tasks [sc_task].",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-010",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which table stores requested items?",
+    "answers": [
+      { "text": "sc_req_item", "correct": true },
+      { "text": "sc_request", "correct": false },
+      { "text": "sc_task", "correct": false },
+      { "text": "sc_cat_item", "correct": false }
+    ],
+    "explanation": "sc_req_item holds requested items. sc_request is the request, sc_task the catalog task and sc_cat_item the catalog item definition.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-011",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which can enforce a mandatory field also for records created through import sets and web services?",
+    "answers": [
+      { "text": "UI policy", "correct": false },
+      { "text": "Data policy", "correct": true },
+      { "text": "Client script", "correct": false },
+      { "text": "UI action", "correct": false }
+    ],
+    "explanation": "Data policies are enforced on the server, so they can apply to imports and web services. UI policies only run in forms.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-012",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "UI policies run in the browser and can make fields mandatory, read-only or hidden on forms.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "UI policies are client-side form logic. Server-side enforcement needs a data policy.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-013",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are client script types?",
+    "answers": [
+      { "text": "onCellEdit", "correct": true },
+      { "text": "onChange", "correct": true },
+      { "text": "onDisplay", "correct": false },
+      { "text": "onLoad", "correct": true },
+      { "text": "onQuery", "correct": false },
+      { "text": "onSubmit", "correct": true }
+    ],
+    "explanation": "Client scripts run on onLoad, onChange, onSubmit and onCellEdit. Display and query are business rule types, which run on the server.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-014",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a UI action?",
+    "answers": [
+      { "text": "A rule that shows or hides fields on a form", "correct": false },
+      { "text": "A server script that runs on a schedule", "correct": false },
+      { "text": "A button, link or context menu item on forms or lists that runs a script", "correct": true },
+      { "text": "A reusable step inside a flow", "correct": false }
+    ],
+    "explanation": "UI actions add buttons, links and menu items. Field visibility is handled by UI policies and scheduled scripts by scheduled jobs.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-015",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "In Flow Designer, what starts a flow?",
+    "answers": [
+      { "text": "Action", "correct": false },
+      { "text": "Subflow", "correct": false },
+      { "text": "Data pill", "correct": false },
+      { "text": "Trigger", "correct": true }
+    ],
+    "explanation": "A trigger, such as a record change or a schedule, starts the flow. Actions are the steps the flow then runs.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-016",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can trigger a flow in Flow Designer?",
+    "answers": [
+      { "text": "A form field changes in the browser", "correct": false },
+      { "text": "A record is created or updated", "correct": true },
+      { "text": "A schedule, for example daily", "correct": true },
+      { "text": "A service catalog item is requested", "correct": true },
+      { "text": "A transform map runs", "correct": false }
+    ],
+    "explanation": "Flows have record, date (scheduled) and application triggers such as Service Catalog. Browser events are handled by client scripts.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-017",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does IntegrationHub add to Flow Designer?",
+    "answers": [
+      { "text": "Spokes with reusable actions for other systems", "correct": true },
+      { "text": "A designer for service portal widgets", "correct": false },
+      { "text": "Staging tables for imported data", "correct": false },
+      { "text": "Access control rules for flows", "correct": false }
+    ],
+    "explanation": "IntegrationHub spokes package actions for systems such as Slack or Microsoft Teams so flows can call them without custom code.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-018",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "A subflow can be called from several flows, so the same steps are reused.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Subflows hold reusable sequences of actions with inputs and outputs and can be called from any flow.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-019",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can be added to a catalog item to collect information from the requester?",
+    "answers": [
+      { "text": "Business rules", "correct": false },
+      { "text": "Dictionary overrides", "correct": false },
+      { "text": "Transform maps", "correct": false },
+      { "text": "Variable sets", "correct": true },
+      { "text": "Variables", "correct": true }
+    ],
+    "explanation": "Variables and variable sets define the questions on a catalog item form. The others are server or data configuration.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-006",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is the sys_id of a record?",
+    "answers": [
+      { "text": "The record number, such as INC0010001", "correct": false },
+      { "text": "A unique 32-character identifier for the record", "correct": true },
+      { "text": "The display value of the record", "correct": false },
+      { "text": "The row position of the record in its table", "correct": false }
+    ],
+    "explanation": "Every record has a sys_id, a 32-character GUID that uniquely identifies it. Numbers like INC0010001 are a separate field.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-007",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which table stores the definition of each table?",
+    "answers": [
+      { "text": "sys_dictionary", "correct": false },
+      { "text": "sys_properties", "correct": false },
+      { "text": "sys_db_object", "correct": true },
+      { "text": "sys_choice", "correct": false }
+    ],
+    "explanation": "Tables are defined in sys_db_object. Their fields are defined in sys_dictionary.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-008",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table stores field definitions (dictionary entries)?",
+    "answers": [
+      { "text": "sys_db_object", "correct": false },
+      { "text": "sys_documentation", "correct": false },
+      { "text": "sys_ui_policy", "correct": false },
+      { "text": "sys_dictionary", "correct": true }
+    ],
+    "explanation": "The dictionary in sys_dictionary defines each field and its properties. sys_documentation holds field labels.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-009",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "A table that extends another table inherits all fields of the parent table.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Child tables inherit every field of their parent and can add their own fields.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-010",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a dictionary override used for?",
+    "answers": [
+      { "text": "Changing a field property, such as the default value, for a child table without changing the parent table", "correct": true },
+      { "text": "Creating a new table from an existing one", "correct": false },
+      { "text": "Restricting who can read a field", "correct": false },
+      { "text": "Renaming a table and its fields", "correct": false }
+    ],
+    "explanation": "Dictionary overrides let a child table use a different default value, mandatory setting or other property for an inherited field.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-011",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is dot-walking?",
+    "answers": [
+      { "text": "Moving between list pages with the arrow buttons", "correct": false },
+      { "text": "Reaching fields of a related record through a reference field, for example caller_id.department", "correct": true },
+      { "text": "Following the table hierarchy from a child table to its parent", "correct": false },
+      { "text": "Searching all tables with global search", "correct": false }
+    ],
+    "explanation": "Dot-walking follows reference fields to use fields of the referenced record in conditions, lists, reports and scripts.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-012",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which field type links a record to a single record on another table?",
+    "answers": [
+      { "text": "Choice", "correct": false },
+      { "text": "String", "correct": false },
+      { "text": "Reference", "correct": true },
+      { "text": "Journal", "correct": false }
+    ],
+    "explanation": "A reference field stores the sys_id of a record on another table and shows its display value.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-013",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table stores which users belong to which groups?",
+    "answers": [
+      { "text": "sys_user_has_role", "correct": false },
+      { "text": "sys_group_has_role", "correct": false },
+      { "text": "sys_user_group", "correct": false },
+      { "text": "sys_user_grmember", "correct": true }
+    ],
+    "explanation": "Group memberships are records in sys_user_grmember. sys_user_group holds the groups themselves.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-014",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which tables store users, groups, roles or group memberships?",
+    "answers": [
+      { "text": "sys_db_object", "correct": false },
+      { "text": "sys_dictionary", "correct": false },
+      { "text": "sys_user", "correct": true },
+      { "text": "sys_user_grmember", "correct": true },
+      { "text": "sys_user_group", "correct": true },
+      { "text": "sys_user_role", "correct": true }
+    ],
+    "explanation": "sys_user holds users, sys_user_group groups, sys_user_role roles and sys_user_grmember group memberships. The other two define tables and fields.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-015",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "Granting roles to groups instead of directly to users is the recommended practice.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Roles granted to a group pass to its members, so access follows group membership and is easier to manage.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-016",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "To read a field, a user must pass both a table-level ACL and a field-level ACL for it.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Access to a field requires access to the table first. Then the field's own ACL, or a wildcard field ACL, is evaluated.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-017",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which ACL is the most specific match for reading the caller_id field on the incident table?",
+    "answers": [
+      { "text": "incident.caller_id", "correct": true },
+      { "text": "incident.*", "correct": false },
+      { "text": "*.caller_id", "correct": false },
+      { "text": "task.*", "correct": false }
+    ],
+    "explanation": "ACLs are matched from the most specific (table and field) to more general rules with wildcards or parent tables.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-018",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can an ACL rule check before granting access?",
+    "answers": [
+      { "text": "A condition on the record", "correct": true },
+      { "text": "A script", "correct": true },
+      { "text": "A transform map", "correct": false },
+      { "text": "Required roles", "correct": true },
+      { "text": "The current update set", "correct": false }
+    ],
+    "explanation": "An ACL can require roles, evaluate a condition and run a script. All configured checks must pass.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-019",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table stores the relationships between configuration items?",
+    "answers": [
+      { "text": "cmdb_ci", "correct": false },
+      { "text": "cmdb_rel_ci", "correct": true },
+      { "text": "cmdb_rel_type", "correct": false },
+      { "text": "sys_relationship", "correct": false }
+    ],
+    "explanation": "CI relationships are stored in cmdb_rel_ci. cmdb_rel_type defines the relationship types, and sys_relationship defines related lists.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-020",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is a configuration item (CI)?",
+    "answers": [
+      { "text": "An incident that is linked to a server", "correct": false },
+      { "text": "A catalog item for ordering hardware", "correct": false },
+      { "text": "A component that is managed to deliver a service, stored in the CMDB", "correct": true },
+      { "text": "A field that stores configuration settings", "correct": false }
+    ],
+    "explanation": "CIs are things such as servers, applications or services that are tracked in the CMDB with their attributes and relationships.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-021",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which fields does a new table that extends Task inherit?",
+    "answers": [
+      { "text": "Assigned to", "correct": true },
+      { "text": "Caller", "correct": false },
+      { "text": "Number", "correct": true },
+      { "text": "Serial number", "correct": false },
+      { "text": "Short description", "correct": true },
+      { "text": "State", "correct": true }
+    ],
+    "explanation": "Task-based tables inherit the Task fields. Caller is defined on Incident and Serial number on configuration item tables.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-022",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "Which tables are part of the cmdb_ci class hierarchy (they extend cmdb_ci directly or indirectly)?",
+    "answers": [
+      { "text": "cmdb_ci_computer", "correct": true },
+      { "text": "cmdb_ci_hardware", "correct": true },
+      { "text": "cmdb_ci_server", "correct": true },
+      { "text": "cmdb_rel_ci", "correct": false },
+      { "text": "sys_user", "correct": false },
+      { "text": "task", "correct": false }
+    ],
+    "explanation": "Server extends Computer, which extends Hardware, which extends Configuration Item. cmdb_rel_ci is a separate table for relationships.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-023",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does setting the Display attribute to true on a field's dictionary entry do?",
+    "answers": [
+      { "text": "The field appears on the default form", "correct": false },
+      { "text": "The field appears in the default list layout", "correct": false },
+      { "text": "The field becomes read-only", "correct": false },
+      { "text": "The field's value is shown to represent the record in reference fields", "correct": true }
+    ],
+    "explanation": "Each table has one display field, which reference fields and lookups show instead of the sys_id.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-024",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "The security_admin role is an elevated role that a user must activate in the session before changing ACLs.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "With high security settings, ACL changes require security_admin, and the user must elevate to it for the session first.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-025",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Which field type offers a fixed list of options in a dropdown?",
+    "answers": [
+      { "text": "Choice", "correct": true },
+      { "text": "Reference", "correct": false },
+      { "text": "Journal", "correct": false },
+      { "text": "True/False", "correct": false }
+    ],
+    "explanation": "Choice fields offer predefined values from the choice list (sys_choice).",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-006",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What does a transform map define?",
+    "answers": [
+      { "text": "Which users are allowed to import data", "correct": false },
+      { "text": "How fields of an import set table map to fields of a target table", "correct": true },
+      { "text": "When a data source runs", "correct": false },
+      { "text": "The file format of an export", "correct": false }
+    ],
+    "explanation": "A transform map links an import set table to a target table and contains the field maps that copy the data.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-007",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does coalesce do on a field map?",
+    "answers": [
+      { "text": "It merges duplicate rows in the import set table", "correct": false },
+      { "text": "It joins two source files into one import", "correct": false },
+      { "text": "It uses the field to find an existing target record, which is updated if found; otherwise a new record is inserted", "correct": true },
+      { "text": "It skips rows where the field is empty", "correct": false }
+    ],
+    "explanation": "Coalesce fields act as a key. A match updates the existing record and no match inserts a new one.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-008",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "If no field map in a transform map is set to coalesce, every transformed row inserts a new record in the target table.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Without a coalesce field there is no way to match existing records, so each row creates a new record.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-009",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which record defines where import data comes from, such as a file, JDBC or LDAP?",
+    "answers": [
+      { "text": "Transform map", "correct": false },
+      { "text": "Field map", "correct": false },
+      { "text": "Import set row", "correct": false },
+      { "text": "Data source", "correct": true }
+    ],
+    "explanation": "A data source describes how and from where data is loaded into an import set table.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-010",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which of these are data source types?",
+    "answers": [
+      { "text": "Business rule", "correct": false },
+      { "text": "File", "correct": true },
+      { "text": "JDBC", "correct": true },
+      { "text": "LDAP", "correct": true },
+      { "text": "Update set", "correct": false }
+    ],
+    "explanation": "Data sources can load files, query databases over JDBC or read LDAP directories, among others. Update sets and business rules are not data sources.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-011",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "When does an onBefore transform script run?",
+    "answers": [
+      { "text": "Before each source row is transformed into the target table", "correct": true },
+      { "text": "Once at the start of the transformation", "correct": false },
+      { "text": "Once after all rows are transformed", "correct": false },
+      { "text": "When a field changes on a form", "correct": false }
+    ],
+    "explanation": "onBefore runs per row before it is transformed. onStart runs once at the start and onComplete once at the end.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-012",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which file formats can a File type data source load?",
+    "answers": [
+      { "text": "CSV", "correct": true },
+      { "text": "Excel", "correct": true },
+      { "text": "JSON", "correct": true },
+      { "text": "PDF", "correct": false },
+      { "text": "PNG", "correct": false },
+      { "text": "XML", "correct": true }
+    ],
+    "explanation": "File data sources support formats such as CSV, Excel, XML and JSON. PDFs and images are not structured data for import.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-013",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table do import set tables extend?",
+    "answers": [
+      { "text": "Import Set [sys_import_set]", "correct": false },
+      { "text": "Import Set Row [sys_import_set_row]", "correct": true },
+      { "text": "Data Source [sys_data_source]", "correct": false },
+      { "text": "Table Transform Map [sys_transform_map]", "correct": false }
+    ],
+    "explanation": "Each import set table extends sys_import_set_row, so every staged row has fields such as the import set and its state.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-014",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which field on an import set row shows whether it was inserted, updated, skipped or ended in an error?",
+    "answers": [
+      { "text": "Coalesce", "correct": false },
+      { "text": "Active", "correct": false },
+      { "text": "State", "correct": true },
+      { "text": "Priority", "correct": false }
+    ],
+    "explanation": "After a transform, the import set row's state shows what happened to that row in the target table.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-015",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "One import set table can have more than one transform map, for example to load data into different target tables.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Several transform maps can use the same import set table as their source, each with its own target table.",
     "reviewed": false
   }
 ]
