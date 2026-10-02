@@ -48,6 +48,9 @@ const validateQuestion = (q, categories) => {
   if (typeof q.reviewed !== "boolean") {
     problems.push("reviewed must be true or false");
   }
+  if ("source" in q && !isNonEmptyString(q.source)) {
+    problems.push("source must be a non-empty string if present");
+  }
 
   if (!Array.isArray(q.answers) || q.answers.length === 0) {
     problems.push("answers must be a non-empty array");

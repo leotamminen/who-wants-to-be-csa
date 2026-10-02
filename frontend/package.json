@@ -14,7 +14,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "validate:questions": "node scripts/validate-questions.js",
-    "test:logic": "node scripts/test-run-builder.js && node scripts/test-answer-logic.js && node scripts/test-settings-logic.js && node scripts/test-music-tracks.js"
+    "test:logic": "node scripts/test-run-builder.js && node scripts/test-answer-logic.js && node scripts/test-settings-logic.js && node scripts/test-music-tracks.js && node scripts/test-import-questions.js && node scripts/test-review-questions.js",
+    "import:questions": "node scripts/import-questions.js",
+    "review": "node scripts/review-questions.js"
   },
   "eslintConfig": {
     "extends": [
