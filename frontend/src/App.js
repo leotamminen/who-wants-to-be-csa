@@ -145,6 +145,12 @@ function App() {
           <div className="game-container">
             {/* Timer circle hidden, the timer is disabled (Timer.js kept) */}
             <div className="timer-container" />
+            {/* Replaces the ladder on narrow screens (CSS) */}
+            {!timeOut && !isFinished && questionNumber <= run.length && (
+              <div className="question-progress">
+                Question {questionNumber} / {run.length}
+              </div>
+            )}
             <div className="game">
               {timeOut ? (
                 <GameOver

@@ -19,6 +19,7 @@ h1 {
 
 .game-container {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -37,13 +38,17 @@ h1 {
 
 .money-list {
   background-color: black;
-  padding: 25px;
+  padding: clamp(12px, 2vw, 25px);
   border-radius: 10px;
   list-style: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-wrap: nowrap;
+}
+
+/* Shown instead of the ladder on narrow screens */
+.question-progress {
+  display: none;
 }
 
 .timer-container {
@@ -54,15 +59,15 @@ h1 {
 .timer {
   left: 15px;
   top: 15px;
-  width: 80px;
-  height: 80px;
+  width: clamp(56px, 12vw, 80px);
+  height: clamp(56px, 12vw, 80px);
   border-radius: 50%;
   border: 2px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  font-size: 35px;
+  font-size: clamp(24px, 5vw, 35px);
   font-weight: 500;
 }
 
@@ -93,7 +98,7 @@ h1 {
 
 .answer {
   width: 40%;
-  min-width: 200px;
+  min-width: min(200px, 100%);
   padding: 10px;
   margin: 15px;
   text-align: center;
@@ -106,7 +111,14 @@ h1 {
   text-wrap: wrap;
 }
 
-.answer:hover,
+/* Hover only on devices that really hover, so taps leave no stuck state */
+@media (hover: hover) {
+  .answer:hover {
+    background: #ca6608;
+    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
+  }
+}
+
 .answer.active {
   background: #ca6608;
   box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
@@ -125,9 +137,11 @@ h1 {
 }
 
 /* No hover highlight on unselected answers once locked */
-.answers-locked .answer:not(.active):not(.correct):not(.incorrect):hover {
-  background: linear-gradient(#110447, #091270);
-  box-shadow: none;
+@media (hover: hover) {
+  .answers-locked .answer:not(.active):not(.correct):not(.incorrect):hover {
+    background: linear-gradient(#110447, #091270);
+    box-shadow: none;
+  }
 }
 
 .answers-locked .answer {
@@ -162,10 +176,12 @@ h1 {
   cursor: pointer;
 }
 
-.lock-in-button:hover,
-.username-button:hover {
-  background: #ca6608;
-  box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
+@media (hover: hover) {
+  .lock-in-button:hover,
+  .username-button:hover {
+    background: #ca6608;
+    box-shadow: 0 0 5px #805404, 0 0 15px #643908, 0 0 25px #e9a456;
+  }
 }
 
 .lock-in-button:disabled,
@@ -197,9 +213,12 @@ h1 {
   text-align: center;
 }
 
+/* End screens: a centered block in the page flow */
 .game-over {
-  top: 150px;
-  width: 60%;
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 840px;
+  margin: 150px auto 20px;
   padding: 20px;
   text-align: center;
   background: linear-gradient(#110447, #091270);
@@ -207,12 +226,11 @@ h1 {
   border-radius: 60px;
   font-weight: 400;
   font-size: 25px;
-  position: absolute;
 }
 
 .start-h1,
 .gameover-h1 {
-  font-size: 24px;
+  font-size: clamp(20px, 5vw, 24px);
   margin-bottom: 3vh;
   text-align: center;
 }
@@ -224,7 +242,7 @@ h1 {
 }
 
 .input-button-container {
-  margin: 9vh 10vh 9vh;
+  margin: 9vh clamp(16px, 8vw, 90px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -276,4 +294,171 @@ h1 {
 .settings-table input[type="number"] {
   width: 4em;
   color: #121112;
+  font-size: 16px; /* iOS zooms into smaller inputs */
+}
+
+/* Narrow screens (phones): one column, no ladder */
+@media (max-width: 699.98px) {
+  .App {
+    overflow-wrap: anywhere;
+  }
+
+  .money-container,
+  .timer-container {
+    display: none;
+  }
+
+  .question-progress {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    margin: 12px 0 6px;
+  }
+
+  .quiz {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 12px 16px;
+  }
+
+  .question {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 14px;
+    font-size: clamp(17px, 4.8vw, 22px);
+  }
+
+  .quiz > p {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 0;
+  }
+
+  .answers {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .answer {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    margin: 6px 0;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+
+  .explanation {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+
+  .lock-in-button {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    min-height: 48px;
+    margin: 12px 0 0;
+    font-size: 18px;
+  }
+
+  .game-over {
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 24px;
+    font-size: 18px;
+  }
+
+  .username-container {
+    box-sizing: border-box;
+    width: calc(100% - 24px);
+    margin: 12px auto;
+  }
+
+  .input-button-container {
+    margin: 24px 12px;
+  }
+
+  .username-box,
+  .username-button {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    min-height: 48px;
+    margin: 0 0 10px;
+  }
+
+  .settings {
+    width: 100%;
+  }
+
+  .settings summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .settings-flag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+  }
+
+  .settings input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Category rows wrap: name on its own line, then the controls */
+  .settings-table,
+  .settings-table tbody {
+    display: block;
+  }
+
+  .settings-table thead {
+    display: none;
+  }
+
+  .settings-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .settings-table td {
+    padding: 0;
+  }
+
+  .settings-table td:nth-child(2) {
+    flex-basis: 100%;
+    order: -1;
+  }
+
+  .settings-table td:nth-child(4)::after {
+    content: " share";
+  }
+
+  .settings-table td:nth-child(5)::after {
+    content: " questions";
+  }
+
+  .settings-table input[type="number"] {
+    box-sizing: border-box;
+    width: 4.5rem;
+    min-height: 44px;
+  }
 }
