@@ -208,14 +208,34 @@ The Phase 5 limitation (single pick for every type) is fixed by the answer flows
 - [x] Fix music transitions: the track changes only after a click instead of when the question changes (audit: Quiz.js adds a one-time document click listener per round with no cleanup, and creates new Audio() on every render). Use one audio controller: start on a user gesture (Start click or music toggle), switch track when the question number changes, stop at the end of the game. Default OFF.
 
 ### Phase 8: Mobile
-Audit findings (App.css has no @media rules at all):
-- Money ladder sits beside the game at max-width 25% with nowrap and 25 px padding (App.css:32-47), overflows at 360 px
-- `.answer` has min-width 200px plus 15 px margins (App.css:94-98), too wide for 6 options
-- `.input-button-container` has a 10vh horizontal margin (App.css:231)
-- `.game-over` is position absolute at 60% width (App.css:204-215)
-- body font-size 22 px (public/index.html:20), timer circle 80 px (App.css:54-67)
+Target: usable at 360 px width and not broken at 320 px. No horizontal scrolling on any screen, tap targets at least 44 px high, readable text, all question types incl. 6 answers fit (vertical page scroll is fine). Screens: start screen with the settings panel open, question (single, multiple with 6 answers, truefalse), explanation box with the Next button, GameOver, GameWinner and the practice end screen. Desktop look unchanged above 700 px. CSS-first, the only JS change is the progress label.
+
+Rules:
+- Breakpoint 700 px.
+- Below 700 px the ladder is hidden and a "Question N / 15" label (`.question-progress`) is shown above the question instead.
+- Answers: one column, full width, min-height 48 px, font size with clamp().
+- Hover effects only under `@media (hover: hover)`, so taps do not leave a stuck hover state.
+- Inputs use font-size 16 px or more (iOS zooms smaller inputs).
+- Use dvh with a vh fallback wherever 100vh is used.
+- Replace the fixed values from the Phase 1 audit: ladder at max-width 25% with nowrap and 25 px padding, `.answer` min-width 200 px plus margins, `.input-button-container` 10vh horizontal margin, `.game-over` absolute at 60% width, fixed body font size 22 px, fixed circle sizes.
+
+Layout cannot be verified by automated tests. Leo checks each screen at 360 px and 320 px in DevTools device mode, and later on a real phone (including iOS Safari for the music).
+
+- [ ] Fluid layout: fixed widths, margins and absolute positioning replaced, body font size with clamp()
+- [ ] Below 700 px: one column, ladder hidden, progress label, full width answers and buttons (min-height 48 px)
+- [ ] Start screen and settings table fit 320 px (category rows wrap)
+- [ ] Hover effects only under `@media (hover: hover)`
 - [ ] Verified at 360 px width, all screens and all question types
 - [ ] Deploy the frontend alone as one Vercel project with Root Directory frontend (Leo, manual) once the game plays with hard coded questions and enough reviewed questions exist.
+
+### Phase 8b: Timer (optional setting)
+Not implemented in Phase 8. Decisions:
+- Settings: a "Timer" checkbox, default OFF and independent of practice mode, plus a seconds input (integer 10-300, default 60) that is enabled only when the timer is on. Reset to defaults resets both. Both go into settingsLogic with tests.
+- Behavior: the timer counts down per question from the moment it is shown, stops when Lock is pressed and restarts for the next question. At 0 the question counts as wrong, with no partial credit: practice mode reveals the correct answers and the explanation and waits for Next, classic mode ends the game.
+- The circle shows the seconds left and is hidden when the timer is off. Timer.js is rewritten (the old one resets to 6000 s and ignores the lock state). The circle must fit the Phase 8 mobile layout.
+- [ ] Settings logic and tests
+- [ ] Timer component and timeout handling
+- [ ] Mobile check
 
 ### Phase 9: Robustness tests (all must pass, also on the Vercel deployment)
 - [ ] `REACT_APP_BASE_URL` unset: DB source skipped silently, game plays with hard coded questions
@@ -274,3 +294,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Settings logic added (src/lib/settingsLogic.js) with scripts/test-settings-logic.js: defaults, weight parsing/clamping/NaN, immutability, shares (sum close to 100, excluded categories 0), each problem message, and buildRun giving identical runs with the full settings object and with only { enabled, weights }. test:logic runs all three suites: 17/17, 11/11, 12/12 pass. Not wired into the UI yet.
 - 2026-09-30: Settings panel done: collapsed <details> Settings below Start with practice and music checkboxes, per category row (enabled, name, weight 0-100, share %, pool count) and Reset to defaults (resets all settings). Settings in App state, ?practice=off removed. The run is rebuilt (runStatus "loading") only when enabled or weights change, with the cancel flag. Start disabled with the getSettingsProblem message or "Not enough questions for these settings". Timer circle hidden: Timer only set timeOut at 0, otherwise timeOut is set true only by the wrong-answer path in Quiz. App's unused answersLocked state removed. Console logs the category settings and shares per run build, practice/music at Start. All checks pass, CI=true build without warnings. Music toggle is stored but not played until the music commit.
 - 2026-09-30: Phase 7 done. Music moved out of Quiz.js (audio imports, per-render Audio objects, document click listeners and the eslint-disable removed) into src/hooks/useBackgroundMusic.js with the mapping in src/lib/musicTracks.js (tests: scripts/test-music-tracks.js, 3/3). Track switches on question change, win track after a win or practice completion, silence on the start screen, at game over and with music off. Toggle only in settings, default OFF. Checked the hook with a fake Audio in a scratch script. validate:questions, test:logic (17/17, 11/11, 12/12, 3/3), node --check and CI=true build pass without warnings.
+- 2026-10-02: Phase 8 rules recorded: breakpoint 700 px, ladder hidden and "Question N / 15" label below it, one-column answers min-height 48 px with clamp() font, hover only under (hover: hover), inputs 16 px or more, dvh with vh fallback. Layout is checked manually by Leo at 360/320 px and on a real phone. New Phase 8b (optional timer setting) planned, not implemented.
