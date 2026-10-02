@@ -1155,5 +1155,1192 @@
     ],
     "explanation": "Several transform maps can use the same import set table as their source, each with its own target table.",
     "reviewed": false
+  },
+  {
+    "id": "pon-012",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What does clicking a breadcrumb at the top of a filtered list do?",
+    "answers": [
+      { "text": "It opens the module that the list belongs to", "correct": false },
+      { "text": "It removes all filter conditions to the right of the clicked condition", "correct": true },
+      { "text": "It shows the parent tables of the current table", "correct": false },
+      { "text": "It opens the version history of the list layout", "correct": false }
+    ],
+    "explanation": "List breadcrumbs show the active filter conditions. Clicking one keeps it and the conditions before it, and removes the ones after it.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-013",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does Show Matching in the context menu of a list cell do?",
+    "answers": [
+      { "text": "It hides every other column of the list", "correct": false },
+      { "text": "It sorts the list by that column", "correct": false },
+      { "text": "It filters the list to records with the same value in that field", "correct": true },
+      { "text": "It groups the list by that column", "correct": false }
+    ],
+    "explanation": "Show Matching adds a filter condition for the cell's value. Filter Out does the opposite and excludes that value.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-014",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Where can users keep quick links to the modules they use most?",
+    "answers": [
+      { "text": "The update set picker", "correct": false },
+      { "text": "System properties", "correct": false },
+      { "text": "The banner frame logo", "correct": false },
+      { "text": "Favorites in the application navigator", "correct": true }
+    ],
+    "explanation": "Users can mark modules as favorites, which then appear in the favorites list of the navigator for quick access.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-015",
+    "category": "platform-overview",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "When a user personalizes the columns of a list with the list personalization (gear) option, the change applies to all users.",
+    "answers": [
+      { "text": "True", "correct": false },
+      { "text": "False", "correct": true }
+    ],
+    "explanation": "List personalization only changes the list for that user. Configuring the list layout changes it for everyone who uses that view.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-016",
+    "category": "platform-overview",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can a user do from the context menu of a list column header?",
+    "answers": [
+      { "text": "Change the field's data type", "correct": false },
+      { "text": "Delete the field from the table", "correct": false },
+      { "text": "Group the list by that column", "correct": true },
+      { "text": "Rename the table", "correct": false },
+      { "text": "Sort the list by that column", "correct": true }
+    ],
+    "explanation": "The column header menu offers list actions such as sorting and grouping. Changing fields or tables is done in the table and dictionary configuration.",
+    "reviewed": false
+  },
+  {
+    "id": "pon-017",
+    "category": "platform-overview",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which form element groups fields under a heading and can appear as a tab on the form?",
+    "answers": [
+      { "text": "Form section", "correct": true },
+      { "text": "Related list", "correct": false },
+      { "text": "Formatter", "correct": false },
+      { "text": "Annotation", "correct": false }
+    ],
+    "explanation": "Form sections organize fields under headings. Depending on the user's form settings they show as tabs or one below the other.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-014",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which update set receives a user's changes in an application scope when they have not selected another update set?",
+    "answers": [
+      { "text": "Global", "correct": false },
+      { "text": "Default", "correct": true },
+      { "text": "Base system", "correct": false },
+      { "text": "Baseline", "correct": false }
+    ],
+    "explanation": "Each application scope has a Default update set. Changes go there when no other update set is current, which makes them harder to move cleanly.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-015",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Several completed update sets can be merged into one update set.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Merging update sets combines their customer updates into one set, keeping the newest version of each changed record.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-016",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "What does previewing a retrieved update set check for?",
+    "answers": [
+      { "text": "Spelling mistakes in record names", "correct": false },
+      { "text": "Performance of the scripts in the update set", "correct": false },
+      { "text": "Problems such as missing dependencies or local changes that are newer than the incoming ones", "correct": true },
+      { "text": "Whether enough user licenses are available", "correct": false }
+    ],
+    "explanation": "The preview compares the incoming changes with the target instance and lists problems that must be accepted or skipped before committing.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-017",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "Where should configuration changes be built and tested first?",
+    "answers": [
+      { "text": "Directly on the production instance", "correct": false },
+      { "text": "In the Default update set of production", "correct": false },
+      { "text": "In the ServiceNow Store", "correct": false },
+      { "text": "On a sub-production instance such as development or test", "correct": true }
+    ],
+    "explanation": "Changes are built on sub-production instances and moved to production after testing, so users are not affected by unfinished work.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-018",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does cloning an instance do?",
+    "answers": [
+      { "text": "It copies data and configuration from a source instance to a target instance, overwriting the target", "correct": true },
+      { "text": "It moves one update set between two instances", "correct": false },
+      { "text": "It upgrades the instance to a new release", "correct": false },
+      { "text": "It creates a new scoped application", "correct": false }
+    ],
+    "explanation": "Clones are often used to refresh a development or test instance with a copy of production.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-019",
+    "category": "instance-configuration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "Clone settings can preserve selected data on the target instance so that it is not overwritten by the clone.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Data preservers keep chosen records on the target, and exclusions keep tables from being copied from the source.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-020",
+    "category": "instance-configuration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are fields of a system property record?",
+    "answers": [
+      { "text": "Coalesce", "correct": false },
+      { "text": "Name", "correct": true },
+      { "text": "Order guide", "correct": false },
+      { "text": "Type", "correct": true },
+      { "text": "Value", "correct": true }
+    ],
+    "explanation": "A system property has a name, a value, a type and further settings such as a description and the roles that can read or write it.",
+    "reviewed": false
+  },
+  {
+    "id": "ins-021",
+    "category": "instance-configuration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "What happens during an upgrade to a base system file that the customer has customized?",
+    "answers": [
+      { "text": "The customization is always overwritten by the new version", "correct": false },
+      { "text": "The customized version is kept and the file is listed as skipped so it can be reviewed", "correct": true },
+      { "text": "The upgrade stops until the customization is removed", "correct": false },
+      { "text": "The customized file is deleted", "correct": false }
+    ],
+    "explanation": "Upgrades do not overwrite customized files. The skipped records should be reviewed to decide whether to keep the customization or revert to the base version.",
+    "reviewed": false
+  },
+  {
+    "id": "col-020",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table stores knowledge articles?",
+    "answers": [
+      { "text": "kb_knowledge_base", "correct": false },
+      { "text": "kb_category", "correct": false },
+      { "text": "kb_knowledge", "correct": true },
+      { "text": "kb_use", "correct": false }
+    ],
+    "explanation": "Articles are stored in kb_knowledge. kb_knowledge_base holds the knowledge bases and kb_category the categories.",
+    "reviewed": false
+  },
+  {
+    "id": "col-021",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which states does a knowledge article pass through with the approval publishing workflow?",
+    "answers": [
+      { "text": "New, In Progress, Resolved, Closed", "correct": false },
+      { "text": "Requested, Approved, Fulfilled, Closed", "correct": false },
+      { "text": "Open, Pending, Work in Progress, Closed Complete", "correct": false },
+      { "text": "Draft, Review, Published, Retired", "correct": true }
+    ],
+    "explanation": "An article starts as a draft, goes to review for approval, is published and is retired when it is no longer valid.",
+    "reviewed": false
+  },
+  {
+    "id": "col-022",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Users can give feedback on knowledge articles, for example by rating them or flagging them.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Article feedback helps authors and managers find articles that need improvement.",
+    "reviewed": false
+  },
+  {
+    "id": "col-023",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is the watch list on a task used for?",
+    "answers": [
+      { "text": "Listing users who receive updates about the task without being assigned to it", "correct": true },
+      { "text": "Listing the groups that may be assigned the task", "correct": false },
+      { "text": "Listing the SLAs attached to the task", "correct": false },
+      { "text": "Listing the approvals the task is waiting for", "correct": false }
+    ],
+    "explanation": "People on the watch list are kept informed by notifications about the task.",
+    "reviewed": false
+  },
+  {
+    "id": "col-024",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which table stores the event registry, where events used by notifications are registered?",
+    "answers": [
+      { "text": "sysevent", "correct": false },
+      { "text": "sysevent_register", "correct": true },
+      { "text": "sys_email", "correct": false },
+      { "text": "sysevent_email_action", "correct": false }
+    ],
+    "explanation": "Events are registered in sysevent_register. Fired events are queued in sysevent, and notifications are stored in sysevent_email_action.",
+    "reviewed": false
+  },
+  {
+    "id": "col-025",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which table stores email notification definitions?",
+    "answers": [
+      { "text": "sys_email", "correct": false },
+      { "text": "sysevent", "correct": false },
+      { "text": "sysevent_email_action", "correct": true },
+      { "text": "sysevent_register", "correct": false }
+    ],
+    "explanation": "Notification records live in sysevent_email_action. Sent and received emails are stored in sys_email.",
+    "reviewed": false
+  },
+  {
+    "id": "col-026",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does an email template provide?",
+    "answers": [
+      { "text": "The list of recipients for a notification", "correct": false },
+      { "text": "The conditions that decide when a notification is sent", "correct": false },
+      { "text": "The SMTP server settings of the instance", "correct": false },
+      { "text": "A reusable subject and message body that notifications can use", "correct": true }
+    ],
+    "explanation": "Templates let several notifications share the same text. Recipients and conditions are set on the notification itself.",
+    "reviewed": false
+  },
+  {
+    "id": "col-027",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can insert record data into the body of an email notification?",
+    "answers": [
+      { "text": "Dictionary overrides", "correct": false },
+      { "text": "Field variables such as ${number}", "correct": true },
+      { "text": "Mail scripts", "correct": true },
+      { "text": "Transform scripts", "correct": false },
+      { "text": "UI policies", "correct": false }
+    ],
+    "explanation": "Notifications can use ${field} variables, including dot-walked fields, and mail scripts for more complex content.",
+    "reviewed": false
+  },
+  {
+    "id": "col-028",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which type of agreement describes the service targets between internal groups of the same organization?",
+    "answers": [
+      { "text": "Operational level agreement (OLA)", "correct": true },
+      { "text": "Underpinning contract (UC)", "correct": false },
+      { "text": "Service catalog", "correct": false },
+      { "text": "Knowledge base", "correct": false }
+    ],
+    "explanation": "SLAs are agreements with customers, OLAs between internal groups, and underpinning contracts with external vendors.",
+    "reviewed": false
+  },
+  {
+    "id": "col-029",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "While a task SLA is paused, its elapsed time does not increase.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "The pause condition stops the SLA clock, for example while a task waits for the caller. Time resumes counting when the SLA resumes.",
+    "reviewed": false
+  },
+  {
+    "id": "col-030",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does an inbound email action do?",
+    "answers": [
+      { "text": "It sends an email when a record changes", "correct": false },
+      { "text": "It defines how an incoming email creates or updates a record", "correct": true },
+      { "text": "It blocks spam before it reaches the instance", "correct": false },
+      { "text": "It schedules email digests for users", "correct": false }
+    ],
+    "explanation": "Inbound email actions process received emails, for example to create an incident from a new email or update one from a reply.",
+    "reviewed": false
+  },
+  {
+    "id": "col-031",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "Which can identify an incoming email as a reply to an existing record?",
+    "answers": [
+      { "text": "A watermark in the email", "correct": true },
+      { "text": "The In-Reply-To email header", "correct": true },
+      { "text": "The record number in the subject line", "correct": true },
+      { "text": "The sender's time zone", "correct": false },
+      { "text": "The size of the attachments", "correct": false }
+    ],
+    "explanation": "Replies are matched to records through the watermark, the In-Reply-To header or a record number prefix in the subject.",
+    "reviewed": false
+  },
+  {
+    "id": "col-032",
+    "category": "collaboration",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is a form template used for?",
+    "answers": [
+      { "text": "Changing the layout of a form for all users", "correct": false },
+      { "text": "Copying a record to another instance", "correct": false },
+      { "text": "Filling fields of a new record with saved values", "correct": true },
+      { "text": "Defining which fields are mandatory", "correct": false }
+    ],
+    "explanation": "Templates store field values that can be applied to records, which saves time for common requests.",
+    "reviewed": false
+  },
+  {
+    "id": "col-033",
+    "category": "collaboration",
+    "type": "truefalse",
+    "difficulty": 1,
+    "question": "A task can have an assignment group and an assigned user at the same time.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Assignment group names the team and Assigned to the person in that team who works on the task.",
+    "reviewed": false
+  },
+  {
+    "id": "col-034",
+    "category": "collaboration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are states of an incident in the base system?",
+    "answers": [
+      { "text": "Draft", "correct": false },
+      { "text": "In Progress", "correct": true },
+      { "text": "New", "correct": true },
+      { "text": "On Hold", "correct": true },
+      { "text": "Resolved", "correct": true },
+      { "text": "Retired", "correct": false }
+    ],
+    "explanation": "Incidents use New, In Progress, On Hold, Resolved, Closed and Canceled. Draft and Retired are knowledge article states.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-020",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a catalog UI policy?",
+    "answers": [
+      { "text": "A policy that controls who can order a catalog item", "correct": false },
+      { "text": "A rule that approves catalog requests automatically", "correct": false },
+      { "text": "A data policy for the Requested Item table", "correct": false },
+      { "text": "A UI policy that applies to the variables of a catalog item on the order form", "correct": true }
+    ],
+    "explanation": "Catalog UI policies make variables mandatory, read-only or hidden, just like UI policies do for form fields.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-021",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which catalog variable type lets the requester pick a record from another table, such as a user?",
+    "answers": [
+      { "text": "Reference", "correct": true },
+      { "text": "Select Box", "correct": false },
+      { "text": "Multiple Choice", "correct": false },
+      { "text": "Single Line Text", "correct": false }
+    ],
+    "explanation": "A Reference variable points to a table and lets the requester select one of its records.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-022",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is a catalog category?",
+    "answers": [
+      { "text": "A set of approval rules for catalog items", "correct": false },
+      { "text": "A group of catalog items that helps users browse a catalog", "correct": true },
+      { "text": "A reusable group of variables", "correct": false },
+      { "text": "A table that stores ordered items", "correct": false }
+    ],
+    "explanation": "Categories organize items inside a catalog, for example Hardware or Software.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-023",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "A catalog item can be available in more than one catalog.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "A catalog item has a list of catalogs and categories, so the same item can appear in several catalogs.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-024",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which business rule timing runs before a record is saved to the database, so it can change field values without an extra update?",
+    "answers": [
+      { "text": "After", "correct": false },
+      { "text": "Async", "correct": false },
+      { "text": "Before", "correct": true },
+      { "text": "Display", "correct": false }
+    ],
+    "explanation": "Before business rules run before the database operation. After and async rules run once the record is saved.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-025",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which business rule type runs when a form loads and can pass data to client scripts with g_scratchpad?",
+    "answers": [
+      { "text": "Before", "correct": false },
+      { "text": "After", "correct": false },
+      { "text": "Async", "correct": false },
+      { "text": "Display", "correct": true }
+    ],
+    "explanation": "Display business rules run on the server before the form is shown and can fill g_scratchpad for client scripts.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-026",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which of these run on the server?",
+    "answers": [
+      { "text": "Business rules", "correct": true },
+      { "text": "Client scripts", "correct": false },
+      { "text": "Scheduled jobs", "correct": true },
+      { "text": "Script includes", "correct": true },
+      { "text": "UI policies", "correct": false }
+    ],
+    "explanation": "Business rules, script includes and scheduled jobs are server-side. UI policies and client scripts run in the browser.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-027",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a script include?",
+    "answers": [
+      { "text": "A reusable server-side script, such as a class or function, that other scripts call", "correct": true },
+      { "text": "A client script that runs on every form", "correct": false },
+      { "text": "A script that runs when a list is loaded", "correct": false },
+      { "text": "A script that is included in every email", "correct": false }
+    ],
+    "explanation": "Script includes hold reusable server-side code. They run only when called, for example from business rules or other script includes.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-028",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "A UI policy can also run scripts when its Run scripts option is enabled.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Besides setting field attributes through UI policy actions, a UI policy can run a script when its condition is true or false.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-029",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "In Flow Designer, what is a data pill?",
+    "answers": [
+      { "text": "A reusable group of flow steps", "correct": false },
+      { "text": "A reference to data from the trigger or an earlier step that can be dragged into inputs", "correct": true },
+      { "text": "A flow that runs on a schedule", "correct": false },
+      { "text": "A permission needed to edit flows", "correct": false }
+    ],
+    "explanation": "Data pills carry values such as the triggering record or an action's output into later steps.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-030",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is an action in Flow Designer?",
+    "answers": [
+      { "text": "The event that starts a flow", "correct": false },
+      { "text": "A variable shown on a catalog item", "correct": false },
+      { "text": "A reusable operation made of steps, used by flows and subflows", "correct": true },
+      { "text": "A button on a form that runs a script", "correct": false }
+    ],
+    "explanation": "Actions such as Create Record or Send Email do the work of a flow. Custom actions are built from steps in Action Designer.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-031",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "Which are flow logic options in Flow Designer?",
+    "answers": [
+      { "text": "Coalesce", "correct": false },
+      { "text": "Do the following in parallel", "correct": true },
+      { "text": "For each", "correct": true },
+      { "text": "If", "correct": true },
+      { "text": "onSubmit", "correct": false }
+    ],
+    "explanation": "Flow logic controls the order of actions with conditions, loops and parallel branches. onSubmit is a client script type and coalesce a field map setting.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-032",
+    "category": "self-service-automation",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "By default, a flow runs as the system user rather than as the user who started it.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "A flow's Run As setting is System User by default. It can be set to run as the user who initiated the session.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-033",
+    "category": "self-service-automation",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is the Service Portal?",
+    "answers": [
+      { "text": "The administrator interface of the platform", "correct": false },
+      { "text": "A reporting tool for dashboards", "correct": false },
+      { "text": "An app that only runs on mobile devices", "correct": false },
+      { "text": "A framework for building self-service user interfaces from pages and widgets", "correct": true }
+    ],
+    "explanation": "Service Portal lets organizations build user-friendly portals, for example for ordering from the catalog and reading knowledge.",
+    "reviewed": false
+  },
+  {
+    "id": "ssa-034",
+    "category": "self-service-automation",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are building blocks of a Service Portal?",
+    "answers": [
+      { "text": "Dictionary entries", "correct": false },
+      { "text": "Pages", "correct": true },
+      { "text": "Themes", "correct": true },
+      { "text": "Transform maps", "correct": false },
+      { "text": "Widgets", "correct": true }
+    ],
+    "explanation": "A portal is made of pages that contain widgets, and a theme controls its look.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-026",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which prefix do custom tables created in the global scope get?",
+    "answers": [
+      { "text": "u_", "correct": true },
+      { "text": "x_", "correct": false },
+      { "text": "sys_", "correct": false },
+      { "text": "cmdb_", "correct": false }
+    ],
+    "explanation": "Global custom tables and fields start with u_. Tables of scoped applications start with x_ and the vendor and app prefix.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-027",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "A custom field added to a base system table in the global scope gets a name that starts with u_.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "The u_ prefix shows that a field or table was added by the customer and is not part of the base system.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-028",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is a database view in ServiceNow?",
+    "answers": [
+      { "text": "A saved filter on a list", "correct": false },
+      { "text": "A read-only joined view of two or more tables, mainly used for reporting", "correct": true },
+      { "text": "A form layout for a role", "correct": false },
+      { "text": "A copy of a table on another instance", "correct": false }
+    ],
+    "explanation": "Database views join tables so their combined data can be reported on. They cannot be edited directly.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-029",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does the CI Class Manager show?",
+    "answers": [
+      { "text": "The list of open incidents per CI", "correct": false },
+      { "text": "The schedule of discovery runs", "correct": false },
+      { "text": "The CMDB class hierarchy and the settings of each class, such as attributes and identification rules", "correct": true },
+      { "text": "The update sets that changed the CMDB", "correct": false }
+    ],
+    "explanation": "CI Class Manager is the central place to view and manage CMDB classes and their attributes, identification and reconciliation rules.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-030",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does an identification rule in the CMDB decide?",
+    "answers": [
+      { "text": "Which users may edit a CI", "correct": false },
+      { "text": "Which relationship type two CIs have", "correct": false },
+      { "text": "Which icon a CI class shows in maps", "correct": false },
+      { "text": "Whether incoming CI data matches an existing CI, based on identifier attributes, so duplicates are avoided", "correct": true }
+    ],
+    "explanation": "The Identification and Reconciliation Engine uses identification rules to find existing CIs before creating new ones.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-031",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are CI relationship types in the base system?",
+    "answers": [
+      { "text": "Assigned to::Assigned by", "correct": false },
+      { "text": "Contains::Contained by", "correct": true },
+      { "text": "Depends on::Used by", "correct": true },
+      { "text": "Extends::Extended by", "correct": false },
+      { "text": "Runs on::Runs", "correct": true }
+    ],
+    "explanation": "CI relationship types are named with a parent and a child descriptor. Assignment and table extension are not CI relationships.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-032",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 1,
+    "question": "What is a role in ServiceNow?",
+    "answers": [
+      { "text": "A collection of permissions that can be granted to users or groups", "correct": true },
+      { "text": "A group of users who share a manager", "correct": false },
+      { "text": "A field that stores a user's job title", "correct": false },
+      { "text": "A record that defines a user's working hours", "correct": false }
+    ],
+    "explanation": "Roles grant access to applications, modules and data. ACLs and other rules check them.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-033",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "A role can contain other roles, so granting it also grants the contained roles.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Roles can include other roles, which makes it possible to build larger roles from smaller ones.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-034",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which ACL operation controls whether a user can see a record in lists and forms?",
+    "answers": [
+      { "text": "write", "correct": false },
+      { "text": "read", "correct": true },
+      { "text": "create", "correct": false },
+      { "text": "delete", "correct": false }
+    ],
+    "explanation": "Read ACLs control viewing records and fields. Write controls changes, create new records and delete removal.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-035",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Several ACLs match the same object at the same level of specificity. What must the user pass?",
+    "answers": [
+      { "text": "All of them", "correct": false },
+      { "text": "Only the one with the lowest order", "correct": false },
+      { "text": "At least one of them", "correct": true },
+      { "text": "Only the most recently updated one", "correct": false }
+    ],
+    "explanation": "When several ACLs match at the same level, passing any one of them is enough at that level.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-036",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "Which are ACL operations?",
+    "answers": [
+      { "text": "coalesce", "correct": false },
+      { "text": "create", "correct": true },
+      { "text": "delete", "correct": true },
+      { "text": "read", "correct": true },
+      { "text": "transform", "correct": false },
+      { "text": "write", "correct": true }
+    ],
+    "explanation": "The common ACL operations are read, write, create and delete. Transform and coalesce are import terms.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-037",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which field stores the actual table of a record in an extended table hierarchy, such as incident for a task?",
+    "answers": [
+      { "text": "sys_id", "correct": false },
+      { "text": "sys_created_by", "correct": false },
+      { "text": "sys_domain", "correct": false },
+      { "text": "sys_class_name", "correct": true }
+    ],
+    "explanation": "sys_class_name shows which table in the hierarchy a record belongs to, so a list of tasks can show the class of each record.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-038",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "A list of the Task table also shows records of its child tables, such as incidents and problems.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "Records of child tables are also records of the parent table, so querying Task returns tasks of every class.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-039",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which system fields are added to every table?",
+    "answers": [
+      { "text": "caller_id", "correct": false },
+      { "text": "sys_created_on", "correct": true },
+      { "text": "sys_id", "correct": true },
+      { "text": "sys_mod_count", "correct": true },
+      { "text": "sys_updated_by", "correct": true },
+      { "text": "u_number", "correct": false }
+    ],
+    "explanation": "Every table gets system fields such as sys_id, created and updated dates and users, and the update count.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-040",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 3,
+    "question": "What does CMDB Health measure?",
+    "answers": [
+      { "text": "The completeness, correctness and compliance of CMDB data", "correct": true },
+      { "text": "The CPU and memory usage of servers", "correct": false },
+      { "text": "The response time of the instance", "correct": false },
+      { "text": "The number of open incidents per CI", "correct": false }
+    ],
+    "explanation": "CMDB Health scores data quality with metrics such as required attributes, duplicates, orphans and audit results.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-041",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does a reference qualifier on a reference field do?",
+    "answers": [
+      { "text": "It sets the default value of the field", "correct": false },
+      { "text": "It limits which records can be selected in the field", "correct": true },
+      { "text": "It changes the table the field points to", "correct": false },
+      { "text": "It makes the field mandatory", "correct": false }
+    ],
+    "explanation": "Reference qualifiers filter the selectable records, for example to show only active users.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-042",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does a List (glide list) field store?",
+    "answers": [
+      { "text": "A single reference to one record", "correct": false },
+      { "text": "A history of journal entries", "correct": false },
+      { "text": "References to several records of one table", "correct": true },
+      { "text": "A list of choice values for a dropdown", "correct": false }
+    ],
+    "explanation": "A List field, such as a watch list, holds several sys_ids of records from the same table.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-043",
+    "category": "database-management",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Deleting a field from a table's dictionary also deletes the data stored in that field.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "When a column is removed, its data is removed too, so fields should be deleted with care.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-044",
+    "category": "database-management",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which relationships can the Schema Map show for a table?",
+    "answers": [
+      { "text": "Its access control rules", "correct": false },
+      { "text": "Its business rules", "correct": false },
+      { "text": "Tables it extends", "correct": true },
+      { "text": "Tables it references", "correct": true },
+      { "text": "Tables that extend it", "correct": true }
+    ],
+    "explanation": "The Schema Map draws the table's position in the hierarchy and its reference relationships to other tables.",
+    "reviewed": false
+  },
+  {
+    "id": "dbm-045",
+    "category": "database-management",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which role is meant for managing users, groups and roles without full administrator rights?",
+    "answers": [
+      { "text": "itil", "correct": false },
+      { "text": "security_admin", "correct": false },
+      { "text": "knowledge_admin", "correct": false },
+      { "text": "user_admin", "correct": true }
+    ],
+    "explanation": "user_admin allows managing users, groups and roles. security_admin is for security settings such as ACLs.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-016",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 3,
+    "question": "By default, a scheduled job deletes import set data that is older than seven days.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "The Import Set Deleter job cleans up old import sets and their rows, so staged data does not grow forever.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-017",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does loading data into an import set (before transforming) do?",
+    "answers": [
+      { "text": "It creates an import set and stores each source record as a row in an import set table", "correct": true },
+      { "text": "It writes the records straight into the target table", "correct": false },
+      { "text": "It creates a transform map automatically for every target table", "correct": false },
+      { "text": "It exports the target table to a file", "correct": false }
+    ],
+    "explanation": "Loading only stages the data. The transform then moves it into the target table.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-018",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does running a transform do?",
+    "answers": [
+      { "text": "It loads a file into an import set table", "correct": false },
+      { "text": "It uses a transform map to copy data from an import set into the target table", "correct": true },
+      { "text": "It converts a file from CSV to Excel", "correct": false },
+      { "text": "It removes old rows from import set tables", "correct": false }
+    ],
+    "explanation": "The transform applies the field maps and scripts of the transform map to each import set row.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-019",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "Which transform script runs once before any rows are processed?",
+    "answers": [
+      { "text": "onBefore", "correct": false },
+      { "text": "onAfter", "correct": false },
+      { "text": "onStart", "correct": true },
+      { "text": "onComplete", "correct": false }
+    ],
+    "explanation": "onStart runs once at the beginning. onBefore and onAfter run for each row, and onComplete runs once at the end.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-020",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does the Use source script option on a field map allow?",
+    "answers": [
+      { "text": "Running the transform without a source table", "correct": false },
+      { "text": "Copying the whole source row into one field", "correct": false },
+      { "text": "Skipping the field when it is empty", "correct": false },
+      { "text": "Calculating the target value with a script instead of copying a source field", "correct": true }
+    ],
+    "explanation": "A source script returns the value for the target field, for example to combine or clean up source values.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-021",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which are transform script event types?",
+    "answers": [
+      { "text": "onAfter", "correct": true },
+      { "text": "onBefore", "correct": true },
+      { "text": "onComplete", "correct": true },
+      { "text": "onLoad", "correct": false },
+      { "text": "onStart", "correct": true },
+      { "text": "onSubmit", "correct": false }
+    ],
+    "explanation": "Transform event scripts include onStart, onBefore, onAfter and onComplete. onLoad and onSubmit are client script types.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-022",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "Setting ignore to true in an onBefore transform script skips the current row.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "With ignore = true the current row is not transformed, while the rest of the import continues.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-023",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does the Choice action setting on a field map control?",
+    "answers": [
+      { "text": "What happens when a source value is not in the target field's choice list: create it, ignore it or reject it", "correct": true },
+      { "text": "The order in which field maps run", "correct": false },
+      { "text": "Whether the target field is mandatory", "correct": false },
+      { "text": "Which choice is selected by default on forms", "correct": false }
+    ],
+    "explanation": "Choice action decides how unknown choice values are handled during the transform.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-024",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "What does the Run business rules option on a transform map control?",
+    "answers": [
+      { "text": "Whether the transform runs on a schedule", "correct": false },
+      { "text": "Whether business rules and other engines run on the target table while records are transformed", "correct": true },
+      { "text": "Whether the import set rows are deleted afterwards", "correct": false },
+      { "text": "Whether field maps are created automatically", "correct": false }
+    ],
+    "explanation": "Clearing the option can speed up large imports, but then logic that normally runs on insert and update is skipped.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-025",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What does a scheduled data import do?",
+    "answers": [
+      { "text": "It exports a table to a file every night", "correct": false },
+      { "text": "It clones production to a sub-production instance", "correct": false },
+      { "text": "It loads data from a data source on a schedule and transforms it automatically", "correct": true },
+      { "text": "It deletes old import set rows", "correct": false }
+    ],
+    "explanation": "Scheduled imports automate recurring loads, for example a nightly file of new employees.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-026",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 2,
+    "question": "Which can other systems use to exchange data with a ServiceNow instance?",
+    "answers": [
+      { "text": "Client scripts", "correct": false },
+      { "text": "Import sets", "correct": true },
+      { "text": "REST APIs", "correct": true },
+      { "text": "SOAP web services", "correct": true },
+      { "text": "UI policies", "correct": false }
+    ],
+    "explanation": "Instances offer REST and SOAP interfaces, and import sets can receive data that is then transformed. UI policies and client scripts are form logic.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-027",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "Which API lets an external system read, create, update and delete records in any table over REST?",
+    "answers": [
+      { "text": "Import Set API", "correct": false },
+      { "text": "Aggregate API", "correct": false },
+      { "text": "Attachment API", "correct": false },
+      { "text": "Table API", "correct": true }
+    ],
+    "explanation": "The Table API works directly on table records. The Import Set API stages data for transformation instead.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-028",
+    "category": "data-migration-integration",
+    "type": "truefalse",
+    "difficulty": 2,
+    "question": "With the Import Set API, an external system inserts data into an import set table and the transform map then processes it.",
+    "answers": [
+      { "text": "True", "correct": true },
+      { "text": "False", "correct": false }
+    ],
+    "explanation": "This keeps transform logic such as coalesce and field maps in place for data that arrives through the API.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-029",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 2,
+    "question": "What is the REST API Explorer for?",
+    "answers": [
+      { "text": "Building and testing REST requests against the instance's APIs", "correct": true },
+      { "text": "Monitoring the performance of the instance", "correct": false },
+      { "text": "Designing transform maps visually", "correct": false },
+      { "text": "Importing files into import set tables", "correct": false }
+    ],
+    "explanation": "The REST API Explorer lets developers choose an API and parameters, send a request and see the response and sample code.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-030",
+    "category": "data-migration-integration",
+    "type": "single",
+    "difficulty": 3,
+    "question": "What is a MID Server used for?",
+    "answers": [
+      { "text": "Hosting a copy of the instance database", "correct": false },
+      { "text": "Communicating with systems inside the customer's own network", "correct": true },
+      { "text": "Running client scripts for users", "correct": false },
+      { "text": "Storing update sets between instances", "correct": false }
+    ],
+    "explanation": "The MID Server is installed in the customer network and lets the instance reach internal systems for discovery, imports and integrations.",
+    "reviewed": false
+  },
+  {
+    "id": "dmi-031",
+    "category": "data-migration-integration",
+    "type": "multiple",
+    "difficulty": 3,
+    "question": "Which tasks can use a MID Server?",
+    "answers": [
+      { "text": "Discovery of devices in the internal network", "correct": true },
+      { "text": "Hosting the instance database", "correct": false },
+      { "text": "IntegrationHub actions on internal hosts", "correct": true },
+      { "text": "JDBC imports from an internal database", "correct": true },
+      { "text": "Running client scripts", "correct": false }
+    ],
+    "explanation": "Anything that must reach systems behind the customer firewall can go through a MID Server.",
+    "reviewed": false
   }
 ]
