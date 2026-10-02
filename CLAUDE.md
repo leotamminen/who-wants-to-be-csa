@@ -60,6 +60,7 @@ Questions live in `frontend/src/data/questions.json` (single source of truth). E
 - `answers`: array of `{ text, correct: boolean }`. Correct answers are flagged per answer row, not as an index array, because indexes break when answers are added or shuffled.
 - `explanation`: string, required, shown in practice mode after answering.
 - `reviewed`: boolean, see the review rule.
+- `source` (optional): string, a page of the official ServiceNow documentation the fact was checked against. If present it must be a non-empty string.
 
 Rules per type:
 - `single`: 4 answers, exactly 1 correct.
@@ -74,6 +75,7 @@ Answers are shuffled at run time, except `truefalse`. Scoring stays all or nothi
 - Only questions with `reviewed: true` are used in production builds (`NODE_ENV=production`). Unreviewed questions are used when `NODE_ENV !== "production"` or when `REACT_APP_ALLOW_UNREVIEWED === "true"`, so the game can be tested with placeholders.
 - `REACT_APP_ALLOW_UNREVIEWED` is a public frontend env var (not a secret), listed in frontend/.env.example with an empty value. The production Vercel project must not set it unless Leo decides to preview placeholders.
 - Only Leo sets `reviewed` to true, after checking the facts against the official ServiceNow documentation. Claude may draft questions or placeholders but never sets `reviewed: true`.
+- Leo sets `reviewed: true` with `npm run review -- mark <ids>` or by editing the file himself. Claude never runs `mark`, never edits `reviewed` to true and never writes it into a draft.
 - Placeholders must be visibly fake: the question text starts with "[PLACEHOLDER]" and answers read like "Placeholder answer A". Never write plausible-looking ServiceNow facts that nobody has checked.
 
 ## Categories and weights
@@ -147,6 +149,12 @@ Works on a phone at 360 px width: no horizontal scroll, tap targets at least 44 
 ## Content quality
 - Write original questions. No exam dump or braindump material.
 - Verify facts against official ServiceNow documentation. Add a short explanation to each question.
+- Original wording only, written from Claude's own knowledge. Do not use text from exam dumps, practice tests, course materials or labs, and do not ask Leo for any.
+- Every question has a 1-2 sentence explanation.
+- Include only facts Claude is certain of, skip the rest.
+- Prefer stable concepts (table names, roles, definitions, how features work) over release-specific UI paths.
+- Distractors are real ServiceNow terms that are plausible but wrong. No "all of the above" or "none of the above".
+- `source` only for a page actually fetched in the same session, never an invented URL.
 
 ## Env and deployment (Leo does the account steps)
 - First: the frontend alone as one Vercel project (Root Directory `frontend`), once the game plays with hard coded questions. `REACT_APP_BASE_URL` stays unset, so the DB source is skipped.
@@ -256,8 +264,12 @@ Not implemented in Phase 8. Decisions:
 - [ ] DB reseeded from questions.json after content changes
 
 ### Phase 10: Content
-- [ ] Leo writes real questions and sets `reviewed: true` after checking the facts against the official ServiceNow documentation
-- [ ] `npm run validate:questions -- --require-reviewed` passes
+Target pool sizes: platform-overview 10, instance-configuration 15, collaboration 30, self-service-automation 30, database-management 45, data-migration-integration 20, extra as Leo decides. Drafts are imported unreviewed with `npm run import:questions`, Leo reviews them with `npm run review`.
+- [ ] Import tool
+- [ ] Review tool
+- [ ] First batch drafted
+- [ ] Milestone 1: at least 5 reviewed per core category, so that `npm run validate:questions -- --require-reviewed` passes
+- [ ] Targets reached
 
 ### Phase 11: Release
 - [ ] README updated
@@ -296,3 +308,4 @@ Format: `YYYY-MM-DD: what was done` or `YYYY-MM-DD: SKIPPED what, why`
 - 2026-09-30: Phase 7 done. Music moved out of Quiz.js (audio imports, per-render Audio objects, document click listeners and the eslint-disable removed) into src/hooks/useBackgroundMusic.js with the mapping in src/lib/musicTracks.js (tests: scripts/test-music-tracks.js, 3/3). Track switches on question change, win track after a win or practice completion, silence on the start screen, at game over and with music off. Toggle only in settings, default OFF. Checked the hook with a fake Audio in a scratch script. validate:questions, test:logic (17/17, 11/11, 12/12, 3/3), node --check and CI=true build pass without warnings.
 - 2026-10-02: Phase 8 rules recorded: breakpoint 700 px, ladder hidden and "Question N / 15" label below it, one-column answers min-height 48 px with clamp() font, hover only under (hover: hover), inputs 16 px or more, dvh with vh fallback. Layout is checked manually by Leo at 360/320 px and on a real phone. New Phase 8b (optional timer setting) planned, not implemented.
 - 2026-10-02: Phase 8 layout implemented (not yet verified in a browser, Leo checks 360/320 px). index.html: viewport meta already correct, body font clamp(16px, 10px + 1.75vw, 22px). App.css: ladder padding clamp, nowrap removed; .answer min-width min(200px, 100%); .game-over in the page flow, width 90% max 840 px; .input-button-container side margin clamp(16px, 8vw, 90px); timer circle clamp() sizes; hover rules under (hover: hover). Below 700 px: ladder and timer container hidden, .question-progress label (only JS change, App.js), one-column answers min-height 48 px with clamp() font, Lock/Next full width min-height 48 px, explanation and question full width, start screen full width with 48 px inputs, settings rows wrap (name line, then checkbox 24 px, weight 4.5rem, share and question count with CSS labels), number inputs 16 px, overflow-wrap anywhere. Remaining large values are max-width caps or vertical margins. No 100vh in the code. All checks pass, CI=true build without warnings.
+- 2026-10-02: Question drafting rules recorded: optional `source` field, Leo marks questions reviewed with `npm run review -- mark` or by hand (Claude never does), content rules (original wording, certain facts only, stable concepts, real-term distractors, no all/none of the above, source only for pages fetched in the session). Phase 10 rewritten with target pool sizes and milestones.
